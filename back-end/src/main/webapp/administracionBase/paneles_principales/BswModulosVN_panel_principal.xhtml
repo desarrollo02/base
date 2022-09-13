@@ -1,0 +1,108 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:gdb="http://java.sun.com/jsf/composite/plantillas/componentes"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <gdb:p_form_toolbar  update_boton_nuevo=":form:panelGridModificar :form:botonAgregar" rendered_boton_nuevo="#{bswModulosControlador.puedeInsertar}" 
+                         onclick_boton_nuevo="PF('dialogoAgregar').show();" property_target_boton_nuevo="#{bswModulosControlador.esModificarDetalle}"
+                         property_value_boton_nuevo="false" onlick_boton_ayuda="PF('dialogoAyuda').show();" onlick_boton_acercaDe="PF('dialogoAcercaDe').show();"/>
+
+
+    <gdb:p_form_panel_principal id="pp"  id_datatable="grilla"  
+                                lista_datatable="#{bswModulosControlador.listaTodosActual}" 
+                                render_boton_editar_datatable="#{bswModulosControlador.puedeActualizar}"
+                                disabled_boton_editar_datatable="#{fila.codModulo=='BS' or fila.codModulo=='VT' or fila.codModulo=='CC'
+                                                                   or fila.codModulo=='FV' or fila.codModulo=='ST'}"
+                                onclick_boton_editar_datatable="PF('dialogoAgregar').show();"
+                                update_boton_editar_datatable=":form:panelGridModificar :form:botonAgregar"
+                                
+                                action_property_boton_editar_datatable="#{bswModulosControlador.cargaDatosParaEditar()}"
+                                target_property_boton_editar_datatable="#{bswModulosControlador.actualViejo}"
+                                value_property_boton_editar_datatable="#{fila}"
+                                target_2_property_boton_editar_datatable="#{bswModulosControlador.esModificarDetalle}"
+                                value_2_property_boton_editar_datatable="true"
+
+                                render_boton_borrar_datatable="#{bswModulosControlador.puedeBorrar}"
+                                disabled_boton_borrar_datatable="#{fila.codModulo=='BS' or fila.codModulo=='VT' or fila.codModulo=='CC'
+                                                                   or fila.codModulo=='FV' or fila.codModulo=='ST'}"
+
+                                onclick_boton_borrar_datatable="PF('avisoEliminar').show()"
+                                
+                                target_property_boton_borrar_datatable="#{bswModulosControlador.detalleAeliminar}"
+                                value_property_boton_borrar_datatable="#{fila}"
+
+                                header_columna_datatable="Codigo" 
+                                filterby_columna_datatable="#{fila.codModulo}"
+                                value_out_columna_datatable="#{fila.codModulo}"
+
+                                header_columna2_datatable="Descripcion" 
+                                filterby_columna2_datatable="#{fila.descripcion}"
+                                value_out_columna2_datatable="#{fila.descripcion}"
+
+                                />
+
+
+
+
+
+    <p:dialog header="ABM Modulos" id="dialogoAgregar"
+              widgetVar="dialogoAgregar"
+              width="580"
+              closable="false" 
+              height="170"
+              modal="false">
+        <div class="ui-g-12">
+            <div class="card card-w-title">
+
+                <h:panelGrid id="panelGridModificar"   columns="2" >
+                    <h:outputText id="panelGrigTextModificarCod"
+                                  styleClass="etiqueta"
+                                  value="Codigo(*): "/>
+                    <p:inputText   id="panelGrigInputModificarCod"
+                                   value="#{bswModulosControlador.actual.codModulo}"
+                                   size="10" maxlength="2"
+                                   style="text-transform: uppercase"
+                                   onkeyup="cUpper(this)"/>
+                    <h:outputText id="panelGrigTextModificarDesc"
+                                  styleClass="etiqueta"
+                                  value="Descripcion(*): "/>
+                    <p:inputText   id="panelGrigInputModificarDesc"
+                                   value="#{bswModulosControlador.actual.descripcion}"
+                                   size="35" maxlength="80"
+                                   style="text-transform: uppercase"
+                                   onkeyup="cUpper(this)"/>
+
+                </h:panelGrid>
+                <br/> 
+
+                <div class="ui-dialog-footer ui-widget-content ui-helper-clearfix">
+                    <p:commandButton icon="ui-icon-disk" id="botonAgregar"
+                                     value="#{bswModulosControlador.esModificarDetalle?'Modificar':'Agregar'}"
+                                     action="#{bswModulosControlador.grabar()}"
+                                     style="position: absolute; left: 140px; width: 100px"
+                                     rendered="#{bswModulosControlador.puedeActualizar}"
+                                     onclick="PF('dialogoAgregar').hide();"
+                                     update="form" />
+
+                    <p:commandButton icon="ui-icon ui-icon-close"
+                                     value="Salir"
+                                     style="position: absolute; left: 250px; width: 100px"
+                                     onclick="PF('dialogoAgregar').hide();"
+                                     update=":form:dialogoAgregar"
+                                     action="#{bswModulosControlador.limpiar()}"/>
+
+                </div>
+            </div></div>        
+    </p:dialog>
+
+
+
+
+
+
+
+</ui:composition>

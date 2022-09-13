@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+
+
+    <composite:interface>
+        <composite:attribute name="requerido"/>
+        <composite:attribute name="mostrar_descripcion" default="true"/>
+        <composite:attribute name="label"/>
+        <composite:attribute name="size" default="7"/>
+        <composite:attribute name="id" />
+        <composite:attribute name="id_dialog" />
+        <composite:attribute name="id_filter" />
+        <composite:attribute name="valueChangeListener" method-signature="void listener(javax.faces.event.ValueChangeEvent)"/>
+        <composite:attribute name="value"/>
+        <composite:attribute name="event"/>
+        <composite:attribute name="descripcion"/>
+        <composite:attribute name="descripcion_id"/>
+        <composite:attribute name="update" />
+
+
+        <composite:attribute name="boton_id" default="0" shortDescription="prueba de parametro"/>
+        <composite:attribute name="mostrar_boton_busqueda"/>
+        <composite:attribute name="boton_update_componentes"/>
+        <composite:attribute name="boton_actionListener" method-signature="void listener()"/>
+        <composite:attribute name="boton_disabled"/>
+        <composite:attribute name="action_button" method-signature="void listener()"/>
+        <composite:attribute name="boton_ajax"/>
+        <composite:attribute name="boton_onclick"/>
+        <composite:attribute name="boton_title" default="Buscar Registros"/>
+        <composite:attribute name="boton_image" default="ui-icon ui-icon-search"/>
+
+    </composite:interface>
+    <composite:implementation >
+        <h:panelGrid columns="3"  columnClasses="label, label, label" >
+            <h:outputText styleClass="etiqueta" value="#{cc.attrs.requerido=='true'?'(*)':''} #{cc.attrs.label}"  />
+
+           
+
+
+
+            <p:inputText   styleClass="Container80 Fnone MarAuto Fs18" 
+                           rendered="#{cc.attrs.mostrar_descripcion}" 
+                           id="#{cc.attrs.descripcion_id}" 
+                           value="#{cc.attrs.descripcion}" 
+                           widgetVar="#{cc.attrs.descripcion_id}"
+                           size="40"
+                           disabled="true"/> 
+             <p:commandButton ajax="true" 
+                             onclick="PF('#{cc.attrs.id_dialog}').show()" 
+                             title="#{cc.attrs.boton_title}" icon="ui-icon ui-icon-search">
+
+            </p:commandButton>
+        </h:panelGrid>     
+
+    </composite:implementation>
+</html>
+
+
+

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <p:outputPanel id="panelAgregar" style="height: 65px;"
+                                       layout="inline">
+                            <p:panelGrid id="panelGridAgregar"
+                                         columns="2" styleClass="bgpanelgridGray" columnClasses="label, label" >
+
+                                <h:outputText id="labelUsuarioEdit"  styleClass="etiqueta"  value="Email: " />
+                                <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"   value="#{loginControlador.usuario.bswPersonas.direcElectronica}" />
+                               
+
+                               
+
+                                <h:outputText id="labelActivoEdit"  styleClass="etiqueta"  value="Recibe Correo: " />
+
+
+
+                                <p:selectBooleanCheckbox  value="#{loginControlador.usuario.recibeEmail}" />
+                            </p:panelGrid>
+
+                            <h:panelGroup>
+                                <p:commandButton icon="ui-icon-disk" id="botonAgregar" type="push"
+                                                 value="Guardar"
+                                                 action="#{loginControlador.guardarConfig()}" ajax="false"/>
+
+                                <p:commandButton icon="ui-icon ui-icon-close"
+                                                 value="Salir"
+                                                 onclick="PF('dialogConfigUser').hide();"/>
+
+                            </h:panelGroup>
+                        </p:outputPanel>
+    
+    
+
+</ui:composition>

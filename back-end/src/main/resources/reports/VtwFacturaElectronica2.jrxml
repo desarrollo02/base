@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VtwFacturaElectronica" pageWidth="576" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="570" leftMargin="3" rightMargin="3" topMargin="0" bottomMargin="0" whenResourceMissingType="Error" uuid="c6e5a139-e3f7-401e-b22d-dbb953da4aa0">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idCabecera" class="java.lang.Long"/>
+	<parameter name="hora" class="java.lang.String"/>
+	<parameter name="foto" class="java.lang.Object"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/media/mnm/DATOS1/Projects/miSetClient/src/main/resources/reports/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 'ORIGINAL' as descri
+union all
+select 'ARCHIVO TRIBUTARIO' as descri
+union all
+select 'CONTABILIDAD-NO VALIDO PARA CREDITO FISCAL' as descri]]>
+	</queryString>
+	<field name="descri" class="java.lang.String"/>
+	<group name="descri" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{descri}]]></groupExpression>
+		<groupHeader>
+			<band height="107">
+				<subreport isUsingCache="false" runToBottom="false">
+					<reportElement x="0" y="0" width="570" height="100" uuid="a340989a-bde3-4768-9c9e-8e095569b233"/>
+					<subreportParameter name="hora">
+						<subreportParameterExpression><![CDATA[$P{hora}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="idCabecera">
+						<subreportParameterExpression><![CDATA[$P{idCabecera}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="descripcion">
+						<subreportParameterExpression><![CDATA[$F{descri}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="foto">
+						<subreportParameterExpression><![CDATA[$P{foto}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "VtwFacturaElectronica.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="2"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+	<noData>
+		<band/>
+	</noData>
+</jasperReport>

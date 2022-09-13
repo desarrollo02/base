@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+     <dlg:dialogColumnsParam header="#{i18n.lista_formas}"	
+                                              widgetVar="dialogoFormulario"
+                                              idDataTable="grillaFormulario"
+                                              dataTableList="#{utilControler.componentes.lazyListDetalleFormas}"
+                                              propertyActionListenerTarget="#{utilControler.componentes.bswFormasABM}"
+                                              selecionarUpdate="@widgetVar(inputCodFormulario), @widgetVar(txtCodFormulario),@widgetVar(growl)"
+                                              lazy="true">
+          
+        
+        <p:column filterBy="#{fila.nomForma}"
+                  >
+            <f:facet name="header">Codigo</f:facet>
+            <h:outputText value="#{fila.nomForma}"/>
+        </p:column>
+
+        <p:column filterBy="#{fila.descripcion}"
+                  >
+            <f:facet name="header">Descripcion</f:facet>
+            <h:outputText value="#{fila.descripcion}"/>
+        </p:column>
+    </dlg:dialogColumnsParam>
+</ui:composition>

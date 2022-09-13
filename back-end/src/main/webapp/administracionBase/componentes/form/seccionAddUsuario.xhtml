@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+                xmlns:p="http://primefaces.org/ui">
+    <p:focus context="tab"/>
+
+
+    <p:tabView id="tab"  rendered="#{bswUsuariosControlador.esABMPanel}" dynamic="true" cache="true">
+        <p:tab title="DATOS" class="card gdb_yelowgreen">   
+            <div class="ui-g dashboard">
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="ui-g-12 ui-lg-3">
+                        <div class="gdb">
+                            <p:panel   class="card card_gdb gdb_orange"> 
+
+                                <inpt:inputText valueOuput="#{i18n.label_cod_usuario} (*)" 
+                                                value="#{bswUsuariosControlador.actual.codUsuario}" size="15" maxlength="60"/>
+
+                                <p:separator/>
+                                <inpt:password valueOuput="#{i18n.label_contraseña} (*)" 
+                                               value="#{bswUsuariosControlador.claveABM}" size="15" maxlength="60"/>
+                                <p:separator/>
+
+                                <h:outputText  rendered="#{bswUsuariosControlador.esModificarDetalle}"   value="#{i18n.label_actualizar_pass}? " />
+                                <p:selectBooleanCheckbox rendered="#{bswUsuariosControlador.esModificarDetalle}" value="#{bswUsuariosControlador.actualizaPassword}" />
+                                <p:separator/>
+
+                                <h:outputText id="labelActivoEdit"  styleClass="etiqueta"  value="Activo: " />
+
+
+
+                                <p:selectBooleanCheckbox  value="#{bswUsuariosControlador.actual.activoABM}" />
+                                <p:separator/>
+                                <h:panelGroup>
+
+                                    <h:outputText  id="labelCodigo10" styleClass="etiqueta" value="#{i18n.label_multi_empresa}: " />
+                                    <p:selectOneMenu id="tipoList2" value="#{bswUsuariosControlador.actual.indVerificaMenu}" title="#{i18n.label_seleccione_opcion}">
+
+                                        <f:selectItem id="s22" itemLabel="#{i18n.label_NO}" itemValue="N"/>
+                                        <f:selectItem id="s12" itemLabel="#{i18n.label_SI}" itemValue="S"/>
+
+                                    </p:selectOneMenu>
+                                </h:panelGroup>
+                            </p:panel>
+                        </div></div> 
+                    <div class="ui-g-12 ui-lg-6">
+                        <div class="gdb">
+                            <p:panel   class="card card_gdb_reverse gdb_orange" > 
+                                <div class="ui-g-12 ui-lg-12">
+                                    <div class="ui-g-12 ui-lg-6">
+                                        <oupt:codigoDescripcionOuput  
+                                            id="ouptTP_1" valueOuput="#{i18n.label_persona} (*)"
+                                            codigoId="inputCodPersona"
+                                            valueCodigo="#{bswUsuariosControlador.componentes.bswPersonas}"
+                                            changeListener="#{bswUsuariosControlador.componentes.personasChangeListener}"
+                                            dialogWidgetVar="dialogoPersona"
+                                            btnTitle="#{i18n.lista_personas}"
+                                            blurUpdate="@widgetVar(txtCodPersona), @widgetVar(growl)"
+                                            object="#{bswUsuariosControlador.componentes.bswPersonas}"                         
+                                            valueDescripcion="#{bswUsuariosControlador.componentes.bswPersonas.nombre}"
+                                            descripcionId="txtCodPersona"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-lg-6">
+                                        <oupt:codigoDescripcionOuput  
+                                            id="ouptTP_2" valueOuput="#{i18n.label_sucursal} (*)"
+                                            codigoId="inputCodSucursal"
+                                            valueCodigo="#{bswUsuariosControlador.componentes.sucursalABM}"
+                                            changeListener="#{bswUsuariosControlador.componentes.sucursalesChangeListener}"
+                                            dialogWidgetVar="dialogoSucursal"
+                                            btnTitle="#{i18n.lista_personas}"
+                                            blurUpdate="@widgetVar(txtCodSucursal), @widgetVar(growl)"
+                                            object="#{bswUsuariosControlador.componentes.sucursalABM}"                         
+                                            valueDescripcion="#{bswParametrosGeneralesControlador.componentes.sucursalABM.descripcion}"
+                                            descripcionId="txtCodSucursal"/>
+                                    </div> 
+                                    
+                                    <div class="ui-g-12 ui-lg-6">
+
+
+                                        <oupt:codigoDescripcionOuput  
+                                            id="ouptTP_4" valueOuput="#{i18n.label_grupo} (*)"
+                                            codigoId="inputCodigo"
+                                            valueCodigo="#{bswUsuariosControlador.componentes.bswGruposUsuariosABM.codModulo}"
+                                            changeListener="#{bswUsuariosControlador.componentes.grupoUsuarioChangeListener}"
+                                            dialogWidgetVar="dialogoGrupo"
+                                            btnTitle="#{i18n.lista_grupo_usuarios}"
+                                            blurUpdate="@widgetVar(txtCodGrupo), @widgetVar(growl)"
+                                            object="#{bswUsuariosControlador.componentes.bswGruposUsuariosABM}"                         
+                                            valueDescripcion="#{bswUsuariosControlador.componentes.bswGruposUsuariosABM.descripcion}"
+                                            descripcionId="txtCodGrupo"/>
+                                    </div>
+
+
+
+
+
+                                </div> 
+                            </p:panel> 
+                        </div></div>    
+                    <div class="ui-g-12 ui-lg-3">
+                        <div class="gdb">
+                            <p:panel    class="card card_gdb gdb_orange" style="align-content: center;"> 
+                                <h1 style="left:5%">Imagen</h1>
+                                <p:graphicImage style="width: 100%" id="image"  name="images/tmp/#{bswUsuariosControlador.actual.nombreImagen}" library="freya-layout" />
+
+
+                                <p:fileUpload label="Seleccionar" uploadLabel="Subir Imagen" skinSimple="false"  style="grid" listener="#{bswUsuariosControlador.handleFileUpload}" mode="advanced"  auto="true" dragDropSupport="true"
+                                              update="@widgetVar(growl) image" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+                            </p:panel> 
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div></div></p:tab></p:tabView>   
+</ui:composition>

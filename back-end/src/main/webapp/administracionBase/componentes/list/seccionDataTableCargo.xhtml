@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones">
+
+
+    <p:treeTable   id="grilla" widgetVar="grilla" value="#{bswCargosControlador.root}" var="fila">  
+
+        <f:facet name="header">  
+            Lista de Cargos
+        </f:facet>  
+
+
+
+        <p:column id="descBswModulosColumna" sortBy="#{fila.codigo}"
+                  filterBy="#{fila.codigo}" 
+                  style="width: 20%">
+            <f:facet name="header">Codigo</f:facet>
+            <h:outputText  id="descBswModulosText" value="#{fila.codigo}"/>
+        </p:column>
+
+        <p:column sortBy="#{fila.descripcion}"
+                  filterBy="#{fila.descripcion}"
+                  style="width: 30%">
+            <f:facet name="header">Descripcion</f:facet>
+            <h:outputText  id="colTxtParametro" value="#{fila.descripcion}"/>
+        </p:column>
+
+        <p:column  style="text-align: center ; width: 10% ;">
+            <f:facet name="header">SubCargos</f:facet>
+            <p:commandButton type="push"
+                             id="botonAddSubMenu"
+                             ajax="true" 
+                             widgetVar="botonAddSubMenu"
+                             title="Agregar SubCargos"
+                             update="fp:form" 
+                             icon="pi pi-plus" action="#{bswCargosControlador.accionABMDetalle()}">
+                <f:setPropertyActionListener target="#{bswCargosControlador.menuPadreSeleccionado}" value="#{fila}"/>
+                <f:setPropertyActionListener target="#{bswCargosControlador.esAgregarSubMenu}" value="true"/>
+                <f:setPropertyActionListener
+                    target="#{bswCargosControlador.esModificarDetalle}"
+                    value="false" />
+
+            </p:commandButton>
+        </p:column>
+
+        <p:column style="text-align: center ; width: 10% ;">                                                  
+            <btn:btnEdit controlador="#{bswCargosControlador}"
+                         update="fp:form"/>
+            <btn:btnDelete controlador="#{bswCargosControlador}"/>
+        </p:column>
+
+    </p:treeTable>
+
+</ui:composition>

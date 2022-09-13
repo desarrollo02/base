@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+        <p:toolbar>
+            <p:toolbarGroup align="right">
+                <p:commandButton icon="ui-icon ui-icon-disk" 
+                                 value="Guardar"   
+                                 update=":form"  ajax="true"
+                                 action="#{conwOrdenMicroCompraControlador.grabar}">
+                    <f:setPropertyActionListener target="#{proVerificaProcesoContratoControlador.esModificarDetalle}" value="false"/>
+                    <f:setPropertyActionListener target="#{proVerificaProcesoContratoControlador.esABMPanel}" value="false"/>
+
+                </p:commandButton>    
+            </p:toolbarGroup>
+        </p:toolbar>
+
+</ui:composition>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <p:panelGrid columns="8"  >
+
+                        <h:outputText styleClass="etiqueta" value="Area (*): "/>
+                        <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"   id="codArea" style="text-transform: uppercase" onkeyup="return cUpper(this);" 
+                                      value="#{bswPersonasControlador.telefPersonaABMGeneric.objectView.codigoArea}" size="5" maxlength="10"/>
+
+                        
+        <inpt:inputText valueOuput="#{i18n.label_numero}:" 
+                        value="#{bswPersonasControlador.identidadPersonaABMGeneric.objectView.numero}" size="15" maxlength="60"/>
+
+                        
+                        <h:outputText styleClass="etiqueta" value="Telefono (*): "/>
+                        <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="nroTelefono"
+                                      value="#{bswPersonasControlador.telefPersonaABMGeneric.objectView.numTelefono}" style="width:100%" maxlength="20"/>
+
+                        <h:outputText styleClass="etiqueta" value="Tipo Telefono:"/>
+                        <p:selectOneMenu id="tipTelefono" value="#{bswPersonasControlador.telefPersonaABMGeneric.objectView.tipTelefono}" style="width:100%">    
+                            <f:selectItem itemLabel="Linea Directa" itemValue="L" />  
+                            <f:selectItem itemLabel="Celular" itemValue="C" />  
+                            <f:selectItem itemLabel="Fax" itemValue="F" />  
+                        </p:selectOneMenu>  
+
+                        <h:outputText styleClass="etiqueta" value="Ubicacion:"/>
+                        <p:selectOneMenu id="tipUbicacion" value="#{bswPersonasControlador.telefPersonaABMGeneric.objectView.telUbicacion}" style="width:100%">    
+                            <f:selectItem itemLabel="Trabajo" itemValue="T" />  
+                            <f:selectItem itemLabel="Casa" itemValue="C" />  
+                            <f:selectItem itemLabel="Otros" itemValue="O" />  
+                        </p:selectOneMenu>  
+
+                        <h:outputText styleClass="etiqueta" value="Interno :" />
+                        <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="interno" 
+                                      value="#{bswPersonasControlador.telefPersonaABMGeneric.objectView.interno}" 
+                                      style="width:100%" maxlength="10" >
+                            <f:convertNumber integerOnly="true" type="number" />
+                        </p:inputText>
+
+                        <h:outputText styleClass="etiqueta" value="Nota :" />
+                        <p:inputText  styleClass="Container80 Fnone MarAuto Fs18" id="nota" style="text-transform: uppercase" onkeyup="return cUpper(this);
+                                width:100 %"  value="#{bswPersonasControlador.telefPersonaABMGeneric.objectView.nota}" maxlength="80"/>
+
+                        <h:outputText styleClass="etiqueta" value="Por Defecto :" />
+                        <p:selectBooleanCheckbox  id="indDefectoTelefono" value="#{bswPersonasControlador.telefPersonaABMGeneric.objectView.defecto}"/>
+
+                        <p:commandButton  id="add3"  update=":form:tabView:panelCargaTelefono :form:growl, :form:tabView:grillaTelefono"
+                                          rendered="#{bswPersonasControlador.puedeInsertar}"
+                                          icon="pi pi-plusthick" actionListener="#{bswPersonasControlador.agregarTelefABMGeneric}"
+                                          ajax="true" oncomplete="disabled=false" value="Agregar"/>
+                        <p:commandButton 
+                            value="Limpiar"
+                            update=":form:tabView:panelCargaTelefono :form:growl"
+                            action="#{bswPersonasControlador.telefPersonaABMGeneric.cleanObject()}"/>
+                    </p:panelGrid>
+
+        
+        
+        <oupt:codigoDescripcionOuput valueOuput="#{i18n.label_tipo_doc}" object="#{componentesVarios.bswIdentificacionesAbm}" id="ouptTipoDoc" codigoId="codTipoDocumento"
+                                     valueCodigo="#{componentesVarios.bswIdentificacionesAbm.codIdent}"
+                                     changeListener="#{componentesVarios.identificacionesChangeListener}"
+                                     blurUpdate="@widgetVar(descTipoDocumento) @widgetVar(growl)"
+                                     dialogWidgetVar="dialogoDocumento"
+                                     btnTitle="#{i18n.lista_tipo_documento}"
+                                     valueDescripcion="#{componentesVarios.bswIdentificacionesAbm.descripcion}"
+                                     descripcionId="descTipoDocumento"/>
+
+
+        <inpt:inputText valueOuput="#{i18n.label_numero}:" 
+                        value="#{bswPersonasControlador.identidadPersonaABMGeneric.objectView.numero}" size="15" maxlength="60"/>
+
+        <inpt:calendar valueOuput="#{i18n.label_fec_vencimiento}" 
+                       value="#{bswPersonasControlador.identidadPersonaABMGeneric.objectView.fecVencimiento}" />
+
+        <btn:btnAbmGeneric  action_property_boton_editar_datatable="#{bswPersonasControlador.agregarIdentidadABMGeneric()}"
+           
+            idBtnAdd="add2" updateBtnAdd="@widgetVar(panelCargaDocumento) @widgetVar(growl)"
+            actionBtnClean="#{bswPersonasControlador.limpiarIdentidadPersona()}" />
+
+
+    </p:panelGrid>
+
+</ui:composition>

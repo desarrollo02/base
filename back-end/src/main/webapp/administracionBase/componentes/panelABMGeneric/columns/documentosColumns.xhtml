@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                          
+        
+    
+                           
+            <p:column  headerText="Tipo" 
+                       sortBy="#{fila.bswIdentificaciones.codIdent}" 
+                       filterBy="#{fila.bswIdentificaciones.codIdent}" 
+                       filterStyle="width: 100%">
+                <h:outputText value="#{fila.bswIdentificaciones.codIdent}"/>
+            </p:column>
+
+            <p:column  headerText="Numero"
+                       sortBy="#{fila.numero}" 
+                       filterBy="#{fila.numero}" 
+                       filterStyle="width: 100%">
+                <h:outputText value="#{fila.numero}"/>
+            </p:column>  
+
+            <p:column  headerText="Fec Vencimiento"
+                       sortBy="#{fila.fecVencimiento}" 
+                       filterBy="#{fila.fecVencimiento}" 
+                       filterStyle="width: 100%">
+                <h:outputText value="#{fila.fecVencimiento}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"  />
+                </h:outputText>   
+            </p:column>  
+
+
+</ui:composition>

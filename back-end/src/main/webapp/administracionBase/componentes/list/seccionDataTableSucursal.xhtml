@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones">
+
+
+    <p:dataTable size="small" 
+        paginator="true"
+        emptyMessage="No existen registros."
+        rows="10"
+        id="grilla"
+        rowsPerPageTemplate="5,10,15"
+        paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown} "
+        var="fila" 
+        rowKey="fila.id"
+        value="#{bswSucursalesControlador.listaTodosActual}"
+        rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+        rowIndexVar="rowIx"
+        lazy="true"
+        widgetVar="grilla" reflow="true">
+
+        <p:column >                                                  
+            <btn:btnEdit controlador="#{bswSucursalesControlador}"
+                         update=":form, :form:growl"/>
+
+            <btn:btnDelete controlador="#{bswSucursalesControlador}"/>
+        </p:column>
+
+        <p:column filterBy="#{fila.bswEmpresas.codEmpresa}"  >
+            <f:facet name="header">Cód. Empresa</f:facet>
+            <h:outputText  value="#{fila.bswEmpresas.codEmpresa}"/>
+        </p:column>
+
+        <p:column filterBy="#{fila.bswEmpresas.descripcion}"  >
+            <f:facet name="header">Desc. Empresa</f:facet>
+            <h:outputText  value="#{fila.bswEmpresas.descripcion}"/>
+        </p:column>
+
+        <p:column filterBy="#{fila.codSucursal}" >
+            <f:facet name="header">Cód.Programa</f:facet>
+            <h:outputText  value="#{fila.codSucursal}"/>
+        </p:column>
+
+        <p:column filterBy="#{fila.descripcion}" >
+            <f:facet name="header">Desc.Programa</f:facet>
+            <h:outputText  value="#{fila.descripcion}"/>
+        </p:column>
+
+        <p:column filterBy="#{fila.bswTipoPrograma.descripcion}" >
+            <f:facet name="header">Tipo Programa</f:facet>
+            <h:outputText  value="#{fila.bswTipoPrograma.descripcion}"/>
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">Es Matriz</f:facet>
+            <h:outputText  value="#{fila.esMatriz=='S'?'SI':'NO'}"/>
+        </p:column>
+
+        <p:column >
+            <f:facet name="header">Estado</f:facet>
+            <h:outputText  value="#{fila.estado=='S'?'SI':'NO'}"/>
+        </p:column>
+
+        <p:column filterBy="#{fila.tipoPrecio}" >
+            <f:facet name="header">Tipo Precio</f:facet>
+            <h:outputText  value="#{fila.tipoPrecio}"/>
+        </p:column>
+    </p:dataTable>
+</ui:composition>

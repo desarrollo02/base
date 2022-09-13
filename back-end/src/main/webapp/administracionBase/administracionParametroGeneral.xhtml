@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:dtbl="http://java.sun.com/jsf/composite/plantillas/dataTable">
+
+    <ui:define name="breadcrumb">
+        <li>ADMINISTRACION DE PARAMETROS GENERALES POR MODULO</li>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" style="width: 100%"  enctype="multipart/form-data" acceptcharset="UTF-8" rendered="#{loginControlador.usuario.superUsuario}">
+            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  widgetVar="growl"/>
+
+            <div class="card">
+                <dtbl:dataTableGeneric     widgetVarParam="grilla"
+
+                                           controlador="#{parametrosPorModulosControlador}"
+                                           lazyList="#{utilControler.componentes.lazyListParametrosPorModulos}">
+
+
+                    <p:column headerText="Parametro"  sortBy="#{fila.parametro}"
+                              filterBy="#{fila.parametro}">
+                        <h:outputText value="#{fila.parametro}" />
+                    </p:column>
+
+                    <p:column headerText="Empresa"  sortBy="#{fila.bswEmpresas.descripcion}"
+                              filterBy="#{fila.bswEmpresas.descripcion}">
+                        <h:outputText value="#{fila.bswEmpresas.descripcion}" />
+                    </p:column>
+
+                    <p:column headerText="cod.Modulo" sortBy="#{fila.codModulo}"
+                              filterBy="#{fila.codModulo}">
+                        <h:outputText value="#{fila.codModulo}" />
+                    </p:column>
+                    <p:column headerText="Descripcion" sortBy="#{fila.descripcion}"
+                              filterBy="#{fila.descripcion}">
+                        <h:outputText value="#{fila.descripcion}" />
+                    </p:column>
+                    <p:column headerText="Valor"
+                              sortBy="#{fila.valor}"
+                              filterBy="#{fila.valor}">
+                        <h:outputText value="#{fila.valor}" />
+                    </p:column>
+                    <p:column headerText="#{i18n.label_cuenta_contable}">
+                        <p:selectOneMenu dynamic="true" filter="true"  filterMatchMode="contains" style="width: 100%" value="#{fila.cowPlanCuentas}" converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemValue="#{null}" itemLabel="Seleccionar" />
+                            <f:selectItems  value="#{utilControler.componentes.listaTodosActual}" var="t" itemLabel="#{t.codigo} - #{t.descripcion}" itemValue="#{t}" />
+
+                            <p:column style="width:10%">
+                                <h:outputText value="#{t.codigo}" />
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="#{t.descripcion}" />
+                            </p:column>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column  width="5%">
+                        <p:commandButton type="push"
+                                         id="botonSave"
+                                         ajax="true"  
+                                         widgetVar="botonEditar"
+                                         title="Guardar Registro"	
+                                         update="@form" 
+                                         icon="pi pi-save"
+                                         action="#{parametrosPorModulosControlador.actualizarParametro(fila)}">
+                        </p:commandButton>
+                    </p:column>
+                </dtbl:dataTableGeneric>  
+            </div>
+
+<!--            <p:repeat value="#{utilControler.componentes.parametrosPorModulosList}" var="para">
+                <h:panelGrid columns="4">
+                    <h:outputText value="Parametro" />
+                    <h:outputText value="#{para.parametro}" />
+
+
+
+                </h:panelGrid>
+            </p:repeat>-->
+
+
+        </h:form>   
+    </ui:define>
+</ui:composition>

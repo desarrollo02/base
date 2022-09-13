@@ -1,0 +1,78 @@
+
+=======
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+    <composite:interface>
+        <composite:attribute name="id_comp" />
+        <composite:attribute name="id_grilla" />
+        <composite:attribute name="lazy" default="true"/>
+        <composite:attribute name="list" default="#{prwPresupuestoControlador.componentes.lazyListPresupuestos}"/> 
+        <composite:attribute name="target_action_listener" method-signature="void listener()"/>
+
+    </composite:interface>
+    <composite:implementation id="#{cc.attrs.id_comp}">
+        <p:dataTable reflow="true"   paginator="true" emptyMessage="No existen registros."  rows="15" 
+                     lazy="false" id="#{cc.attrs.id_grilla}" rowsPerPageTemplate="5,10,15"
+                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     var="fila" rowKey="fila.personasIdiomasPK"   value="#{cc.attrs.list}" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                     rowIndexVar="rowIx">
+                 
+            <p:column filterBy="#{fila.prwPeriodoDetalle.nroMes}" sortBy="#{fila.prwPeriodoDetalle.nroMes}">
+                <f:facet name="header">
+                    <h:outputText value="Mes" />
+                </f:facet>
+                
+                 <p:commandLink value="#{fila.prwPeriodoDetalle.nroMes}" action="#{prwPresupuestoControlador.obtienePresupuestoDetalleCategoria(fila)}">  
+                    <pe:selectDetailLevel contextValue="#{fila}" />  
+                </p:commandLink> 
+                
+            </p:column>
+            <p:column  filterBy="#{prwPeriodoPresupuestoControlador.convirteFechaFiltro(fila.prwPeriodoDetalle.fechaDesde)}">
+                <f:facet name="header">
+                    <h:outputText value="Periodo Desde"/>
+                </f:facet>
+                <h:outputText value="#{fila.prwPeriodoDetalle.fechaDesde}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column filterBy="#{prwPeriodoPresupuestoControlador.convirteFechaFiltro(fila.prwPeriodoDetalle.prwPeriodoDetalle.fechaHasta)}">
+                <f:facet name="header">
+                    <h:outputText value="Periodo Hasta"/>
+                </f:facet>
+                <h:outputText value="#{fila.prwPeriodoDetalle.fechaHasta}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column  sortBy="#{fila.previsto}" filterBy="#{fila.previsto}">
+                <f:facet name="header">Previsto</f:facet>
+                <h:outputText  value="#{fila.previsto}">
+                    <f:convertNumber pattern="###,###.##" />
+                </h:outputText>
+            </p:column>
+            <p:column  sortBy="#{fila.obligado}" filterBy="#{fila.obligado}">
+                <f:facet name="header">Comprometido</f:facet>
+                <h:outputText  value="#{fila.obligado}">
+                    <f:convertNumber pattern="###,###.##" />
+                </h:outputText>
+            </p:column>
+            <p:column  sortBy="#{fila.ejecutado}" filterBy="#{fila.ejecutado}">
+                <f:facet name="header">Ejecutado</f:facet>
+                <h:outputText  value="#{fila.ejecutado}">
+                    <f:convertNumber pattern="###,###.##" />
+                </h:outputText>
+            </p:column>
+
+
+        </p:dataTable>                  	
+    </composite:implementation>
+</ui:composition>

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <body>
+        
+        <ui:composition template="/recursos/plantillaInterna.xhtml">
+              <ui:define name="nombreModulo">Cuentas a Cobrar</ui:define>
+            
+            <ui:define name="menuPrincipal">
+                 <ui:include src="/recursos/componentes/menuCuentasCobrar.xhtml"/>
+            </ui:define>
+           
+                <ui:define name="tema">
+                  <p:themeSwitcher value="#{guestPreferences.theme}"   valueChangeListener="#{guestPreferences.codThemeListener}" style="width:165px;text-align: left;" effect="fade" id="statefulSwitcher">  
+                      <f:selectItems value="#{themeSwitcherBean.themes}" />  
+                      <p:ajax listener="#{themeSwitcherBean.saveTheme}" />  
+                  </p:themeSwitcher> 
+                  
+              </ui:define>
+              <ui:define name="content-module" class="content-module">
+           
+           
+            </ui:define>
+
+             
+            
+
+        </ui:composition>
+        
+    </body>
+</html>

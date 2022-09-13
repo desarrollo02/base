@@ -1,0 +1,344 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+
+    <ui:define name="breadcrumb">
+        <li>CALENDARIO DE EVENTOS/RESERVAS</li>
+        <li></li>
+
+    </ui:define>
+   <ui:define name="head">
+
+        <style type="text/css">
+            /* Custom styles for the Timeline */  
+            div.timeline-frame {  
+                border-color: #5D99C3;  
+                border-radius: 5px;  
+            }  
+
+            div.timeline-axis {  
+                border-color: #5D99C3;  
+                background-color: #5D99C3;  
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5D99C3', endColorstr='#3A6DA0') alpha(opacity = 100);  
+                background: -webkit-gradient(linear, left top, left bottom, from(#5D99C3), to(#3A6DA0));  
+                background: -moz-linear-gradient(top,  #5D99C3,  #3A6DA0);  
+                -khtml-opacity: 1;  
+                -moz-opacity: 1;  
+                opacity: 1;  
+            }  
+
+            div.timeline-groups-axis {  
+                border-color: #5D99C3;  
+            }  
+
+            div.timeline-groups-axis-onleft {  
+                border-style: none solid none none;  
+            }  
+
+            div.timeline-axis-text {  
+                color: white;  
+            }  
+
+            div.timeline-event {  
+                color: white !important;  
+                border-radius: 5px !important;  
+            }  
+
+            div.timeline-event-content {  
+                padding: 5px;  
+                text-shadow: none;  
+            }  
+
+            div.confirmar {  
+                background: #6f30a0 none !important;  /* red */  
+                border-color: #97B0F8 !important;     /* red */  
+                color: white !important;
+            }  
+
+            div.senha {  
+                background: #00b0f0 none !important;  /* green */  
+                border-color: #97B0F8 !important;     /* green */  
+                color: white !important;
+            }  
+
+            div.total {  
+                background: #93d150 none !important;  /* orange */  
+                border-color: #97B0F8 !important;     /* orange */  
+                color: white !important;
+            }  
+            div.cancelado {  
+                background: #cccccc none !important;  /* orange */  
+                border-color: #97B0F8 !important;     /* orange */  
+                color: white !important;
+            }  
+
+            div.timeline-event-selected {  
+                background: #BECEFE none !important;  
+                border-color: #cccccc !important;  
+            }
+
+            div.invisible-item{
+                display: block; 
+                visibility: hidden;
+            }
+            .ui-icon-circle-arrow-e { 
+                background: none;
+                background-repeat: repeat;
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: 14px;
+                line-height: 1;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                text-indent: 0px !important;
+                text-align: center;
+            }
+            .ui-icon-circle-arrow-e:before {
+                content: ""; }
+            .ui-icon-circle-arrow-w { 
+                background: none;
+                background-repeat: repeat;
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: 14px;
+                line-height: 1;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                text-indent: 0px !important;
+                text-align: center;
+            }  
+            .ui-icon-circle-arrow-w:before {
+                content: ""; }
+
+
+            .red
+            {   
+                background-color: red;
+            }
+
+
+
+            .reservaLibre {
+                background-color: transparent !important;
+                border-color: gray !important;
+                color: gray !important;
+            }
+
+            .reservaConfirmar {
+                background: #6f30a0 none !important;  /* red */  
+                border-color: #97B0F8 !important;     /* red */  
+                color: white !important;
+            }
+
+            .reservaSenha {
+                background: #00b0f0 none !important;  /* green */  
+                border-color: #97B0F8 !important;     /* green */  
+                color: white !important;
+            }
+
+            .reservaPago {
+                background: #93d150 none !important;  /* orange */  
+                border-color: #97B0F8 !important;     /* orange */  
+                color: white !important;
+            }
+
+            .reservaPasada {
+                background-color: #ffcc66 !important;
+                border-color: gray !important;
+                color: gray !important;
+            }
+
+            .reservaBooking {
+                background: #cccccc none !important;  /* orange */  
+                border-color: #97B0F8 !important;     /* orange */  
+                color: white !important;
+            }
+            .reservaFeriado {
+                background: #cccccc none !important;  /* orange */  
+                border-color: lightgreen !important;     /* orange */  
+                color: white !important;
+            }
+            .fc-today {
+                background-color: lavenderblush !important;
+                color: black !important;
+            }
+            div.feriado {  
+                background: #cccccc none !important;  /* orange */  
+                border-color: lightgreen !important;     /* orange */  
+                color: white !important;
+                text-align: -moz-center;
+            } 
+
+
+        </style>
+
+        <script type="text/javascript">
+            PrimeFaces.locales['es'] = {
+                closeText: 'cerrar',
+                prevText: 'atrás',
+                nextText: 'siguiente',
+                currentText: 'hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+                dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+                weekHeader: 'Hf',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText: 'Todo el día'
+            };
+            if (typeof links === 'undefined') {
+                links = {};
+                links.locales = {};
+            } else if (typeof links.locales === 'undefined') {
+                links.locales = {};
+            }
+            ;
+            links.locales['es'] = {
+                'MONTHS': ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                'MONTHS_SHORT': ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                'DAYS': ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+                'DAYS_SHORT': ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+                'ZOOM_IN': "Aumentar zoom",
+                'ZOOM_OUT': "Disminuir zoom",
+                'MOVE_LEFT': "Mover izquierda",
+                'MOVE_RIGHT': "Mover derecha",
+                'NEW': "Nuevo",
+                'CREATE_NEW_EVENT': "Crear nuevo evento"
+            };
+
+
+            function invalidarfechaentrada(fecha, rangos, id) {
+                //<![CDATA[
+                var i;
+                var f = new Date();
+                f.setTime(fecha.getTime() + (15 * 60 * 60 * 1000));
+                for (i = 0; i < rangos.length; i++) {
+                    if (id !== rangos[i][2]) {
+                        if (rangos[i][0] < f.getTime() && f.getTime() < rangos[i][1]) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+                //]]> 
+            }
+            ;
+
+            function invalidarfechasalida(fecha, rangos, id) {
+                //<![CDATA[
+                var i;
+                var f = new Date();
+                f.setTime(fecha.getTime() + (11 * 60 * 60 * 1000));
+                for (i = 0; i < rangos.length; i++) {
+                    if (id !== rangos[i][2]) {
+                        if (rangos[i][0] < f.getTime() && f.getTime() < rangos[i][1]) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+                //]]> 
+            }
+            ;
+
+        </script>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="form" style="width: 100%"  enctype="multipart/form-data" acceptcharset="UTF-8" rendered="#{loginControlador.usuario.superUsuario}">
+            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  widgetVar="growl"/>
+ <p:toolbar rendered="#{grwCalendarioControlador.esABMPanel}" >
+                    <p:toolbarGroup align="left">
+                        <p:commandButton
+                            ajax="true"
+                            type="push"
+                            value="Nuevo"
+                            icon="ui-icon-document"
+                            rendered="#{!grwCalendarioControlador.esABMPanel}"
+                            update=":form"
+                            action="#{grwCalendarioControlador.accionABMDetalle()}">
+                            <f:setPropertyActionListener target="#{grwCalendarioControlador.esABMPanel}" 
+                                                         value="#{true}"/>
+                            <f:setPropertyActionListener target="#{grwCalendarioControlador.esModificarDetalle}" 
+                                                         value="#{false}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon ui-icon-disk" 
+                                         id="botonGuardar"
+                                         value="Guardar"   
+                                         rendered="#{grwCalendarioControlador.esABMPanel}" 
+                                         update=":form"  
+                                         ajax="true" 
+                                         action="#{grwCalendarioControlador.grabar()}" >
+                            <f:setPropertyActionListener target="#{grwCalendarioControlador.esABMPanel}" 
+                                                         value="#{false}"/>
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon ui-icon-close" 
+                                         onclick="grilla.clearFilters()"
+                                         value="Cancelar"   
+                                         rendered="#{grwCalendarioControlador.esABMPanel}" 
+                                         update=":form"  ajax="true"  immediate="true"
+                                         action="#{grwCalendarioControlador.cancelarAccionABM()}"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
+            <div class="ui-g dashboard">
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="ui-g-12 ui-lg-12">
+                        
+                        <p:panel rendered="#{!grwCalendarioControlador.esABMPanel}" >
+                           <p:tabView>
+                               <p:tab title="Calendario" class="card">
+                                    <p:schedule rightHeaderTemplate="" leftHeaderTemplate="prev,next" allDaySlot="false"
+                                        tooltip="true" locale="es"
+                                        id="schedule"  value="#{grwCalendarioControlador.lazyListCalendario}" widgetVar="myschedule" timeZone="GMT-4">
+                                <p:ajax event="dateSelect" listener="#{grwCalendarioControlador.onDateSelect}" update=":form" />
+                                <p:ajax event="eventSelect" listener="#{grwCalendarioControlador.onEventSelect}" update=":form" />
+                               
+                            </p:schedule>
+                               </p:tab>
+                               <p:tab title="Lista Eventos">
+                                   
+                                   
+                               </p:tab>
+                           </p:tabView>   
+                            </p:panel>
+                        </div>
+                </div>   
+            </div>    <div class="ui-g dashboard">
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="ui-g-12 ui-lg-12">
+                        <div class="card_gdb">
+                        
+                          <p:panel header="DATOS DE RESERVA" rendered="#{grwCalendarioControlador.esABMPanel}"  widgetVar="panelAux">
+                <ui:include   src="../reservas/componentes/seccionAddReservas.xhtml" />
+            </p:panel>                       
+                    </div>
+
+                </div>
+            </div>
+                
+</div>
+    
+        </h:form>   
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="form" rendered="#{consultaPermisosVentasControlador.puedeConsultarTipoProgramaBase()}">
+
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <p:panelGrid style="width: 100%">
+
+
+                        <h:panelGroup>
+                            <h:outputText id="BswModulos" value="TIPO DE PROGRAMA" styleClass="tituloTabla" />
+                            <p:toolbar>
+                                <p:toolbarGroup align="left">
+                                    <p:commandButton  ajax="true" id="botonNuevo"
+                                                      value="Nuevo" oncomplete="document.getElementById('form:focus').focus()"
+                                                      icon="ui-icon-document"    update=":form" 
+                                                      rendered="#{!bswTipoProgramaControlador.esABMPanel}"
+                                                      action="#{bswTipoProgramaControlador.accionABMDetalle()}">
+                                        <f:setPropertyActionListener
+                                            target="#{bswTipoProgramaControlador.esModificarDetalle}"
+                                            value="false" />
+                                    </p:commandButton> 
+                                    <p:commandButton icon="ui-icon ui-icon-disk" id="botonGuardar"
+                                                     value="Guardar"   rendered="#{bswTipoProgramaControlador.esABMPanel}" 
+                                                     update=":form"  ajax="true"
+                                                     action="#{bswTipoProgramaControlador.grabar}"/>
+                                    <p:commandButton icon="ui-icon ui-icon-close" onclick="grilla.clearFilters()"
+                                                     value="Cancelar"   rendered="#{bswTipoProgramaControlador.esABMPanel}" 
+                                                     update=":form"  ajax="true"  immediate="true"
+                                                     action="#{bswTipoProgramaControlador.cancelarAccionABM()}"/>
+
+                                    <p:commandButton ajax="false" rendered="#{!bswTipoProgramaControlador.esABMPanel}"   icon="ui-icon-refresh">
+
+                                    </p:commandButton>
+                                    <p:commandButton type="push"
+                                                     title="Ayuda"
+                                                     icon="ui-icon-help"
+                                                     onclick="PF('dialogoAyuda').show();"/>
+                                    <p:commandButton type="push"
+                                                     title="Acerca de"
+                                                     icon="ui-icon-info"
+                                                     onclick="PF('dialogoAcercaDe').show();"/>
+                                    <p:commandButton type="push" value="Inicio"
+                                                     title="Ir a Inicio" immediate="true"
+                                                     icon="ui-icon-home" id="inicio_modulo"
+
+                                                     action="inicioAdministracionBase.xhtml"/>                                 
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </h:panelGroup>
+                        <p:ajaxStatus style="width:10%;position:fixed;right:5px;bottom:5px">
+                            <f:facet name="start">
+                                <h:graphicImage value="../resources/img/486.gif" />
+                            </f:facet>
+
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+
+                    </p:panelGrid>
+
+                    <p:panel rendered="#{!bswTipoProgramaControlador.esABMPanel}" >
+                        <p:dataTable size="small" reflow="true"   paginator="true" emptyMessage="No existen registros."  rows="10"  id="grilla" rowsPerPageTemplate="5,10,15"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     var="fila" rowKey="fila.id"   value="#{bswTipoProgramaControlador.listaTodosActual}" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx" widgetVar="grilla" >
+
+                            <p:column >                                                  
+                                <p:commandButton type="push"
+                                                 id="botonEditar"
+                                                 ajax="true"  oncomplete="document.getElementById('form:focus').focus()"
+                                                 widgetVar="botonEditar"
+                                                 title="Editar Registro"
+                                                 update=":form" 
+                                                 icon="ui-icon-pencil"
+                                                 action="#{bswTipoProgramaControlador.cargaDatosParaEditar()}">
+                                    <f:setPropertyActionListener target="#{bswTipoProgramaControlador.actualViejo}" value="#{fila}"/>
+                                    <f:setPropertyActionListener target="#{bswTipoProgramaControlador.esModificarDetalle}" value="true"/>
+                                </p:commandButton>
+
+                          
+                                <p:commandButton
+                                    id="botonEliminar" 
+                                    ajax="true" 
+                                    title="Eliminar Registro"  
+                                    onclick="PF('avisoEliminar').show()" 
+                                    icon="pi pi-trash">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswTipoProgramaControlador.detalleAeliminar}" 
+                                        value="#{fila}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                            <p:column 
+
+                                filterBy="#{fila.codigo}"   
+                                >
+                                <f:facet name="header">Codigo</f:facet>
+                                <h:outputText  value="#{fila.codigo}"/>
+                            </p:column>
+
+                            <p:column 
+
+                                filterBy="#{fila.descripcion}"   
+                                 >
+                                <f:facet name="header">Descripcion</f:facet>
+                                <h:outputText  value="#{fila.descripcion}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:panel>
+                    <p:panel rendered="#{bswTipoProgramaControlador.esABMPanel}" style="background-color: rgba(255, 0, 0, 0)">
+                        <ui:include   src="componentes/seccionAddTipoPrograma.xhtml" />
+                    </p:panel>
+
+                    
+                    <p:dialog header="Ayuda" widgetVar="dialogoAyuda" modal="false" width="600">
+                        <c:forEach items="#{bswTipoProgramaControlador.ayuda}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+                    <p:dialog header="Datos de la Pantalla" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                        <c:forEach items="#{bswTipoProgramaControlador.acercaDe}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+                </h:form>
+                <p:confirmDialog appendTo="@(body)" 
+                        hideEffect="clip" 
+                        message="Esta seguro que desea eliminar el registro?"
+                        header="Aviso" 
+                        severity="alert" 
+                        widgetVar="avisoEliminar">
+                        <p:commandButton 	value="Aceptar" 
+                                          onclick="PF('avisoEliminar').hide()" 
+                                          ajax="true"  
+                                          action="#{bswTipoProgramaControlador.eliminarRegistro()}"
+                                          update=":form:grilla, :form:growl"
+                                          title="Eliminar Registro">
+                        </p:commandButton>
+                        <p:commandButton 	value="Cancelar" 
+                                          onclick="PF('avisoEliminar').hide()"  
+                                          type="button"
+                                          title="Cancelar Accion">
+                        </p:commandButton>
+                    </p:confirmDialog>
+
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

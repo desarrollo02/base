@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:toolbar>
+        <p:toolbarGroup align="right">
+            <p:commandButton icon="ui-icon ui-icon-disk" 
+                             value="Guardar"   
+                             update=":form"  ajax="true"
+                             rendered="#{conwContratoControlador.currentLevel==1 and false}"
+                             action="#{conwContratoControlador.grabar}">
+                <f:setPropertyActionListener target="#{proVerificaProcesoContratoControlador.esModificarDetalle}" value="false"/>
+                <f:setPropertyActionListener target="#{proVerificaProcesoContratoControlador.esABMPanel}" value="false"/>
+                <pe:selectDetailLevel level="1"/>
+            </p:commandButton>
+
+
+            <p:commandButton icon="ui-icon ui-icon-disk" 
+                             value="Guardar"   
+                             update="form"  ajax="true"
+                             rendered="#{conwContratoControlador.currentLevel == 2}"
+                             action="#{conwContratoControlador.agregaContrato()}">
+                <pe:selectDetailLevel level="1"/>
+            </p:commandButton>
+
+            <p:commandButton icon="ui-icon ui-icon-close" 
+                             value="Cancelar"   
+                             update=":form"  ajax="true"
+                             rendered="#{conwContratoControlador.currentLevel == 2}">
+                <pe:selectDetailLevel level="1"/>
+            </p:commandButton>
+        </p:toolbarGroup>
+    </p:toolbar>
+
+</ui:composition>

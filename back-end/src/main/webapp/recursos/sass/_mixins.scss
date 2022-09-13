@@ -1,0 +1,136 @@
+//Mixins
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -khtml-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-shadow($shadow) {
+    -webkit-box-shadow: $shadow;
+    -khtml-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    -ms-box-shadow: $shadow;
+    box-shadow: $shadow;
+}
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    -khtml-opacity: $opacity;
+    -moz-opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie);
+}
+
+@mixin transition($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+}
+
+@mixin transform($args...) {
+    -webkit-transform: $args;
+    -moz-transform: $args;
+    -ms-transform: $args;
+    -o-transform: $args;
+    transform: $args;
+}
+
+@mixin transform-origin($args...) {
+    -webkit-transform: $args;
+    -moz-transform: $args;
+    -ms-transform: $args;
+    -o-transform: $args;
+    transform: $args;
+}
+
+@mixin background-size($args) {
+    -webkit-background-size: $args;
+    -moz-background-size: $args;
+    -o-background-size: $args;
+    background-size: $args;
+}
+
+@mixin grayscale_element($value) {
+    -webkit-filter: grayscale($value);
+    -moz-filter: grayscale($value);
+    filter: grayscale($value);
+}
+
+@mixin redondeado ($tl, $tr, $br, $bl) {
+    -webkit-border-radius: $tl $tr $br $bl;
+    -moz-border-radius: $tl $tr $br $bl;
+    border-radius: $tl $tr $br $bl;
+}
+
+@mixin gradientH ($inicio, $fin) {
+    background: $inicio;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from($inicio), to($fin));
+    background: -webkit-linear-gradient($inicio, $fin);
+    background: -moz-linear-gradient($inicio, $fin);
+    background: -ms-linear-gradient($inicio, $fin);
+    background: -o-linear-gradient($inicio, $fin);
+    background: linear-gradient($inicio, $fin);
+    -pie-background: linear-gradient($inicio, $fin);
+}
+
+@mixin gradientV ($inicio, $fin) {
+    background: $inicio;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from($inicio), to($fin));
+    background: -webkit-linear-gradient($inicio, $fin);
+    background: -moz-linear-gradient($inicio, $fin);
+    background: -ms-linear-gradient($inicio, $fin);
+    background: -o-linear-gradient($inicio, $fin);
+    background: linear-gradient($inicio, $fin);
+    -pie-background: linear-gradient($inicio, $fin);
+}
+
+@mixin shadow($h,$v,$b,$s,$color) {
+    -webkit-box-shadow: $h $v $b $s $color;
+    -moz-box-shadow: $h $v $b $s $color;
+    box-shadow: $h $v $b $s $color;
+}
+@mixin shadowRGBA($h, $v, $b, $s, $r, $g, $b, $a) {
+    -webkit-box-shadow: $h $v $b $s rgba($r,$g,$b,$a);
+    -moz-box-shadow: $h $v $b $s rgba($r,$g,$b,$a);
+    box-shadow: $h $v $b $s rgba($r,$g,$b,$a);
+}
+
+@mixin innershadow($blur,$color){
+    -webkit-box-shadow: inset 1px 1px $blur 0px $color;
+    box-shadow: inset 1px 1px $blur 0px $color;
+}
+
+@mixin glow($blur,$color) {
+    -webkit-box-shadow: 0px 0px $blur 0px $color;
+    -moz-box-shadow: 0px 0px $blur 0px $color;
+    box-shadow: 0px 0px $blur 0px $color;
+}
+
+@mixin txtShadow($color){
+    text-shadow: 1px 1px 0px $color;
+}
+
+@mixin easing($seg) {
+   transition-duration: $seg;
+    -webkit-transition-duration: $seg;
+    -moz-transition-duration: $seg; 
+    -ms-transition-duration: $seg; 
+    -o-transition-duration: $seg;
+}
+
+@mixin gradiente($inicio,$fin){
+    background: $inicio; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2RlNmYxYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlYzgxMTAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  $inicio 0%, $fin 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$inicio), color-stop(100%,$fin)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  $inicio 0%,$fin 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  $inicio 0%,$fin 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  $inicio 0%,$fin 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  $inicio 0%,$fin 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$inicio', endColorstr='$fin',GradientType=0 ); /* IE6-8 */
+}

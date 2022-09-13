@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                    
+     <p:tabView dynamic="true"   id="tabData"  rendered="#{!mewExpedientesControlador.esABMPanel}"   >
+        <p:tab title="CALENDARIO" class="card gdb_yelowgreen" >
+             
+
+                            <p:schedule rightHeaderTemplate="" leftHeaderTemplate="prev,next" allDaySlot="false" clientTimeZone="false"
+                                        tooltip="true" locale="es" displayEventEnd="true" slotEventOverlap="true" timeFormat="HHa"
+                                        id="schedule"  value="#{grwReservaControlador.lazyListCalendarioPasarDia}" widgetVar="myschedule" style="font-size: larger;"
+                                        draggable="false">
+                                <p:ajax event="eventSelect" listener="#{grwReservaControlador.onEventSelect}" update="fp:form"/>
+                                 <p:ajax event="dateSelect" listener="#{grwReservaControlador.onDateSelect}" update="fp:form" />
+                            </p:schedule>
+                    
+            
+        </p:tab>
+     </p:tabView>     
+</ui:composition>

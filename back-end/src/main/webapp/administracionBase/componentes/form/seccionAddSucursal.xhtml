@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <p:tabView prependId="false" id="tab2" rendered="#{bswSucursalesControlador.esABMPanel}">
+        <p:tab  title="Datos Sucursal" class="card gdb_yelowgreen">
+            <p:messages id="messages" showDetail="false" closable="true">
+                <p:autoUpdate />
+            </p:messages>
+            <h:panelGrid columns="7">
+            <oupt:codigoDescripcionOuput id="ouptEmpresa" codigoId="inputCodEmpresa" 
+                                         valueOuput="#{i18n.label_empresa} (*)"
+                                         object="#{bswSucursalesControlador.componentes.empresasAbm}"
+                                         valueCodigo="#{bswSucursalesControlador.componentes.empresasAbm.codEmpresa}"
+                                         changeListener="#{bswSucursalesControlador.componentes.empresasChangeListener}"
+                                         blurUpdate=":form:tabView:ouptEmpresa:inputDescEmpresa :form:growl"
+                                         dialogWidgetVar="dialogoEmpresa"
+                                         btnTitle="#{i18n.listado_empresas}"
+                                         valueDescripcion="#{bswSucursalesControlador.componentes.empresasAbm.descripcion}"
+                                         descripcionId="inputDescEmpresa"/>
+
+
+
+
+
+            <inpt:inputText valueOuput="#{i18n.label_cod_sucursal} (*)" 
+                            value="#{bswSucursalesControlador.actual.codSucursal}" size="15" maxlength="60"/>
+
+            <inpt:inputText valueOuput="#{i18n.label_nombre} (*)" 
+                            value="#{bswSucursalesControlador.actual.descripcion}" size="15" maxlength="60"/>
+
+            <inpt:inputText valueOuput="#{i18n.label_ruc}" 
+                            value="#{bswSucursalesControlador.actual.ruc}" size="18" maxlength="60"/>
+
+      
+            <inpt:inputText valueOuput="Dirección" 
+                            value="#{bswSucursalesControlador.actual.direccion}" size="15" maxlength="150"/>
+            <inpt:inputText valueOuput="Telefono" 
+                            value="#{bswSucursalesControlador.actual.telefono}" size="15" maxlength="20"/>
+<inpt:inputText valueOuput="Email" 
+                            value="#{bswSucursalesControlador.actual.email}" size="15" maxlength="60"/>
+            <oupt:codigoDescripcionOuput  
+                id="ouptTP" valueOuput="#{i18n.label_sucursal_padre}"
+                codigoId="inputCodSucursal"
+                valueCodigo="#{bswSucursalesControlador.componentes.sucursalABM.codSucursal}"
+                changeListener="#{bswSucursalesControlador.componentes.sucursalesChangeListener}"
+                dialogWidgetVar="dialogoSucursal"
+                btnTitle="#{i18n.lista_sucursal}"
+                blurUpdate="@widgetVar(txtCodSucursal), @widgetVar(growl)"
+                object="#{bswSucursalesControlador.componentes.sucursalABM}"                         
+                valueDescripcion="#{bswSucursalesControlador.componentes.sucursalABM.descripcion}"
+                descripcionId="txtCodSucusarl"/>
+
+         
+        </h:panelGrid>
+            <p:divider/>
+               <inpt:selectBooleanChecBox valueOuput="#{i18n.label_matriz}" value="#{bswSucursalesControlador.actual.matrizABM}"/>        
+
+            <inpt:selectBooleanChecBox valueOuput="#{i18n.label_activo}" value="#{bswSucursalesControlador.actual.activoABM}"/>
+            <inpt:selectBooleanChecBox valueOuput="#{i18n.label_financiero}" value="#{bswSucursalesControlador.actual.esFinancieroABM}"/>
+             <inpt:selectBooleanChecBox valueOuput="#{i18n.label_campo_ganadero}" value="#{bswSucursalesControlador.actual.esCampoGanadero}"/>
+       
+        </p:tab>
+    </p:tabView>
+</ui:composition>
+
+

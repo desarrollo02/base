@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+
+    <oupt:outputText value="#{i18n.abm_panel}" />
+
+    <p:panelGrid layout="grid"  columns="1" >
+
+        <inpt:inputText valueOuput="#{i18n.label_mensaje} (*)" 
+                        value="#{bswMensajesUsuariosControlador.actual.mensaje}" size="35" maxlength="60"/>
+
+        
+
+     
+        <oupt:codigoDescripcionOuput  
+            id="ouptTP_1" valueOuput="#{i18n.label_para} (*)"
+            codigoId="inputCodigo"
+            valueCodigo="#{componentesVarios.usuariosABM.codUsuario}"
+            changeListener="#{componentesVarios.usuarioChangeListener(event)}"
+            dialogWidgetVar="dialogoLista"
+            btnTitle="#{i18n.lista_usuarios}"
+            blurUpdate="@widgetVar(txtCodigo), @widgetVar(growl)"
+            object="#{componentesVarios.usuariosABM}"                         
+            valueDescripcion="#{bswParametrosGeneralesControlador.componentes.usuariosABM.bswPersonas.nombre}"
+            descripcionId="txtCodigo"/>
+        
+     
+    </p:panelGrid>
+</ui:composition>

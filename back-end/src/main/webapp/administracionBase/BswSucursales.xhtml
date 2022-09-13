@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs"
+      xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars">
+
+    <body>
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+            <ui:define name="content">
+                <h:form id="form" style="width: 100%" rendered="#{consultaPermisosControlador.puedeConsultarSucursalBase()}">
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <h:panelGroup>
+                        <h:outputText id="BswSucursales" value="PROGRAMAS - BSSUCUR" styleClass="tituloTabla" />
+                        <tool:abmToolbar controlador="#{bswSucursalesControlador}"
+                                         guardarUpdate=":form, form:grilla"
+                                         cancelarUpdate=":form"/>
+                    </h:panelGroup>
+
+
+                    <p:panel rendered="#{!bswSucursalesControlador.esABMPanel}">
+                        <ui:include   src="componentes/list/seccionDataTableSucursal.xhtml" />
+                    </p:panel>
+
+                    <p:panel rendered="#{bswSucursalesControlador.esABMPanel}" style="background-color: rgba(255, 0, 0, 0)">
+                        <ui:include   src="componentes/form/seccionAddSucursal.xhtml" />
+                    </p:panel>
+
+
+                    <dlg:dialogCodDescripcion header="Lista - Personas"	
+                                              widgetVar="dialogPersona"
+                                              idDataTable="grillaPersona"
+                                              dataTableList="#{componentesVarios.lazyListDetallePersonas}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswPersonas}"
+                                              selecionarUpdate=":form:growl"
+                                              lazy="true"
+                                              id="compDlgPersona"/>
+
+                    <dlg:dialogCodDescripcion header="Lista de Empresas"	
+                                              widgetVar="dialogoEmpresa"
+                                              idDataTable="grillaEmpresa"
+                                              dataTableList="#{componentesVarios.lazyListEmpresas}"
+                                              propertyActionListenerTarget="#{componentesVarios.empresasAbm}"
+                                              selecionarUpdate="@widgetVar(inputDescEmpresa) :form:growl"
+                                              lazy="true"
+                                              id="dialogoEmpresa"/>
+
+                    <dlg:dialogCodDescripcion header="Lista de Sucursales"
+                                              widgetVar="dialogoSucursal"
+                                              idDataTable="grillaSucursal"
+                                              dataTableList="#{componentesVarios.sucursalesList}"
+                                              propertyActionListenerTarget="#{componentesVarios.sucursalABM}"
+                                              selecionarUpdate="@widgetVar(txtCodSucursal) :form:growl"
+                                              lazy="true"
+                                              id="dialogoSucursal"/>
+
+                    <dlg:dialogCodDescripcion header="Lista de Tipos de Programa"	
+                                              widgetVar="dialogoTipoPrograma"
+                                              idDataTable="grillaTipoPrograma"
+                                              dataTableList="#{componentesVarios.lazyListTipoPrograma}"
+                                              propertyActionListenerTarget="#{componentesVarios.tipoProgramaAbm}"
+                                              lazy="true"
+                                              selecionarUpdate=":form:growl"/>
+
+                    <dlg:dialogCodDescripcion header="Lista de Paises"	
+                                              widgetVar="dialogoPais"
+                                              idDataTable="grillaPais"
+                                              dataTableList="#{componentesVarios.lazyListPais}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswPaisesABM}"
+                                              selecionarUpdate=":form:growl"
+                                              lazy="true"/>
+
+                    <dlg:dialogCodDescripcion header="Lista de Ciudad del Sistema"	
+                                              widgetVar="dialogoCiudad"
+                                              idDataTable="grillaCiudad"
+                                              dataTableList="#{componentesVarios.lazyListCiudad}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswCiudadesABM}"
+                                              selecionarUpdate=":form:growl"
+                                              lazy="true"/>
+                </h:form>
+
+               
+                
+                 <dlg:deleteDialogPlantilla widget_var="avisoEliminar"
+                                           action="#{bswSucursalesControlador.eliminarRegistro()}"
+                                           aceptar_update_value=":form:grilla, :form:growl"/>
+
+
+
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

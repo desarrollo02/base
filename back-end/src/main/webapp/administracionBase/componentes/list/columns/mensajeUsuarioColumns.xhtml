@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                          
+              <p:column id="codBswModulosColumna"
+                                       filterBy="#{fila.mensaje}"
+                                        style="width: 50%">
+                                        <f:facet name="header">#{i18n.column_mensaje}</f:facet>
+                                        <h:outputText  id="codBswModulosText"
+                                                    value="#{fila.mensaje}"/>
+                                </p:column>
+
+
+                                 <p:column 
+                                         
+                                        style="width: 5%">
+                                     <f:facet name="header">#{i18n.column_leido}?</f:facet>
+                                        <p:selectBooleanCheckbox disabled="true"  
+                                                    value="#{fila.leido}"/>
+                                </p:column>
+                        
+                                <p:column 
+                                        filterBy="#{fila.usuarioOrigen.bswPersonas.nombre}">
+                                        <f:facet name="header">#{i18n.column_para}</f:facet>
+                                       <h:outputText 
+                                                    value="#{fila.usuarioOrigen.bswPersonas.nombre}"/>
+                                </p:column>
+                        
+                        
+                                <p:column 
+                                        filterBy="#{fila.usuarioId.codUsuario}">
+                                        <f:facet name="header">#{i18n.column_de}</f:facet>
+                                        <h:outputText 
+                                                    value="#{fila.usuarioId.codUsuario}"/>
+                                </p:column>
+
+</ui:composition>

@@ -1,0 +1,327 @@
+// Por: Gustavo Antunez gustavoantunez@gmail.com
+// Importacion de elementos
+@import url('../fonts/material-icons.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
+
+@import "mixins";
+@import "variables";
+
+// --------------------------------------------
+:root {
+    font-size: 15px;
+}
+// +++++++++++++++++++++++++++++++++++++++++++++
+body {
+    background: {
+        color: #DDD;
+    }
+    color: #333;
+    font: {
+        family: 'Roboto', sans-serif;
+        size: 1rem;
+        weight: 400;
+    }
+    line-height: 1.5;
+}
+
+.form-control:focus {
+    border-color: rgba(#000, 0.3);
+}
+
+a {
+    &:link,
+    &:visited {
+        color: #444;
+        text-decoration: underline;
+    }
+    &:hover,
+    &:active {
+        color: #000;
+    }
+
+    &.underline-none {
+        text-decoration: none;
+    }
+}
+
+hr {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+strong,
+b,
+.form-group label {
+    font-weight: 700;
+}
+
+.relative {
+    position: relative;
+}
+
+.col-form-label {
+    font-weight: 700;
+}
+
+.btn-circle.btn-xxl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 0;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle.btn-xl {
+    width: 50px;
+    height: 50px;
+    padding: 10px 0;
+    border-radius: 25px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+.btn {
+    background: #FFF;
+    color: $color2 !important;
+    border: 1px solid #CCC;
+    // font-weight: 700;
+    text-decoration: none !important;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        background: darken(#FFF, 5%);
+        border: 1px solid darken(#CCC, 3%);
+    }
+}
+
+.btn-transparent {
+    background: rgba(0,0,0,0.2);
+    color: #FFF !important;
+    border: 0;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        background: rgba(0,0,0,0.4);
+        border: 0;
+    }
+}
+
+.btn-default {
+    background: $color4;
+    color: $color2 !important;
+    border: 1px solid darken($color4, 10%);
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        background: darken($color4, 5%);
+        border: 1px solid darken($color4, 13%);
+    }
+}
+
+.btn-secondary {
+    background: $color2;
+    color: #666 !important;
+    border: 1px solid $color2;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        background: darken($color2, 5%);
+        border: 1px solid darken($color2, 3%);
+    }
+    &:disabled {
+        opacity: .65;
+    }
+}
+
+.btn-primary {
+    background: $color1;
+    color: #ffffff !important;
+    border: 1px solid $color1;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        background: darken($color1, 5%);
+        border: 1px solid darken($color1, 3%);
+    }
+}
+
+$i: 2;
+@while $i < 100 {
+    .material-icons.md-#{$i} {
+        font-size: #{$i}px;
+    }
+    $i: $i+2;
+}
+
+@for $i from 1 through 6 {
+
+    h#{$i} {
+
+        font-weight: 700;
+        color: #444;
+
+        @if $i==1 {
+
+            font-size: 2rem;
+        }
+        @else if $i==2 {
+
+            font-size: 1.8rem;
+        }
+        @else if $i==3 {
+
+            font-size: 1.6rem;
+        }
+        @else if $i==4 {
+
+            font-size: 1.4rem;
+        }
+        @else if $i==5 {
+
+            font-size: 1.2rem;
+        }
+        @else {
+
+            font-size: 1rem;
+        }
+    }
+}
+
+// // ///////////////////////////////////////////////
+// // ///////////////////////////////////////////////
+// // ///////////////////////////////////////////////
+
+header {
+    background-color: #CCC;
+    color: #666;
+    font-size: .75rem;
+
+    @media (max-width: 768px) {
+        .col-lg-4{
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+    }
+
+}
+
+.navbar-expand-lg{
+    @media (max-width: 768px) {
+        background-color: $color5;
+    }
+}
+
+.card{
+    -webkit-box-shadow: 2px 2px 6px 0 rgba(0,0,0,.1);
+    box-shadow: 2px 2px 6px 0 rgba(0,0,0,.1);
+    border-radius: 0;
+}
+.bg-warning{
+    background-color: #FFFFBF !important;
+}
+.bg-success{
+    background-color: #CFFFBF !important;
+}
+.input-line{
+    background-color: transparent !important;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+.table td,
+.table th{
+    border-top: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.2)
+}
+.form-sticker{
+    
+    border-radius: 0;
+    border: 0;
+    
+    -webkit-box-shadow: 2px 2px 6px 0 rgba(0,0,0,.1);
+    box-shadow: 2px 2px 6px 0 rgba(0,0,0,.1);
+
+    &.big{
+        padding: .5rem 1rem;
+        font-size: 2.9rem;
+        line-height: 1;
+        font-weight: 700;
+    }
+    &.inCard{
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        padding: .5rem 0;
+    }
+}
+.buscador-prod{
+    position: relative;
+    .btn{
+        position: absolute;
+        right: .5rem;
+        bottom: 10%;
+    }
+    .big{
+        padding-right: 4.5rem !important;
+    }
+}
+.lista-prod{
+    height: 520px;
+    overflow-y: scroll;
+}
+
+// FIX INPUT LG
+.form-control-lg, .input-group-lg>.form-control,
+.input-group-lg>.input-group-addon,
+.input-group-lg>.input-group-btn>.btn {
+    padding: 0.84rem 1rem; /* updated */
+    font-size: 1.15rem; /* updated */
+    line-height: 1.4; /* updated */
+    border-radius: 0;
+}
+select.form-control:not([size]):not([multiple]) {
+    height: calc(2.45rem + 2px);
+}
+.input-group-lg>.input-group-btn>select.btn:not([size]):not([multiple]),
+.input-group-lg>select.form-control:not([size]):not([multiple]),
+.input-group-lg>select.input-group-addon:not([size]):not([multiple]), select.form-control-lg:not([size]):not([multiple]) {
+    height: calc(3.1rem + 2px);
+}
+// FIX INPUT LG
+
+
+.navbar-toggler {
+    border: 1px solid #FFF;
+    
+
+    .material-icons{
+        color: #FFF;
+    }
+}
+
+

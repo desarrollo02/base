@@ -1,0 +1,418 @@
+@import url("../fonts/material-icons.css");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700,900");
+:root {
+    font-size: 15px
+}
+body {
+    background-color: #DDD;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5
+}
+.form-control:focus {
+    border-color: rgba(0, 0, 0, 0.3)
+}
+a:link,
+a:visited {
+    color: #444;
+    text-decoration: underline
+}
+a:hover,
+a:active {
+    color: #000
+}
+a.underline-none {
+    text-decoration: none
+}
+hr {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1)
+}
+strong,
+b,
+.form-group label {
+    font-weight: 700
+}
+.relative {
+    position: relative
+}
+.col-form-label {
+    font-weight: 700
+}
+.btn-circle.btn-xxl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 0;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33
+}
+.btn-circle.btn-xl {
+    width: 50px;
+    height: 50px;
+    padding: 10px 0;
+    border-radius: 25px;
+    font-size: 24px;
+    line-height: 1.33
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857
+}
+.btn {
+    background: #FFF;
+    color: #B7B7B7 !important;
+    border: 1px solid #CCC;
+    text-decoration: none !important
+}
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active {
+    background: #f2f2f2;
+    border: 1px solid #c4c4c4
+}
+.btn-transparent {
+    background: rgba(0, 0, 0, 0.2);
+    color: #FFF !important;
+    border: 0
+}
+.btn-transparent:hover,
+.btn-transparent:focus,
+.btn-transparent:active,
+.btn-transparent.active {
+    background: rgba(0, 0, 0, 0.4);
+    border: 0
+}
+.btn-default {
+    background: #DDD;
+    color: #B7B7B7 !important;
+    border: 1px solid #c4c4c4
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active {
+    background: #d0d0d0;
+    border: 1px solid #bcbcbc
+}
+.btn-secondary {
+    background: #B7B7B7;
+    color: #666 !important;
+    border: 1px solid #B7B7B7
+}
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active {
+    background: #aaa;
+    border: 1px solid #afafaf
+}
+.btn-secondary:disabled {
+    opacity: .65
+}
+.btn-primary {
+    background: #7FB63F;
+    color: #ffffff !important;
+    border: 1px solid #7FB63F
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+    background: #72a338;
+    border: 1px solid #77ab3b
+}
+.material-icons.md-2 {
+    font-size: 2px
+}
+.material-icons.md-4 {
+    font-size: 4px
+}
+.material-icons.md-6 {
+    font-size: 6px
+}
+.material-icons.md-8 {
+    font-size: 8px
+}
+.material-icons.md-10 {
+    font-size: 10px
+}
+.material-icons.md-12 {
+    font-size: 12px
+}
+.material-icons.md-14 {
+    font-size: 14px
+}
+.material-icons.md-16 {
+    font-size: 16px
+}
+.material-icons.md-18 {
+    font-size: 18px
+}
+.material-icons.md-20 {
+    font-size: 20px
+}
+.material-icons.md-22 {
+    font-size: 22px
+}
+.material-icons.md-24 {
+    font-size: 24px
+}
+.material-icons.md-26 {
+    font-size: 26px
+}
+.material-icons.md-28 {
+    font-size: 28px
+}
+.material-icons.md-30 {
+    font-size: 30px
+}
+.material-icons.md-32 {
+    font-size: 32px
+}
+.material-icons.md-34 {
+    font-size: 34px
+}
+.material-icons.md-36 {
+    font-size: 36px
+}
+.material-icons.md-38 {
+    font-size: 38px
+}
+.material-icons.md-40 {
+    font-size: 40px
+}
+.material-icons.md-42 {
+    font-size: 42px
+}
+.material-icons.md-44 {
+    font-size: 44px
+}
+.material-icons.md-46 {
+    font-size: 46px
+}
+.material-icons.md-48 {
+    font-size: 48px
+}
+.material-icons.md-50 {
+    font-size: 50px
+}
+.material-icons.md-52 {
+    font-size: 52px
+}
+.material-icons.md-54 {
+    font-size: 54px
+}
+.material-icons.md-56 {
+    font-size: 56px
+}
+.material-icons.md-58 {
+    font-size: 58px
+}
+.material-icons.md-60 {
+    font-size: 60px
+}
+.material-icons.md-62 {
+    font-size: 62px
+}
+.material-icons.md-64 {
+    font-size: 64px
+}
+.material-icons.md-66 {
+    font-size: 66px
+}
+.material-icons.md-68 {
+    font-size: 68px
+}
+.material-icons.md-70 {
+    font-size: 70px
+}
+.material-icons.md-72 {
+    font-size: 72px
+}
+.material-icons.md-74 {
+    font-size: 74px
+}
+.material-icons.md-76 {
+    font-size: 76px
+}
+.material-icons.md-78 {
+    font-size: 78px
+}
+.material-icons.md-80 {
+    font-size: 80px
+}
+.material-icons.md-82 {
+    font-size: 82px
+}
+.material-icons.md-84 {
+    font-size: 84px
+}
+.material-icons.md-86 {
+    font-size: 86px
+}
+.material-icons.md-88 {
+    font-size: 88px
+}
+.material-icons.md-90 {
+    font-size: 90px
+}
+.material-icons.md-92 {
+    font-size: 92px
+}
+.material-icons.md-94 {
+    font-size: 94px
+}
+.material-icons.md-96 {
+    font-size: 96px
+}
+.material-icons.md-98 {
+    font-size: 98px
+}
+h1 {
+    font-weight: 700;
+    color: #444;
+    font-size: 2rem
+}
+h2 {
+    font-weight: 700;
+    color: #444;
+    font-size: 1.8rem
+}
+h3 {
+    font-weight: 700;
+    color: #444;
+    font-size: 1.6rem
+}
+h4 {
+    font-weight: 700;
+    color: #444;
+    font-size: 1.4rem
+}
+h5 {
+    font-weight: 700;
+    color: #444;
+    font-size: 1.2rem
+}
+h6 {
+    font-weight: 700;
+    color: #444;
+    font-size: 1rem
+}
+header {
+    background-color: #CCC;
+    color: #666;
+    font-size: .75rem
+}
+@media (max-width: 768px) {
+    header .col-lg-4 {
+        padding-top: 1rem;
+        padding-bottom: 1rem
+    }
+}
+@media (max-width: 768px) {
+    .navbar-expand-lg {
+        background-color: #999
+    }
+}
+.card {
+    -webkit-box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 0
+}
+.bg-warning {
+    background-color: #FFFFBF !important
+}
+.bg-success {
+    background-color: #CFFFBF !important
+}
+.input-line {
+    background-color: transparent !important;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0
+}
+.table td,
+.table th {
+    border-top: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+}
+.form-sticker {
+    border-radius: 0;
+    border: 0;
+    -webkit-box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.1)
+}
+
+.form-sticker.big input {
+    border-bottom: 0;
+    padding: 0 .5rem;
+    font-size: 2.9rem;
+    line-height: 1;
+    font-weight: 700
+}
+.ui-inputfield{
+    border-bottom: 0 !important;
+}
+.form-sticker.inCard {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    
+    
+}
+.form-sticker.inCard input{
+    padding: 0 .5rem;
+}
+
+.buscador-prod {
+    position: relative
+}
+.buscador-prod .btn {
+    position: absolute;
+    right: .5rem;
+    bottom: 10%
+}
+.buscador-prod .big {
+    padding-right: 4.5rem !important
+}
+.lista-prod {
+    height: 520px;
+    overflow-y: scroll
+}
+.form-control-lg,
+.input-group-lg>.form-control,
+.input-group-lg>.input-group-addon,
+.input-group-lg>.input-group-btn>.btn {
+    padding: 0.84rem 1rem;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    border-radius: 0
+}
+select.form-control:not([size]):not([multiple]) {
+    height: calc(2.45rem + 2px)
+}
+.input-group-lg>.input-group-btn>select.btn:not([size]):not([multiple]),
+.input-group-lg>select.form-control:not([size]):not([multiple]),
+.input-group-lg>select.input-group-addon:not([size]):not([multiple]),
+select.form-control-lg:not([size]):not([multiple]) {
+    height: calc(3.1rem + 2px)
+}
+.navbar-toggler {
+    border: 1px solid #FFF
+}
+.navbar-toggler .material-icons {
+    color: #FFF
+}

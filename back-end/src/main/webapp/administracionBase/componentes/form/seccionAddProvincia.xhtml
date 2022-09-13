@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs">
+
+
+    <p:panelGrid  id="panelGridModificar"   columns="2" >
+        <h:outputText id="panelGrigTextModificarCod"
+                      styleClass="etiqueta"
+                      value="Código(*): "/>
+        <p:inputText   id="panelGrigInputModificarCod"
+                       value="#{bswProvinciasControlador.actual.codProvincia}"
+                       size="10" maxlength="5"
+                       style="text-transform: uppercase"
+                       onkeyup="cUpper(this)"/>
+        <h:outputText id="panelGrigTextModificarDesc"
+                      styleClass="etiqueta"
+                      value="Descripcion: "/>
+        <p:inputText   id="panelGrigInputModificarDesc"
+                       value="#{bswProvinciasControlador.actual.descripcion}"
+                       size="35" maxlength="80"
+                       style="text-transform: uppercase"
+                       onkeyup="cUpper(this)"/>
+        <p:spacer/>
+            <oupt:codigoDescripcionOuput id="oupt2"
+                                     codigoId="inputPais" 
+                                     valueOuput="Pais(*)"
+                                     object="#{utilControler.componentes.bswPaisesABM}"
+                                     valueCodigo="#{utilControler.componentes.bswPaisesABM.codPais}"
+                                     blurUpdate="@widgetVar(txtPais), @widgetVar(growl)"
+                                     dialogWidgetVar="dialogoPais"
+                                     btnTitle="Pais"
+                                     valueDescripcion="#{utilControler.componentes.bswPaisesABM.descripcion}"
+                                     descripcionId="txtPaises"/>
+    </p:panelGrid>
+    
+</ui:composition>

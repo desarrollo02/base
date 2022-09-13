@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+               
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+        <p:dataTable size="small" reflow="true" var="sucursal" value="#{loginControlador.sucursalesList}"  paginator="true" rows="10"
+                                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} 
+                                                 {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                 rowIndexVar="rowIndex"
+                                                 
+                                                 rowsPerPageTemplate="10,15">
+                                        <p:column>
+                                            <p:commandButton  type="push"       action="#{loginControlador.removeViewScopedBean()}"
+                                                              ajax="false"  widgetVar="botonSeleccionar"
+                                                              title="Seleccionar Registro"	
+                                                              onclick="PF('dialogSucursalActual').hide();"
+                                                              icon="pi pi-check">
+                                                <f:setPropertyActionListener 
+                                                    target="#{loginControlador.sucursal}" 
+                                                    value="#{sucursal}"/>
+                                                <f:actionListener binding="#{loginControlador.actualizarPresupuesto()}" />
+                                            </p:commandButton>  
+                                        </p:column>
+
+                                        <p:column filterBy="#{sucursal.descripcion}">
+                                            <f:facet name="header">
+                                                <h:outputText value="Descripci&oacute;n" />
+                                            </f:facet>
+                                            <h:outputText value="#{sucursal.descripcion}" />
+                                        </p:column>
+                                        <p:column filterBy="#{sucursal.codSucursal}">
+                                            <f:facet name="header">
+                                                <h:outputText value="C&oacute;digo" />
+                                            </f:facet>
+                                            <h:outputText value="#{sucursal.codSucursal}" />
+                                        </p:column>
+                                    </p:dataTable>
+
+    
+
+</ui:composition>

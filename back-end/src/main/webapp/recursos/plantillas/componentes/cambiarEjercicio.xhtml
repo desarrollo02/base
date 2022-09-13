@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+          <p:dataTable size="small" reflow="true"  paginator="true" emptyMessage="No existen registros."  rows="10"  id="grilla" rowsPerPageTemplate="5,10,15"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     var="fila" rowKey="fila.id" lazy="false"  value="#{cowEjerciciosFiscalesControlador.listaTodosActual}" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx">
+                                    <p:column>
+                                            <p:commandButton  type="push"     action="#{loginControlador.removeViewScopedBean()}"
+                                                              ajax="false"  widgetVar="botonSeleccionar"
+                                                              title="Seleccionar Registro"	
+                                                              onclick="PF('dialogEjerActual').hide();"
+                                                              icon="pi pi-check">
+                                                <f:setPropertyActionListener 
+                                                    target="#{loginControlador.ejercioActual}" 
+                                                    value="#{fila}"/>
+                                            </p:commandButton>  
+                                        </p:column>
+
+                        <p:column id="codZonasColumna"
+                                  sortBy="#{fila.codEjercicio}"
+                                        filterBy="#{fila.codEjercicio}"
+                                       >
+                                        <f:facet name="header">Ejercicio</f:facet>
+                                        <h:outputText  id="codZonasText"
+                                                    value="#{fila.codEjercicio}"/>
+                                </p:column>
+
+                             <p:column  filterBy="#{cowMayorizacionCuentasControlador.convirteFechaFiltro(fila.fecInicio)}">
+                           <f:facet name="header">
+                                    <h:outputText value="Fecha Inical"/>
+                                </f:facet>
+                                <h:outputText value="#{fila.fecInicio}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column filterBy="#{cowMayorizacionCuentasControlador.convirteFechaFiltro(fila.fecFinal)}">
+                           <f:facet name="header">
+                                    <h:outputText value="Fecha Final"/>
+                                </f:facet>
+                                <h:outputText value="#{fila.fecFinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                         
+                            <p:column 
+                             sortBy="#{fila.bswPersonasDuenho.nombre}"
+                                        filterBy="#{fila.bswPersonasDuenho.nombre}"
+                                        >
+                             <f:facet name="header">Nombre del Due&ntilde;o</f:facet>
+                                        <h:outputText
+                                                    value="#{fila.bswPersonasDuenho.nombre}"/>
+                                </p:column>
+                            
+                        
+                        
+                         <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="Abierto" />
+                                </f:facet> 
+                                <h:selectBooleanCheckbox disabled="true" value="#{fila.estado=='A'}">
+                                    <p:ajax event="change"  update="books"/>
+                                    </h:selectBooleanCheckbox>
+                             </p:column>
+                             
+                            
+                            
+                        </p:dataTable>
+                    
+    
+    
+    
+
+</ui:composition>

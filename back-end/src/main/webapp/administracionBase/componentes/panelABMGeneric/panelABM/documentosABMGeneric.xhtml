@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+
+    <p:panelGrid columns="10"  >
+
+        <oupt:codigoDescripcionOuput valueOuput="#{i18n.label_tipo_doc}" object="#{componentesVarios.bswIdentificacionesAbm}" id="ouptTipoDoc" codigoId="codTipoDocumento"
+                                     valueCodigo="#{componentesVarios.bswIdentificacionesAbm.codIdent}"
+                                     changeListener="#{componentesVarios.identificacionesChangeListener}"
+                                     blurUpdate="@widgetVar(descTipoDocumento) @widgetVar(growl)"
+                                     dialogWidgetVar="dialogoDocumento"
+                                     btnTitle="#{i18n.lista_tipo_documento}"
+                                     valueDescripcion="#{componentesVarios.bswIdentificacionesAbm.descripcion}"
+                                     descripcionId="descTipoDocumento"/>
+
+
+        <inpt:inputText valueOuput="#{i18n.label_numero}:" 
+                        value="#{bswPersonasControlador.identidadPersonaABMGeneric.objectView.numero}" size="15" maxlength="60"/>
+
+        <inpt:calendar valueOuput="#{i18n.label_fec_vencimiento}" 
+                       value="#{bswPersonasControlador.identidadPersonaABMGeneric.objectView.fecVencimiento}" />
+
+        <btn:btnAbmGeneric  action_property_boton_editar_datatable="#{bswPersonasControlador.agregarIdentidadABMGeneric()}"
+           
+            idBtnAdd="add2" updateBtnAdd="@widgetVar(panelCargaDocumento) @widgetVar(growl)"
+            actionBtnClean="#{bswPersonasControlador.limpiarIdentidadPersona()}" />
+
+
+    </p:panelGrid>
+
+</ui:composition>

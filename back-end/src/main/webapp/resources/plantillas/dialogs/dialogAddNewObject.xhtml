@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <composite:interface>
+        <composite:attribute name="header"/>
+        <composite:attribute name="widgetVar"/>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="guardarUpdate" default="@form"/>
+        <composite:attribute name="cancelarUpdate" default="@form"/>
+        <composite:attribute name="limpiarDatosUpdate" default="@widgetVar(panelCarga)"/>
+        <composite:attribute name="nombreForma"/>
+        <composite:attribute name="dataTable"/>
+        <composite:attribute name="abmForm"/>
+        <composite:attribute name="dlgForm"/>
+        <composite:attribute name="onclick" />
+        <composite:attribute name="width" default="690"/>
+        <composite:attribute name="height" default="320"/>
+
+    </composite:interface>
+
+    <composite:implementation>
+<!-- <p:focus context="#{cc.attrs.widgetVar}"/>-->
+        <p:dialog header="#{cc.attrs.header}" id="#{cc.attrs.widgetVar}"
+                  widgetVar="#{cc.attrs.widgetVar}"
+                  width="#{cc.attrs.width}"
+                  closable="true"
+                  height="#{cc.attrs.height}"
+                  modal="false"
+                  closeOnEscape="true"  
+                  responsive="true">
+            <tool:abmToolbar esDialogoNew="true" 
+                             controlador="#{cc.attrs.controlador}"
+                             guardarUpdate="#{cc.attrs.guardarUpdate}"
+                             cancelarUpdate="#{cc.attrs.cancelarUpdate}"
+                             updateLimpiarDatos="#{cc.attrs.limpiarDatosUpdate}"
+                             esconderDialogo="#{cc.attrs.onclick}"/>     
+                
+            <ui:include   src="#{cc.attrs.abmForm}" />
+            
+            <ui:include   src="#{cc.attrs.dlgForm}" />
+
+        </p:dialog>	
+    </composite:implementation>
+</ui:composition>

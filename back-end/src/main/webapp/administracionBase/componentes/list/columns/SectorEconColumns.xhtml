@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <p:column id="idColumn" 
+        sortBy="#{fila.id}" 
+        filterBy="#{fila.id}"  
+        headerText="ID">
+        <h:outputText id="idOut"
+            value="#{fila.id}"/>
+    </p:column>
+    <p:column id="codColumn" 
+        sortBy="#{fila.codSector}" 
+        filterBy="#{fila.codSector}"  
+        headerText="Codigo">
+        <h:outputText id="codOut"
+            value="#{fila.codSector}"/>
+    </p:column>
+    <p:column sortBy="#{fila.descripcion}" 
+        filterBy="#{fila.descripcion}"
+        headerText="Descripcion">
+        <h:outputText  value="#{fila.descripcion}"/>    
+    </p:column>
+</ui:composition>

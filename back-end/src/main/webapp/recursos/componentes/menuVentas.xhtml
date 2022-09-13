@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:root="http://java.sun.com/jsf/composite/root"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:f="http://java.sun.com/jsf/core"  xmlns:p="http://primefaces.org/ui">
+    <div id="menu_horizontal">
+        <h:form id="menuventa">
+            <p:menubar styleClass="menuTipoLetra">
+                <p:submenu label="Definiciones">
+                    <p:menuitem value="Habilitaciones" url="../ventas/CcwHabilitaciones.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarHabilitacionVentas()}"/>
+                    <p:menuitem value="Cajas" url="../ventas/CcwCajas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarCajasVentas()}"/>
+                    <p:menuitem value="Listas Precios" url="../ventas/VtwListasPreciosCab.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPedidoVentas() and false}"/>
+                    <p:menuitem value="Timbrados" url="../ventas/VtwTimbrados.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarTimbradosVentas()}"/>
+                    <p:menuitem value="Tipo Talonarios" url="../ventas/BswTiposTalonario.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarTipoTalonVentas()}"/>
+                    <p:menuitem value="Talonarios" url="../ventas/BswTalonarios.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarTalonariosVentas()}"/>
+                    <p:menuitem value="Clientes" url="../ventas/CcwClientes.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarClientesVentas()}"/>
+                    <p:menuitem value="Tipo de Cobros" url="../ventas/VtwTipoCobro.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarTipoCobroVentas()}"/>
+                    <p:menuitem value="Vendedores" url="../ventas/FvwVendedores.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarVendedorVentas()}"/>
+                    <p:menuitem value="Promociones de Articulo" url="../ventas/FvwPromocionesArticulos.xhtml" rendered="#{consultaPermisosVentasControlador.puedePromoArticulos()}"/>
+                  
+
+                </p:submenu>
+                <p:submenu label="Movimientos">
+                    <p:menuitem value="Pedidos" url="../ventas/VtwMovimientosPedidos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPedidoVentas() and false}"/>
+                    <p:menuitem value="Factura" url="../ventas/VtwFacturaPymes.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}"/>
+                    <p:menuitem value="Pedido" url="../ventas/VtwPedidoPymes.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPedidoVentas()}"/>
+                    <p:menuitem value="Consulta Art.en Factura" url="../ventas/VtwConsultaArt.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarConArtEnFactVentas()}"/>
+                    <p:menuitem value="Consulta Fact.Pendientes" url="../ventas/VtwConsultaFactPendientes.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarConArtEnFactVentas()}"/>
+                    
+                    <p:menuitem value="Notas Credito" url="../ventas/VtwNotasCredito.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}"/>
+                    <p:menuitem value="Actualiza Comprobante" url="../ventas/VtwActualizaNumeroFactura.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarActualizaComprabante()}"/>
+
+               </p:submenu>
+
+                
+
+                <p:submenu label="Reportes">
+                     <p:submenu label="Ventas" rendered="#{consultaPermisosVentasControlador.puedeConsultarVentasProductoVentas()}">                        
+                        <p:menuitem value="Ventas por producto" url="../ventas/VtwVentasVendedoresProductos.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarVentasProductoVentas()}" />
+                        <p:menuitem value="Ventas productos por Cli" url="../ventas/VtwVentasClientesProductos.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarVentasProductoVentas()}" />
+                        <p:menuitem value="Rank.Ventas de Art." url="../ventas/VtwRankingVentas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRankVentasVentas()}"/>
+                         <p:menuitem value="Cant. Art.Vendidos" url="../ventas/VtwArtVendidosYSinVentas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarCantArtVendidosVentas()}"/>
+                         <p:menuitem value="Rank.Ventas por Ven.US$" url="../ventas/VtwResumenVentasDolares.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarrankVentasVendVentas()}"/>
+                   
+                         
+                         <p:menuitem value="Ventas por Linea" url="../ventas/VtwVentasLineasVendedor.xhtml"
+                                        rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                              <p:menuitem value="Facturas emitidas" url="../ventas/VtwDetalleFacturasEmitidasVendedor.xhtml"
+                                    rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturasEmitidasVentas()}"/>
+                        <p:menuitem value="Facturas emitidas" url="../ventas/VtwReporteFacturasEmitidasVendedor.xhtml"
+                                       rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                   
+                         <p:menuitem value="Ventas por linea y marca" url="../ventas/VtwRptVentasLineaMarca.xhtml"
+                                      rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                   
+                         <p:separator/>
+                         <p:menuitem value="Ventas semanal" 
+                                rendered="#{consultaPermisosVentasControlador.puedeConsultarVentaSemanalVentas()}" url="VtwReporteVentaSemanalGrupoVendedores.xhtml"/>    
+                     <p:menuitem value="Total Ventas por Vended." rendered="#{consultaPermisosVentasControlador.puedeConsultarTotalVentasVentas()}" url="VtwVentasGrupoVend.xhtml"/>    
+                     <p:menuitem value="Notas de Credito emitidas" url="../ventas/VtwReporteNotasCreditoVendedor.xhtml"
+                                         rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                           
+                     </p:submenu>
+                      
+                     <p:submenu label="Ventas por cajeros" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaEmiCajeroVentas()}">                        
+                          <p:menuitem value="Ventas por producto" url="../ventas/VtwVentasCajerosProductos.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarVentasProdCajeroVentas()}" />
+                              <p:menuitem value="Facturas emitidas" url="../ventas/VtwDetalleFacturasEmitidasCajeros.xhtml"
+                                    rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaEmiCajeroVentas()}"/>
+                      
+                     </p:submenu>
+                   <p:submenu label="Comparativos" rendered="#{consultaPermisosVentasControlador.puedeConsultarVentasMenGrupoVentas()}">
+                   <p:menuitem value="Ventas Mensual por Grupo"  rendered="#{consultaPermisosVentasControlador.puedeConsultarVentasMenGrupoVentas()}" url="VtwComparativoVentasMensualesGrupo.xhtml"/>    
+                            
+                       <p:menuitem  value="Mensual por Lineas (Cant.)" url="../ventas/VtwReporteComparativoVentasMensualesLineas.xhtml"
+                            rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                             <p:menuitem value="Mensual por Líneas(Monto)" url="../ventas/VtwComparativoVentasMensualesMonto.xhtml"
+                                rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                             <p:menuitem value="Ventas Mensual por Vend." url="../ventas/VtwReporteComparativoVentasMensualesVendedor.xhtml"
+                                     rendered="#{consultaPermisosVentasControlador.puedeConsultarVentasSucursalVendVentas()}"/>
+                           
+                            
+                    </p:submenu>
+                    
+                    
+                    
+                    <p:submenu label="Resúmenes" rendered="#{consultaPermisosVentasControlador.puedeConsultarDetalleVentaDiariaVentas()}">
+                          <p:menuitem value="Ventas por sucursal(*P)" url="../ventas/VtwResumenVentasSucursal.xhtml"
+                                        rendered="#{consultaPermisosVentasControlador.puedeConsultarDetalleVentaDiariaVentas()}"/>
+                             <p:menuitem value="Ventas por Sector de Vent." url="../ventas/VtwReporteResumenVentasSectorVentas.xhtml"
+                                          rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                           <p:menuitem value="Ventas por clientes" url="../ventas/VtwReporteResumenVentasClientes.xhtml"
+                                             rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                                <p:menuitem value="Ventas por Condicion "
+                                        url="../ventas/VtwVentasporCondicion.xhtml"
+                                                rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                               <p:menuitem value="Facturas emit.por Sucursal"
+                                        url="../ventas/VtwReporteFacturasEmitidasSucursal.xhtml"
+                                                     rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                             <p:menuitem value="Facturas Emitidas"
+                                        url="../ventas/VtwResumenFacturasEmitidas.xhtml"
+                                                         rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                          <p:menuitem value="Notas de Crédito Emitidas" url="../ventas/VtwResumenNotasCreditoEmitidas.xhtml"
+                                                           rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                          <p:menuitem value="Facturas a Cliente"  rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}" url="VtwResumenFacturasClientes.xhtml"/>    
+                    
+                    </p:submenu>
+                      <p:submenu label="Detalle" rendered="#{consultaPermisosVentasControlador.puedeConsultarDetalleVentaDiariaVentas()}">
+                            <p:menuitem value="Venta diaria" url="../ventas/VtwRptVentaDiaria.xhtml"
+                                    rendered="#{consultaPermisosVentasControlador.puedeConsultarDetalleVentaDiariaVentas()}"/>
+                                <p:menuitem value="Detalle de Facturas Emitidas a Clientes" url="../ventas/VtwReporteDetalleFacturasEmitidas.xhtml"
+                                    rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                               <p:menuitem value="Venta Por Articulo(*P)" rendered="#{consultaPermisosVentasControlador.puedeConsultarDetalleVentaArtVentas()}" url="VtwDetalleVentasArticulos.xhtml"/>    
+                    
+                        </p:submenu>
+                    
+                    
+                     <p:submenu label="Gastos" rendered="#{consultaPermisosVentasControlador.puedeConsultarGastosVentas()}">                        
+                        <p:menuitem value="Rango de Fechas" url="../ventas/VtwReporteGastos.xhtml"
+                                    rendered="#{consultaPermisosVentasControlador.puedeConsultarGastosVentas()}"/>
+                    </p:submenu>
+                   
+                      <p:submenu label="Utilidad" rendered="#{consultaPermisosVentasControlador.puedeConsultarUtilidadVentas()}">                        
+                         <p:menuitem value="Utilidad" 
+                                    rendered="#{consultaPermisosVentasControlador.puedeConsultarUtilidadVentas() and false}" url="VtwReporteUtilidad.xhtml"/>  
+                    
+                         <p:menuitem value="Utilidad por Art" 
+                                    rendered="#{consultaPermisosVentasControlador.puedeConsultarUtilidadVentas()}" url="VtwReporteUtilidadArticulo.xhtml"/>  
+                  
+                      </p:submenu>
+                    
+                    <p:submenu label="Listados" >
+                        <p:menuitem value="Clientes por Vendedor" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}"
+                                    url="VtwReporteListadoClientesVendedor.xhtml"/>    
+                      <p:menuitem value="Cli. por Vende. con Saldo" rendered="#{false and consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="VtwClientesSaldo.xhtml"/>    
+                     <p:menuitem value="Vendedores" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="VtwListadoVendedores.xhtml"/>    
+                      <p:menuitem value="Impresion Lista de Precio" rendered="#{false and consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="VtwReporteListasPrecios.xhtml"/>
+               
+                      </p:submenu>
+                       <p:submenu label="Pedidos" rendered="false">
+                          <p:menuitem value="Pedidos Emitidos" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="VtwRptPedidosEmitidos.xhtml"/>    
+                    <p:menuitem value="Pedidos Pendientes" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="VtwReportePedidosPendientes.xhtml"/>    
+                   
+                    </p:submenu>
+                    
+                     <p:submenu label='Ranking de clientes' rendered="false"> 
+                       <p:menuitem value="Ranking de Clientes" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="VtwRankingClientes.xhtml"/>    
+                    
+                       </p:submenu>
+                        <p:menuitem value="Facturas Anuladas" url="../ventas/VtwReporteFacturasAnuladasSucursal.xhtml"
+                                       rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                              <p:menuitem value="Fact.a créd. pend.de cobro" url="../ventas/VtwFCRPendientesCobro.xhtml"
+                                           rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}"/>
+                                             <p:menuitem value="Notas de Crédito" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas() and false}" url="VtwReporteNotasCredito.xhtml"/>    
+                    
+                     
+                    
+ </p:submenu>
+            </p:menubar>
+        </h:form>
+    </div>
+    
+</ui:component>
+
+
+

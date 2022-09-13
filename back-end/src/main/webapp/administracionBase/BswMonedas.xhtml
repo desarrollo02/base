@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:form="http://java.sun.com/jsf/composite/plantillas/form"
+                xmlns:bread="http://java.sun.com/jsf/composite/plantillas/breadcrumb"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="breadcrumb">
+        <bread:breadcrumb nombreModulo="Ventas"/> 
+    </ui:define>
+    <ui:define name="content">
+
+       <form:formPrincipalColores id="fp"
+                            controlador="#{bswMonedasControlador}" 
+                            nombreForma="MONEDAS - BSMONEDA"
+                            dataTable="../../../administracionBase/componentes/list/seccionDataTableMoneda.xhtml"
+                            abmForm="../../../administracionBase/componentes/form/seccionAddMoneda.xhtml"
+                            dlgForm="../../../administracionBase/componentes/dlg/dlgFormMonedas.xhtml"/>
+        
+          <dlg:deleteGenericABMDialog widget_var="avisoEliminarHistorial"
+                                    delete_object="#{bswMonedasControlador.bswTiposCambioABMGeneric.deleteObject}"
+                                    object_delete="#{bswMonedasControlador.bswTiposCambioABMGeneric.objectDelete}"
+                                    aceptar_update_value="@widgetVar(grillaHistorial), @widgetVar(growl)"/>
+
+
+    </ui:define>
+
+</ui:composition>
+

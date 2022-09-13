@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <div class="ui-g dashboard">
+
+       <div class="ui-g-12 ui-lg-4">
+                <div class="ui-g-13">
+                    <div class="user-card card">
+                        <div class="user-card-header">
+                            <p:graphicImage name="images/dashboard/usercard.png" library="freya-layout" width="100"/>
+                        </div>
+                        <div class="user-card-content">
+                            <p:graphicImage name="images/tmp/#{loginControlador.usuario.nombreImagen}" width="80" library="freya-layout" />
+                            <p:commandButton rendered="false" id="user-button" type="button" icon="pi pi-plus" styleClass="secondary-btn"/>
+
+                            <p:menu  overlay="true" trigger="user-button" my="left top" at="left bottom">
+                                <p:menuitem value="Save" icon="pi pi-check" url="#"/>
+                                <p:menuitem value="Update" icon="ui-icon-refresh" url="#"/>
+                                <p:menuitem value="Delete" icon="ui-icon-close" url="#"/>
+                            </p:menu>
+
+                            <div class="user-card-name">
+                                <span>Bienvenido <br/> #{loginControlador.usuario.bswPersonas.nombre}</span>
+                            </div>
+
+                            <div class="user-detail">
+                               <ul>
+                                 <li class="clearfix">
+                                     <i class="fa fa-users fa-fw"></i>
+                                     <span class="project-title">Empresa Actual:</span>
+                                     <span class="project-detail">#{loginControlador.empresaSeleccionada.descripcion}</span>
+                                    </li>
+                                 <li class="clearfix">
+                                     <i class="fa fa-circle-o-notch fa-fw"></i>
+                                     <span class="project-title">Sucursal Actual:</span>
+                                     <span class="project-detail">#{loginControlador.sucursal.descripcion}</span>
+                                     
+                                 </li>
+                                
+                                
+                               </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+
+</div>
+</ui:composition>       

@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+        <p:dataTable size="small" rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}" reflow="true"  currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} registros"   paginator="true" emptyMessage="No existen registros."  rows="15"  id="grilla" rowsPerPageTemplate="5,10,15,50"
+                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}  {Exporters}"
+                 var="fila" rowKey="fila.id" lazy="true" value="#{utilControler.componentes.obtieneLazyLitsPagosCompCat()}" 
+                 rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}" 
+                 rowIndexVar="rowIx" widgetVar="grilla">
+            
+            <f:facet name="{Exporters}">
+              
+                            <h:outputText rendered="false" styleClass="etiqueta"  value="Monto Total:"/>
+           
+                            <p:inputText rendered="false"    id="totalMontoVista2" widgetVar="importeCompTotalOut" value="#{utilControler.componentes.montoTotal}" >
+                            <f:convertNumber pattern="###,###.##" />
+                        </p:inputText>
+                  <p:commandButton id="calculadoraFG" rendered="false"
+                                     ajax="true" update="form:subTab:grilla" icon="ui-icon-calculator">
+
+                    </p:commandButton>
+                            <p:commandButton
+                ajax="false"
+                value="Imprimir XLS"
+                icon="ui-icon ui-icon-print"
+                action="#{utilControler.componentes.imprimirPresupuesto()}">
+            </p:commandButton>
+                
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="tbl" fileName="cars"/>
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/csv.png" width="24"/>
+                <p:dataExporter type="csv" target="tbl" fileName="cars" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/xml.png" width="24"/>
+                <p:dataExporter type="xml" target="tbl" fileName="cars" />
+            </h:commandLink>
+        </f:facet>
+             <p:column style="width:3%">  
+            <p:rowToggler />  
+        </p:column>
+<p:column  filterStyle="width: 90%"  filterBy="#{fila.id}" style="width: 5%">
+                 
+                                       <f:facet name="header">Ref</f:facet>
+                <h:outputText  value="#{fila.id}"/>
+            </p:column>
+                                   <p:column  filterStyle="width: 90%"  filterBy="#{fila.prwPresDetCat.prwPresupuesto.anho}" style="width: 2%">
+                 
+                                       <f:facet name="header">Año</f:facet>
+                <h:outputText  value="#{fila.prwPresDetCat.prwPresupuesto.anho}"/>
+            </p:column>
+                                   
+            <p:column style="width: 8%">
+                <f:facet name="header">
+                    <h:outputText value="Fecha Pago"/>
+                </f:facet>
+                <h:outputText value="#{fila.fecMovimiento}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column   filterBy="#{fila.prwPresDetCat.bswCategoria.descripcion}" style="width: 10%" filterStyle="width: 90%">
+                <f:facet name="header">Cat.Presup.</f:facet>
+                <h:outputText  value="#{fila.prwPresDetCat.bswCategoria.descripcion}"/>
+            </p:column>
+            <p:column   filterBy="#{fila.prwPresDetCat.bswComponentes.descripcion}" style="width: 10%" filterStyle="width: 90%">
+                <f:facet name="header">Comp</f:facet>
+                <h:outputText  value="#{fila.prwPresDetCat.bswComponentes.descripcion}"/>
+            </p:column>
+            <p:column   filterBy="#{fila.prwPresDetCat.prwActividades.codigo}" style="width: 5%" filterStyle="width: 90%">
+                <f:facet name="header">Act.</f:facet>
+                <h:outputText  value="#{fila.prwPresDetCat.prwActividades.codigo}"/>
+            </p:column>                       
+            <p:column   filterBy="#{fila.tswCronogramaDetActividad.tswCronogramaPagoDet.tswCronogramaPagoCab.nroContrato}" style="width: 10%" filterStyle="width: 90%">
+                <f:facet name="header">Cont.Nro.</f:facet>
+                <h:outputText  value="#{fila.tswCronogramaDetActividad.tswCronogramaPagoDet.tswCronogramaPagoCab.nroContrato}"/>
+            </p:column>
+            <p:column   filterBy="#{fila.tswComprobantesCabecera.numComprobante}" style="width: 8%" filterStyle="width: 90%">
+                <f:facet name="header">Fact.Nro.</f:facet>
+                <h:outputText  value="#{fila.tswComprobantesCabecera.numComprobante}"/>
+            </p:column>    
+           <p:column   filterBy="#{fila.tswComprobantesCabecera.tswRendicionFondos.id}" style="width: 5%" filterStyle="width: 90%">
+                <f:facet name="header">Rend.</f:facet>
+                <h:outputText  value="#{fila.tswComprobantesCabecera.tswRendicionFondos.id}"/>
+            </p:column>    
+            <p:column   filterBy="#{fila.tswComprobantesCabecera.cmwProveedores.bswPersonas.nombre}"  style="width: 10%" filterStyle="width: 90%">
+                <f:facet name="header">Razon Social</f:facet>
+                <h:outputText  value="#{fila.tswComprobantesCabecera.cmwProveedores.bswPersonas.nombre}"/>
+            </p:column>
+                            
+            <p:column   filterBy="#{fila.tswComprobantesCabecera.referencia}" style="width: 25%" filterStyle="width: 90%">
+                <f:facet name="header">Concepto</f:facet>
+                <h:outputText  value="#{fila.tswComprobantesCabecera.referencia}"/>
+            </p:column>    
+            <p:column   filterBy="#{fila.cowPlanCuentas.codigo}" style="width: 8%" filterStyle="width: 90%">
+                <f:facet name="header">Plan Cuenta</f:facet>
+                <h:outputText  value="#{fila.cowPlanCuentas.codigo}"/>
+                <f:facet name="footer">
+                         <h:outputText  value="Total Pagado">
+            </h:outputText>
+                    </f:facet>
+            </p:column>    
+                                   <p:column style="text-align: right ; width: 10% ;" filterStyle="width: 90%">
+            <f:facet name="header">Monto</f:facet>
+                <h:outputText  value="#{fila.monto}">
+                <f:convertNumber pattern="###,###.##" />
+            </h:outputText>
+                                <f:facet name="footer">
+                    </f:facet>
+        </p:column>
+        <p:rowExpansion>  
+            <p:panelGrid  columns="7" style="width: 15%" >
+                <p:dataTable size="small" var="fila2" rowKey="fila2.id"  value="#{fila.tswPagosActividadesTipoCambioList}" 
+                 rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}" 
+                 rowIndexVar="rowIx">
+                              <p:column style="text-align: right ; width: 10% ;" filterStyle="width: 90%">
+            <f:facet name="header">Monto</f:facet>
+                <h:outputText  value="#{fila2.monto}">
+                <f:convertNumber pattern="###,###.##" />
+            </h:outputText>
+                               
+        </p:column>
+                    <p:column style="text-align: right ; width: 10% ;" filterStyle="width: 90%">
+            <f:facet name="header">Tipo Cambio</f:facet>
+                <h:outputText  value="#{fila2.tipoCambio}">
+                <f:convertNumber pattern="###,###.##" />
+            </h:outputText>
+                               
+        </p:column>
+                </p:dataTable>
+            </p:panelGrid>
+        </p:rowExpansion> 
+                               
+                               </p:dataTable>
+    
+    
+    
+    
+    
+    
+        <p:dataTable size="small" rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}" reflow="true"  currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} registros"   paginator="true" emptyMessage="No existen registros."  rows="15"  id="grillaME" rowsPerPageTemplate="5,10,15,50"
+                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}  {Exporters}"
+                 var="fila" rowKey="fila.id" lazy="true" value="#{utilControler.componentes.obtieneLazyLitsPagosCompCatME()}" 
+                 rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}" 
+                 rowIndexVar="rowIx" widgetVar="grillaME">
+            
+            <f:facet name="{Exporters}">
+              
+                <h:outputText rendered="false" styleClass="etiqueta"  value="Monto Total:"/>
+           
+                <p:inputText  rendered="false"    widgetVar="importeCompTotalOut" value="#{utilControler.componentes.montoTotal}" >
+                            <f:convertNumber pattern="###,###.##" />
+                        </p:inputText>
+                  <p:commandButton id="calculadoraFG" rendered="false"
+                                     ajax="true" update="form:subTab:grillaME" icon="ui-icon-calculator">
+
+                    </p:commandButton>
+                            <p:commandButton
+                ajax="false"
+                value="Imprimir XLS"
+                icon="ui-icon ui-icon-print"
+                action="#{utilControler.componentes.imprimirPagosRealizadosME()}">
+            </p:commandButton>
+                
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="tbl" fileName="cars"/>
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/csv.png" width="24"/>
+                <p:dataExporter type="csv" target="tbl" fileName="cars" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/xml.png" width="24"/>
+                <p:dataExporter type="xml" target="tbl" fileName="cars" />
+            </h:commandLink>
+        </f:facet>
+        
+<p:column  filterStyle="width: 90%"  filterBy="#{fila.id}" style="width: 5%">
+                 
+                                       <f:facet name="header">Ref</f:facet>
+                <h:outputText  value="#{fila.id}"/>
+            </p:column>
+                                   <p:column  filterStyle="width: 90%"  filterBy="#{fila.tswPagosActividadesPlanCuenta.prwPresDetCat.prwPresupuesto.anho}" style="width: 2%">
+                 
+                                       <f:facet name="header">Año</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.prwPresDetCat.prwPresupuesto.anho}"/>
+            </p:column>
+                                   
+            <p:column style="width: 8%">
+                <f:facet name="header">
+                    <h:outputText value="Fecha Pago"/>
+                </f:facet>
+                <h:outputText value="#{fila.tswPagosActividadesPlanCuenta.fecMovimiento}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.prwPresDetCat.bswCategoria.descripcion}" style="width: 10%" filterStyle="width: 90%">
+                <f:facet name="header">Cat.Presup.</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.prwPresDetCat.bswCategoria.descripcion}"/>
+            </p:column>
+            <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.prwPresDetCat.bswComponentes.descripcion}" style="width: 10%" filterStyle="width: 90%">
+                <f:facet name="header">Comp</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.prwPresDetCat.bswComponentes.descripcion}"/>
+            </p:column>
+            <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.prwPresDetCat.prwActividades.codigo}" style="width: 5%" filterStyle="width: 90%">
+                <f:facet name="header">Act.</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.prwPresDetCat.prwActividades.codigo}"/>
+            </p:column>                       
+            <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.tswCronogramaDetActividad.tswCronogramaPagoDet.tswCronogramaPagoCab.nroContrato}" style="width: 10%" filterStyle="width: 90%">
+                <f:facet name="header">Cont.Nro.</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.tswCronogramaDetActividad.tswCronogramaPagoDet.tswCronogramaPagoCab.nroContrato}"/>
+            </p:column>
+            <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.tswComprobantesCabecera.numComprobante}" style="width: 8%" filterStyle="width: 90%">
+                <f:facet name="header">Fact.Nro.</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.tswComprobantesCabecera.numComprobante}"/>
+            </p:column>    
+           <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.tswComprobantesCabecera.tswRendicionFondos.id}" style="width: 5%" filterStyle="width: 90%">
+                <f:facet name="header">Rend.</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.tswComprobantesCabecera.tswRendicionFondos.id}"/>
+            </p:column>    
+            <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.tswComprobantesCabecera.cmwProveedores.bswPersonas.nombre}"  style="width: 10%" filterStyle="width: 90%">
+                <f:facet name="header">Razon Social</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.tswComprobantesCabecera.cmwProveedores.bswPersonas.nombre}"/>
+            </p:column>
+                            
+            <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.tswComprobantesCabecera.referencia}" style="width: 25%" filterStyle="width: 90%">
+                <f:facet name="header">Concepto</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.tswComprobantesCabecera.referencia}"/>
+            </p:column>    
+            <p:column   filterBy="#{fila.tswPagosActividadesPlanCuenta.cowPlanCuentas.codigo}" style="width: 8%" filterStyle="width: 90%">
+                <f:facet name="header">Plan Cuenta</f:facet>
+                <h:outputText  value="#{fila.tswPagosActividadesPlanCuenta.cowPlanCuentas.codigo}"/>
+                <f:facet name="footer">
+                         <h:outputText  value="Total Pagado">
+            </h:outputText>
+                    </f:facet>
+            </p:column>    
+                                   <p:column style="text-align: right ; width: 10% ;" filterStyle="width: 90%">
+            <f:facet name="header">Monto</f:facet>
+                <h:outputText  value="#{fila.montoME}">
+                    
+                <f:convertNumber pattern="###,###.##" />
+            </h:outputText>
+                                <f:facet name="footer">
+                    </f:facet>
+        </p:column>
+                               
+                               </p:dataTable>
+    
+    
+                            <p:panel  >
+                            </p:panel>
+</ui:composition>

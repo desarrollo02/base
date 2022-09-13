@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<ui:component>
+           <div id="menu_horizontal">
+            <h:form id="menubase">
+                <p:menubar styleClass="menuTipoLetra">
+                    <p:submenu label="#{i18n.st_DEFINICIONES}" >
+                   <p:submenu label="#{i18n.st_articulos}" >
+                       <p:menuitem value="#{i18n.st_articulos}" url="StwArticulos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}"  />
+                       <p:menuitem value="#{i18n.st_marcas}" url="StwMarcas.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarMarcaArticulosStock()}"  />
+                       <p:menuitem value="#{i18n.st_linea}" url="StwLineas.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarLineaArticulosStock()}" />
+                        <p:menuitem value="#{i18n.st_familia}"  url="stwFamilia.xhtml" rendered="#{stwFamiliaControlador.puedeConsultar and false} " />
+                        <p:menuitem value="#{i18n.st_grupos_de_articulos}"  url="StwGruposArt.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarGrupoArtStock()}"/>
+                    </p:submenu>
+                        <p:menuitem value="#{i18n.st_unidades_de_medida}" url="StwUnidadesMedida.xhtml"  rendered="#{stwUnidadesMedidaControlador.puedeConsultar and false}"   />
+                      <p:menuitem value="#{i18n.st_iva}" url="StwIva.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarIvaStock()}" />
+                      <p:menuitem value="Grupo Comision"  url="StwGrupoComision.xhtml" rendered="#{stwGruposComisionControlador.puedeConsultar and false}"/>
+                      <p:menuitem value="Envases"  url="StwEnvases.xhtml" rendered="#{stwEnvasesControlador.puedeConsultar and false}"/>
+                      <p:menuitem value="Mot.Entrada/Salida"  url="StwMotivoEntSal.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMotEntSAlStock()}"/>
+                      <p:menuitem value="Motivo de Gasto"  url="StwMotivoGastos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMotGastosStock()}"/>
+                       
+                          <p:menuitem value="#{i18n.st_bloqueo_articulos}"  url="StwBloqueoArt.xhtml" rendered="#{stwBloqueoArtControlador.puedeConsultar and false}"/>
+                        <p:menuitem value="Precios Fijos"  url="StwPreciosFijos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPreciosFijosStock()}"/>
+                    <p:menuitem value="Proveedores"  url="CcwProveedores.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarProveedorStock()}"/>
+                   
+                    </p:submenu>
+               
+
+                    <p:submenu label="#{i18n.st_MOVIMIENTOS}">
+                        <p:menuitem value="E/S Articulos en Stock" url="StwEntSal.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}"  />
+                        <p:menuitem value="Carga de Gastos" url="StwGastos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarGastosAlStock()}"  />
+                        
+                        <p:menuitem value="Notas de Envio" url="StwNotasEnvio.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  />
+                        <p:menuitem value="#{i18n.st_existencia_de_articulos}"  url="StwExistenciaArt.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarExistenciaArtStock() and false}"/>
+                        <p:menuitem value="Consulta art.en E/S"  url="StwConsultaArtES.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosComprasStock()}"/>
+                        
+                        <p:menuitem value="Ubicaci&oacute;n de Art."  url="StwUbicArticulos.xhtml" rendered="#{stwUbicArticulosControlador.puedeConsultar and false}"/>
+                        <p:menuitem value="Recalculo de Stock"  url="StwRecalculo.xhtml" rendered="#{stwRecalculoControlador.puedeConsultar and false}"/>
+                        <p:menuitem value="Recalculo de Precios"  url="StwRecalculoPrecios.xhtml" rendered="#{stwRecalculoControlador.puedeConsultar}"/>
+
+                        </p:submenu>
+
+                    <p:submenu label="#{i18n.st_REPORTES}">
+                        <p:menuitem value="Listado de Articulos" url="StwReporteArticulos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptListaArtStock()}"  />
+                        <p:menuitem value="Existencia de Articulos" url="StwExistenciaArticulos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptExisArtStock()}"  />
+                        <p:menuitem value="Listado de Marcas"  url="StwRptMarcas.xhtml" rendered="#{stwRptMarcasControlador.puedeConsultar and false}"/>
+                        <p:menuitem value="Listado de Lineas"  url="StwRptLineas.xhtml" rendered="#{stwRptLineaControlador.puedeConsultar and false}"/>
+                        <p:menuitem value="Art.Debajo del Minimo"  url="StwReporteArticulosDebajoMinimo.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptartDebajoMinStock()}"/>
+                        <p:menuitem value="Mov.Art. en Stock"  url="StwMovimientoStock.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptMovArtPorMotivoStock()}"/>
+                        <p:menuitem value="Mov.Art. por Mot.E/S"  url="StwRptMovProdxMotivo.xhtml" rendered="#{stwRptMovProdxMotivoControlador.puedeConsultar}"/>
+                        <p:menuitem value="Saldo de Articulos"  url="StwRptSaldoArticulos.xhtml" rendered="#{stwRptMovProdxMotivoControlador.puedeConsultar and false}"/>
+                        
+                        <p:menuitem value="Etiqueta de Articulos"  url="StwReporteEtiquetaArticulos.xhtml" rendered="#{stwReporteEtiquetaArticulosControlador.puedeConsultar and false}"/>
+                        <p:menuitem value="Inventarios"  url="StwReporteInventario.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptInventarioStock()}"/>
+                  
+                    </p:submenu>
+                   
+                </p:menubar>
+            </h:form>
+        </div>
+       
+    </ui:component>
+</html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+
+
+    <composite:interface>
+        <composite:attribute name="requerido"/>
+        <composite:attribute name="mostrar_descripcion" default="true"/>
+        <composite:attribute name="label"/>
+        <composite:attribute name="size" default="7"/>
+        <composite:attribute name="id" />
+        <composite:attribute name="id_dialog" />
+        <composite:attribute name="id_filter" />
+        <composite:attribute name="valueChangeListener" method-signature="void listener(javax.faces.event.ValueChangeEvent)"/>
+        <composite:attribute name="value"/>
+        <composite:attribute name="event"/>
+        <composite:attribute name="descripcion"/>
+        <composite:attribute name="descripcion_id"/>
+        <composite:attribute name="mes"/>
+        <composite:attribute name="mes_id"/>
+        <composite:attribute name="update" />
+        <composite:attribute name="boton_disabled" default="false" />
+        <composite:attribute name="dialogo_widgetVar" default="dialogCronPago"/>
+        
+        <composite:attribute name="boton_id" default="0" shortDescription="prueba de parametro"/>
+        <composite:attribute name="mostrar_boton_busqueda"/>
+        <composite:attribute name="update_value" default="form:grillaCatPresDet"/>
+        <composite:attribute name="boton_actionListener" method-signature="void listener()"/>
+        <composite:attribute name="boton_disabled"/>
+        <composite:attribute name="action_button"  method-signature="void listener()" required="true" default="#{utilControler.componentes.obtieneListaPresDetCat()}"/>
+        <composite:attribute name="boton_ajax"/>
+        <composite:attribute name="boton_onclick"/>
+        <composite:attribute name="boton_title" default="Buscar Registros"/>
+        <composite:attribute name="boton_image" default="ui-icon ui-icon-search"/>
+        <composite:attribute name="mostrar_boton_mas" default="false"/>
+        <composite:attribute name="boton_mas_onclick" method-signature="void listener()"/>
+        <composite:attribute name="update_boton_mas" default="form:detallePG_compras"/>
+
+    </composite:interface>
+    <composite:implementation >
+
+        <h:outputText styleClass="etiqueta" value="#{cc.attrs.requerido=='true'?'(*)':''} #{cc.attrs.label}"  />
+
+
+
+        <p:commandButton ajax="true"  disabled="#{cc.attrs.boton_disabled}"  update="#{cc.attrs.update_value}" 
+
+                         onclick="PF('#{cc.attrs.id_dialog}').show();
+                                 cargaFocus('#{cc.attrs.id_filter}');" action="#{cc.attrs.action_button}" 
+                         title="#{cc.attrs.boton_title}" icon="ui-icon ui-icon-search">
+
+        </p:commandButton>
+        <p:commandButton ajax="true"  
+                         rendered="#{cc.attrs.mostrar_boton_mas}"         
+                         title="Nuevo Cronograma" 
+                         icon="ui-icon pi pi-plus"
+                         action="#{cc.attrs.boton_mas_onclick}">
+            <pe:selectDetailLevel level="4" />  
+        </p:commandButton>
+
+
+        <p:inputText   styleClass="Container70 Fnone MarAuto Fs18" 
+                       rendered="#{cc.attrs.mostrar_descripcion}" 
+                       id="#{cc.attrs.descripcion_id}" 
+                       value="#{cc.attrs.descripcion}" 
+                       widgetVar="#{cc.attrs.descripcion_id}"
+                       size="40"
+                       disabled="true"/> 
+
+    </composite:implementation>
+</html>
+
+
+

@@ -1,0 +1,59 @@
+
+=======
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+
+    <composite:interface>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="cantColumn" default="1"/>
+        <composite:attribute name="guardarUpdate" default=":fp:form"/>
+        <composite:attribute name="cancelarUpdate" default=":fp:form"/>
+        <composite:attribute name="guardaryAgregar" default="false"/>
+        <composite:attribute name="limpiarDatosUpdate" default="@widgetVar(panelCarga)"/>
+        <composite:attribute name="nombreForma"/>
+        <composite:attribute name="dataTable"/>
+        <composite:attribute name="abmForm"/>
+        <composite:attribute name="dlgForm"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <h:form id="form" style="width: 100%"  >
+            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  widgetVar="growl"/>
+
+            <h:panelGroup>
+<!--                    <h:outputText  value="#{cc.attrs.nombreForma}" styleClass="tituloTabla" />-->
+
+                <tool:abmToolbarReportes controlador="#{cc.attrs.controlador}"
+                                         guardarUpdate="#{cc.attrs.guardarUpdate}"
+                                         cancelarUpdate="#{cc.attrs.cancelarUpdate}"
+                                         nombreForma="#{cc.attrs.nombreForma}"
+                                         guardaryAgregar="#{cc.attrs.guardaryAgregar}"
+                                         updateLimpiarDatos="#{cc.attrs.limpiarDatosUpdate}"/>
+            </h:panelGroup>
+            <br/>
+       
+                <!--                <div class="ui-fluid">-->
+         <p:panel   class="card card_gdb gdb_orange"> 
+                    <ui:include   src="#{cc.attrs.abmForm}" />
+               
+           
+                    </p:panel>
+            <ui:include   src="#{cc.attrs.dlgForm}" />
+
+        </h:form>
+
+
+    </composite:implementation>
+</ui:composition>

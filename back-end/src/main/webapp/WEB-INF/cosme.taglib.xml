@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+        version="2.0">
+    <namespace>https://www.cosmesoft.com.py/cosme</namespace>
+    <tag>
+        <tag-name>dateColumn</tag-name>
+        <source>tags/dateColumn.xhtml</source>
+        <attribute>
+            <description>Texto desde</description>
+            <name>etiquetaDesde</name>
+        </attribute>
+        <attribute>
+            <description>Texto hasta</description>
+            <name>etiquetaHasta</name>
+        </attribute>
+        <attribute>
+            <description>fecha</description>
+            <name>fecha</name>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <description>formato fecha</description>
+            <name>formatoFecha</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>nombre campo</description>
+            <name>nombreCampo</name>
+        </attribute>
+        <attribute>
+            <description>accion a realizar cuando se actualiza campo del filtro</description>
+            <name>onvaluechanged</name>
+        </attribute>
+        <attribute>
+            <description>id campo desde</description>
+            <name>idCampoDesde</name>
+        </attribute>
+        <attribute>
+            <description>id campo hasta</description>
+            <name>idCampoHasta</name>
+        </attribute>
+        <attribute>
+            <description>nombre grilla</description>
+            <name>nombreGrilla</name>
+        </attribute>
+    </tag>
+</facelet-taglib>

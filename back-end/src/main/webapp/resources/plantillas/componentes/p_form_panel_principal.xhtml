@@ -1,0 +1,220 @@
+
+=======
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:gdb="http://java.sun.com/jsf/composite/plantillas/componentes"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <composite:interface>
+         <!--BOTON EDITAR-->
+        <composite:attribute name="render_boton_editar_datatable" default="false"/>
+        <composite:attribute name="disabled_boton_editar_datatable" default="false"/>     
+        <composite:attribute name="onclick_boton_editar_datatable" default="none"/>     
+        <composite:attribute name="update_boton_editar_datatable" default="false"/>
+        
+        <composite:attribute name="rendered_property_boton_editar_datatable" default="true"/> 
+        <composite:attribute name="target_property_boton_editar_datatable" default="false"/>     
+        <composite:attribute name="value_property_boton_editar_datatable" default="fila"/>
+        <composite:attribute name="action_property_boton_editar_datatable" default="#{utilControler.dummy()}" method-signature="void listener()"/>
+        
+        <composite:attribute name="rendered_2_property_boton_editar_datatable" default="true"/>
+        <composite:attribute name="target_2_property_boton_editar_datatable" default="false"/>     
+        <composite:attribute name="value_2_property_boton_editar_datatable" default="fila"/>
+        
+        
+        
+        <composite:attribute name="id_boton_editar_datatable" default="botonEditar"/>
+        <composite:attribute name="title_boton_editar_datatable" default="Editar Registro"/>
+        <!--FIN BOTON EDITAR-->
+        
+        <!--BOTON BORRAR-->
+        <composite:attribute name="render_boton_borrar_datatable" default="false"/>
+        <composite:attribute name="disabled_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="onclick_boton_borrar_datatable" default="PF('avisoEliminar').show()"/>     
+        <composite:attribute name="update_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="action_property_boton_borrar_datatable" default="#{utilControler.dummy()}" method-signature="void listener()"/>
+        <composite:attribute name="rendered_property_boton_borrar_datatable" default="true"/> 
+        <composite:attribute name="target_property_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="value_property_boton_borrar_datatable" default="fila"/>
+        <composite:attribute name="target_2_property_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="value_2_property_boton_borrar_datatable" default="fila"/>
+        <composite:attribute name="id_boton_borrar_datatable" default="botonEliminar"/>
+        <composite:attribute name="title_boton_borrar_datatable" default="Eliminar Registro"/>
+        <!--FIN BOTON BORRAR-->
+        
+        
+        <!--CULUMNA 1-->
+        <composite:attribute name="id_columna_datatable" default="col1"/>
+        <composite:attribute name="rendered_columna_datatable" default="true"/>
+        <composite:attribute name="sortby_columna_datatable" />
+        <composite:attribute name="filterby_columna_datatable" />
+        <composite:attribute name="header_columna_datatable" required="true"/>
+        <composite:attribute name="value_out_columna_datatable" required="true"/>
+        <composite:attribute name="id_out_columna_datatable" default="outcol1"/>
+        <!--FIN CULUMNA 1-->
+        <!--CULUMNA 2-->
+        <composite:attribute name="id_columna2_datatable" default="col2"/>
+        <composite:attribute name="rendered_columna2_datatable" default="true"/>
+        <composite:attribute name="sortby_columna2_datatable" />
+        <composite:attribute name="filterby_columna2_datatable" />
+        <composite:attribute name="header_columna2_datatable" required="true"/>
+        <composite:attribute name="value_out_columna2_datatable" required="true"/>
+        <composite:attribute name="id_out_columna2_datatable" default="outcol2"/>
+        <!--FIN CULUMNA 2-->
+        
+         <!--CULUMNA 3-->
+        <composite:attribute name="id_columna3_datatable" default="col3"/>
+        <composite:attribute name="rendered_columna3_datatable" default="false"/>
+        <composite:attribute name="sortby_columna3_datatable" />
+        <composite:attribute name="filterby_columna3_datatable" />
+        <composite:attribute name="header_columna3_datatable" required="false"/>
+        <composite:attribute name="value_out_columna3_datatable" required="false"/>
+        <composite:attribute name="id_out_columna3_datatable" default="outcol3"/>
+        <!--FIN CULUMNA 3-->
+         <!--CULUMNA 4-->
+        <composite:attribute name="id_columna4_datatable" default="col4"/>
+        <composite:attribute name="rendered_columna4_datatable" default="false"/>
+        <composite:attribute name="sortby_columna4_datatable" />
+        <composite:attribute name="filterby_columna4_datatable" />
+        <composite:attribute name="header_columna4_datatable" required="false"/>
+        <composite:attribute name="value_out_columna4_datatable" required="false"/>
+        <composite:attribute name="id_out_columna4_datatable" default="outcol4"/>
+        <!--FIN CULUMNA 4-->
+           <!--CULUMNA 5-->
+        <composite:attribute name="id_columna5_datatable" default="col5"/>
+        <composite:attribute name="rendered_columna5_datatable" default="false"/>
+        <composite:attribute name="sortby_columna5_datatable" />
+        <composite:attribute name="filterby_columna5_datatable" />
+        <composite:attribute name="header_columna5_datatable" required="false"/>
+        <composite:attribute name="value_out_columna5_datatable" required="false"/>
+        <composite:attribute name="id_out_columna5_datatable" default="outcol5"/>
+        <!--FIN CULUMNA 5-->
+           <!--CULUMNA 6-->
+        <composite:attribute name="id_columna6_datatable" default="col6"/>
+        <composite:attribute name="rendered_columna6_datatable" default="false"/>
+        <composite:attribute name="sortby_columna6_datatable" />
+        <composite:attribute name="filterby_columna6_datatable" />
+        <composite:attribute name="header_columna6_datatable" required="false"/>
+        <composite:attribute name="value_out_columna6_datatable" required="false"/>
+        <composite:attribute name="id_out_columna6_datatable" default="outcol6"/>
+        <!--FIN CULUMNA 6-->
+        
+           <!--CULUMNA 7-->
+        <composite:attribute name="id_columna7_datatable" default="col7"/>
+        <composite:attribute name="rendered_columna7_datatable" default="false"/>
+        <composite:attribute name="sortby_columna7_datatable" />
+        <composite:attribute name="filterby_columna7_datatable" />
+        <composite:attribute name="header_columna7_datatable" required="false"/>
+        <composite:attribute name="value_out_columna7_datatable" required="false"/>
+        <composite:attribute name="id_out_columna7_datatable" default="outcol7"/>
+        <!--FIN CULUMNA 7-->
+        
+        <composite:attribute name="id_datatable" default="grilla"/>
+        <composite:attribute name="rendered_datatable" default="true"/>
+        <composite:attribute name="lista_datatable" required="true"/>
+        <composite:attribute name="lazy_datatable" default="false"/>
+        
+    </composite:interface>
+    <composite:implementation>
+   
+        <gdb:p_datatable id="#{cc.attrs.id_datatable}" render_boton_editar_datatable="#{cc.attrs.render_boton_editar_datatable}"
+        disabled_boton_editar_datatable="#{cc.attrs.disabled_boton_editar_datatable}"     
+        onclick_boton_editar_datatable="#{cc.attrs.onclick_boton_editar_datatable}"     
+        update_boton_editar_datatable="#{cc.attrs.update_boton_editar_datatable}"     
+        target_property_boton_editar_datatable="#{cc.attrs.target_property_boton_editar_datatable}"     
+        value_property_boton_editar_datatable="#{cc.attrs.value_property_boton_editar_datatable}"
+        target_2_property_boton_editar_datatable="#{cc.attrs.target_2_property_boton_editar_datatable}"     
+        value_2_property_boton_editar_datatable="#{cc.attrs.value_2_property_boton_editar_datatable}"
+        id_boton_editar_datatable="#{cc.attrs.id_boton_editar_datatable}"
+        action_property_boton_editar_datatable="#{cc.attrs.action_property_boton_editar_datatable}"
+        rendered_property_boton_editar_datatable="#{cc.attrs.rendered_property_boton_editar_datatable}"
+        action_property_boton_borrar_datatable="#{cc.attrs.action_property_boton_borrar_datatable}"
+        rendered_property_boton_borrar_datatable="#{cc.attrs.rendered_property_boton_borrar_datatable}"
+        rendered_2_property_boton_editar_datatable="#{cc.attrs.rendered_2_property_boton_editar_datatable}"
+        title_boton_editar_datatable="#{cc.attrs.title_boton_editar_datatable}"
+        render_boton_borrar_datatable="#{cc.attrs.render_boton_borrar_datatable}"
+        disabled_boton_borrar_datatable="#{cc.attrs.disabled_boton_borrar_datatable}"     
+        onclick_boton_borrar_datatable="#{cc.attrs.onclick_boton_borrar_datatable}"     
+        update_boton_borrar_datatable="#{cc.attrs.update_boton_borrar_datatable}"     
+        target_property_boton_borrar_datatable="#{cc.attrs.target_property_boton_borrar_datatable}"     
+        value_property_boton_borrar_datatable="#{cc.attrs.value_property_boton_borrar_datatable}"
+        target_2_property_boton_borrar_datatable="#{cc.attrs.target_2_property_boton_borrar_datatable}"     
+        value_2_property_boton_borrar_datatable="#{cc.attrs.value_2_property_boton_borrar_datatable}"
+        id_boton_borrar_datatable="#{cc.attrs.id_boton_borrar_datatable}"
+        title_boton_borrar_datatable="#{cc.attrs.title_boton_borrar_datatable}"
+        id_columna_datatable="#{cc.attrs.id_columna_datatable}"
+        rendered_columna_datatable="#{cc.attrs.rendered_columna_datatable}"
+        sortby_columna_datatable="#{cc.attrs.sortby_columna_datatable}"
+        filterby_columna_datatable="#{cc.attrs.filterby_columna_datatable}"
+        header_columna_datatable="#{cc.attrs.header_columna_datatable}"
+        value_out_columna_datatable="#{cc.attrs.value_out_columna_datatable}"
+        id_out_columna_datatable="#{cc.attrs.id_out_columna_datatable}"
+        id_columna2_datatable="#{cc.attrs.id_columna2_datatable}"
+        rendered_columna2_datatable="#{cc.attrs.rendered_columna2_datatable}"
+        sortby_columna2_datatable="#{cc.attrs.sortby_columna2_datatable}"
+        filterby_columna2_datatable="#{cc.attrs.filterby_columna2_datatable}"
+        header_columna2_datatable="#{cc.attrs.header_columna2_datatable}"
+        value_out_columna2_datatable="#{cc.attrs.value_out_columna2_datatable}"
+        id_out_columna2_datatable="#{cc.attrs.id_out_columna2_datatable}"
+        
+        
+        id_columna3_datatable="#{cc.attrs.id_columna3_datatable}"
+        rendered_columna3_datatable="#{cc.attrs.rendered_columna3_datatable}"
+        sortby_columna3_datatable="#{cc.attrs.sortby_columna3_datatable}"
+        filterby_columna3_datatable="#{cc.attrs.filterby_columna3_datatable}"
+        header_columna3_datatable="#{cc.attrs.header_columna3_datatable}"
+        value_out_columna3_datatable="#{cc.attrs.value_out_columna3_datatable}"
+        id_out_columna3_datatable="#{cc.attrs.id_out_columna3_datatable}"
+        
+        
+        
+        id_columna4_datatable="#{cc.attrs.id_columna4_datatable}"
+        rendered_columna4_datatable="#{cc.attrs.rendered_columna4_datatable}"
+        sortby_columna4_datatable="#{cc.attrs.sortby_columna4_datatable}"
+        filterby_columna4_datatable="#{cc.attrs.filterby_columna4_datatable}"
+        header_columna4_datatable="#{cc.attrs.header_columna4_datatable}"
+        value_out_columna4_datatable="#{cc.attrs.value_out_columna4_datatable}"
+        id_out_columna4_datatable="#{cc.attrs.id_out_columna4_datatable}"
+        
+        
+        
+        id_columna5_datatable="#{cc.attrs.id_columna5_datatable}"
+        rendered_columna5_datatable="#{cc.attrs.rendered_columna5_datatable}"
+        sortby_columna5_datatable="#{cc.attrs.sortby_columna5_datatable}"
+        filterby_columna5_datatable="#{cc.attrs.filterby_columna5_datatable}"
+        header_columna5_datatable="#{cc.attrs.header_columna5_datatable}"
+        value_out_columna5_datatable="#{cc.attrs.value_out_columna5_datatable}"
+        id_out_columna5_datatable="#{cc.attrs.id_out_columna5_datatable}"
+        
+        
+        id_columna6_datatable="#{cc.attrs.id_columna6_datatable}"
+        rendered_columna6_datatable="#{cc.attrs.rendered_columna6_datatable}"
+        sortby_columna6_datatable="#{cc.attrs.sortby_columna6_datatable}"
+        filterby_columna6_datatable="#{cc.attrs.filterby_columna6_datatable}"
+        header_columna6_datatable="#{cc.attrs.header_columna6_datatable}"
+        value_out_columna6_datatable="#{cc.attrs.value_out_columna6_datatable}"
+        id_out_columna6_datatable="#{cc.attrs.id_out_columna6_datatable}"
+        
+        
+        
+        id_columna7_datatable="#{cc.attrs.id_columna7_datatable}"
+        rendered_columna7_datatable="#{cc.attrs.rendered_columna7_datatable}"
+        sortby_columna7_datatable="#{cc.attrs.sortby_columna7_datatable}"
+        filterby_columna7_datatable="#{cc.attrs.filterby_columna7_datatable}"
+        header_columna7_datatable="#{cc.attrs.header_columna7_datatable}"
+        value_out_columna7_datatable="#{cc.attrs.value_out_columna7_datatable}"
+        id_out_columna7_datatable="#{cc.attrs.id_out_columna7_datatable}"
+        
+        
+        id_datatable="#{cc.attrs.id_datatable}"
+        rendered_datatable="#{cc.attrs.rendered_datatable}"
+        lista_datatable="#{cc.attrs.lista_datatable}"
+        lazy_datatable="#{cc.attrs.lazy_datatable}" />
+    </composite:implementation>
+</ui:composition>

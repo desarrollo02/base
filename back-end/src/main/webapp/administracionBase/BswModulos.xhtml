@@ -1,0 +1,223 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="breadcrumb">
+        <li><p:link outcome="/empty">Administracion Base</p:link></li>
+    </ui:define>
+    <ui:define name="content">
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+
+                    <h:outputText id="BswModulos"
+                                  value="Modulos Existentes - BSMODULO"
+                                  styleClass="tituloTabla" />
+
+                    <h:form id="form" rendered="#{consultaPermisosVentasControlador.puedeConsultarModulosBase()}">
+                        <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                        <h:panelGroup>
+
+
+                            <p:toolbar>
+                                <p:toolbarGroup align="left">
+                                    <p:commandButton type="push"
+                                                     value="Nuevo" update=":form:botonAgregar" 
+                                                     icon="ui-icon-document"
+                                                     rendered="#{bswModulosControlador.puedeInsertar}"
+                                                     onclick="PF('dialogoAgregar').show();">
+
+                                        <f:setPropertyActionListener target="#{bswModulosControlador.esModificarDetalle}" value="false"/>
+                                    </p:commandButton>  
+
+
+
+
+                                    <p:commandButton type="push"
+                                                     title="Ayuda"
+                                                     icon="ui-icon-help"
+                                                     onclick="PF('dialogoAyuda').show();"/>
+                                    <p:commandButton type="push"
+                                                     title="Acerca de"
+                                                     icon="ui-icon-info"
+                                                     onclick="PF('dialogoAcercaDe').show();"/>
+                                    <p:commandButton type="push" value="Inicio" id="inicio_modulo"
+                                                     title="Ir a Inicio" immediate="true"
+                                                     icon="ui-icon-home" 
+                                                     action="inicio"/> 
+                                </p:toolbarGroup>
+
+
+
+
+
+                                <p:toolbarGroup align="right">                                     <p:menuButton value="Mas Visitados">                                         <p:menuitem value="Lista de Articulos" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}" url="/faces/controlStock/StwArticulos.xhtml"/>                                         <p:menuitem value="Compra" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}" url="/faces/controlStock/StwEntSal.xhtml"/>                                         <p:menuitem value="Venta" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="/faces/ventas/VtwFacturaPymes.xhtml"/> <p:menuitem value="Mov.Caja-Cobro" url="/faces/cuentasCobrar/CcwMovCajas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}"/>                                         <p:menuitem value="Envio entre sucursales"  rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                     </p:menuButton>                                 </p:toolbarGroup>                             </p:toolbar>
+                        </h:panelGroup>
+
+                        <p:dataTable size="small" reflow="true" id="grilla" emptyMessage="No existen registros."
+                                     paginator="true"
+                                     rows="10"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     var="fila" 
+                                     rendered="#{bswModulosControlador.puedeConsultar}"
+                                     value="#{bswModulosControlador.listaTodosActual}"
+                                     rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx"
+                                     widgetVar="grilla" >
+                            <p:column>                                                  
+                                <p:commandButton  rendered="#{bswModulosControlador.puedeActualizar}"
+
+                                                  type="push"
+                                                  id="botonEditar"
+                                                  ajax="true"  widgetVar="botonEditar"
+                                                  title="Editar Registro"	 disabled="#{fila.codModulo=='BS' or fila.codModulo=='VT' or fila.codModulo=='CC'
+                                                                                       or fila.codModulo=='FV' or fila.codModulo=='ST'}"
+                                                  onclick="PF('dialogoAgregar').show();" action="#{bswModulosControlador.cargaDatosParaEditar()}"
+                                                  update=":form:panelGridModificar:,:form:botonAgregar" 
+                                                  icon="ui-icon-pencil">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswModulosControlador.actualViejo}" 
+                                        value="#{fila}"/>
+                                    <f:setPropertyActionListener target="#{bswModulosControlador.esModificarDetalle}" value="true"/>
+                                </p:commandButton>
+                                <p:commandButton  rendered="#{bswModulosControlador.puedeBorrar}"
+                                                  id="botonEliminar" 
+                                                  ajax="true"  disabled="#{fila.codModulo=='BS' or fila.codModulo=='VT' or fila.codModulo=='CC'
+                                                                           or fila.codModulo=='FV' or fila.codModulo=='ST'}"
+                                                  title="Eliminar Registro"  
+                                                  onclick="PF('avisoEliminar').show()" 
+                                                  icon="pi pi-trash">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswModulosControlador.detalleAeliminar}" 
+                                        value="#{fila}"/>
+                                </p:commandButton>
+                            </p:column>            
+                            <p:column id="codBswModulosColumna"
+                                      sortBy="#{fila.codModulo}"
+                                      filterBy="#{fila.codModulo}">
+                                <f:facet name="header">Codigo</f:facet>
+                                <h:outputText  id="codBswModulosText"
+                                               value="#{fila.codModulo}"/>
+                            </p:column>
+
+
+                            <p:column id="descripcionBswModulosColumna"
+                                      sortBy="#{fila.descripcion}" 
+                                      filterBy="#{fila.descripcion}">
+                                <f:facet name="header">Descripcion</f:facet>
+                                <h:outputText  id="descripcionBswModulosText"
+                                               value="#{fila.descripcion}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+
+                        <p:dialog header="ABM Modulos" id="dialogoAgregar"
+                                  widgetVar="dialogoAgregar"
+                                  width="580"
+                                  closable="false" 
+                                  height="170"
+                                  modal="false">
+                            <div class="ui-g-12">
+                                <div class="card card-w-title">
+
+                                    <h:panelGrid id="panelGridModificar"   columns="2" >
+                                        <h:outputText id="panelGrigTextModificarCod"
+                                                      styleClass="etiqueta"
+                                                      value="Codigo(*): "/>
+                                        <p:inputText   id="panelGrigInputModificarCod"
+                                                       value="#{bswModulosControlador.actual.codModulo}"
+                                                       size="10" maxlength="2"
+                                                       style="text-transform: uppercase"
+                                                       onkeyup="cUpper(this)"/>
+                                        <h:outputText id="panelGrigTextModificarDesc"
+                                                      styleClass="etiqueta"
+                                                      value="Descripcion(*): "/>
+                                        <p:inputText   id="panelGrigInputModificarDesc"
+                                                       value="#{bswModulosControlador.actual.descripcion}"
+                                                       size="35" maxlength="80"
+                                                       style="text-transform: uppercase"
+                                                       onkeyup="cUpper(this)"/>
+
+                                    </h:panelGrid>
+                                    <br/> 
+                                    <div class="ui-dialog-footer ui-widget-content ui-helper-clearfix">
+                                        <p:commandButton icon="ui-icon-save" id="botonAgregar"
+                                                         value="#{bswModulosControlador.esModificarDetalle?'Modificar':'Agregar'}"
+                                                         action="#{bswModulosControlador.grabar()}"
+                                                         style="position: absolute; left: 140px; width: 100px"
+                                                         rendered="#{bswModulosControlador.puedeActualizar}"
+                                                         onclick="PF('dialogoAgregar').hide();"
+                                                         update=":form:dialogoAgregar :form:grilla, :form:growl" />
+
+                                        <p:commandButton icon="ui-icon ui-icon-close"
+                                                         value="Salir"
+                                                         style="position: absolute; left: 250px; width: 100px"
+                                                         onclick="PF('dialogoAgregar').hide();"
+                                                         update=":form:dialogoAgregar"
+                                                         action="#{bswModulosControlador.limpiar()}"/>
+
+                                    </div>
+                                </div></div>        
+                        </p:dialog>
+
+
+
+
+
+
+
+
+
+
+                        <p:dialog header="Ayuda" widgetVar="dialogoAyuda" modal="false" width="600">
+                            <c:forEach items="#{bswModulosControlador.ayuda}" var="fila">
+                                <h:outputText value="#{fila}"/><br></br>
+                            </c:forEach>
+                        </p:dialog>
+
+                        <p:dialog header="Datos de la Pantalla" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                            <c:forEach items="#{bswModulosControlador.acercaDe}" var="fila">
+                                <h:outputText value="#{fila}"/><br></br>
+                            </c:forEach>
+                        </p:dialog>
+
+
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <p:confirmDialog appendTo="@(body)" 
+                         hideEffect="clip" 
+                         message="Esta seguro que desea eliminar el registro?"
+                         header="Aviso" 
+                         severity="alert" 
+                         widgetVar="avisoEliminar">
+            <h:form>    
+                <p:commandButton 	value="Aceptar" 
+                                  onclick="PF('avisoEliminar').hide();" 
+                                  ajax="true"  
+                                  type="push"
+                                  action="#{bswModulosControlador.eliminarRegistro()}"
+                                  update=":form:grilla, :form:growl"
+                                  title="Eliminar Registro">
+                </p:commandButton>
+                <p:commandButton 	value="Cancelar" 
+                                  onclick="PF('avisoEliminar').hide();"  
+
+                                  title="Cancelar Accion">
+                </p:commandButton>
+            </h:form>
+        </p:confirmDialog>                            
+
+
+    </ui:define>
+
+</ui:composition>

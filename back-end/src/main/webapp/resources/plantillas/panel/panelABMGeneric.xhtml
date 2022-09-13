@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <composite:interface> 
+        <composite:attribute name="mostrarToolbar" default="true"/>
+        <composite:attribute name="dataTable"/>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="abmForm"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <p:toolbar rendered="#{cc.attrs.mostrarToolbar}">
+            <p:toolbarGroup align="left">
+                <p:commandButton  ajax="true" rendered="#{!cc.attrs.controlador.esABMPanel}"
+                                              value="Nuevo Detalle"  update=":fp:form"
+                                  icon="pi pi-plus" >
+                                <f:setPropertyActionListener target="#{cc.attrs.controlador.esABMPanel}" value="true"/>
+                </p:commandButton> 
+                
+                <p:commandButton  ajax="true"  rendered="#{cc.attrs.controlador.esABMPanel}"
+                                              value="Cancelar"  update=":fp:form"
+                                  icon="ui-icon ui-icon-close" >
+                                <f:setPropertyActionListener target="#{cc.attrs.controlador.esABMPanel}" value="false"/>
+                </p:commandButton> 
+                </p:toolbarGroup>
+        </p:toolbar>
+        <div class="ui-g dashboard" >
+            <div class="ui-g-12 ui-lg-12">
+             
+             
+                <div class="ui-g-12 ui-lg-3">
+                    <ui:include   src="#{cc.attrs.abmForm}" />
+      </div>    <div class="ui-g-12 ui-lg-9">
+                 <ui:include   src="#{cc.attrs.dataTable}" />
+           </div></div>
+        </div>
+    </composite:implementation>
+</ui:composition>

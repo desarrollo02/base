@@ -1,0 +1,152 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <composite:interface>
+        <composite:attribute name="id_comp" />
+        <composite:attribute name="id_grilla" />
+        <composite:attribute name="lazy" default="true"/>
+        <composite:attribute name="filtrarColumnas" default="true"/>
+        <composite:attribute name="list" default="#{tswComprasControlador.componentes.lazyListComprobantes}"/> 
+        <composite:attribute name="target_action_listener" method-signature="void listener()"/>
+        <composite:attribute name="controller" default="#{tswComprasControlador}"/> 
+        <composite:attribute name="renderRowToggler" default="true"/>
+        <composite:attribute name="renderEliminar" default="true"/>
+        <composite:attribute name="renderEditar" default="true"/>
+        <composite:attribute name="renderActionColumn" default="true"/>
+
+    </composite:interface>
+    <composite:implementation id="#{cc.attrs.id_comp}">
+
+        <p:dataTable reflow="true" paginator="true" widgetVar="#{cc.attrs.id_grilla}" emptyMessage="No existen registros."  rows="10"  id="#{cc.attrs.id_grilla}" rowsPerPageTemplate="5,10,15"
+                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     var="fila" rowKey="fila.id" lazy="#{cc.attrs.lazy}"  value="#{cc.attrs.list}" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                     rowIndexVar="rowIx">
+            <f:facet name="header">
+                <h:outputText value="DETALLE DE RENDICIONES"/>
+            </f:facet>
+
+            <p:column style="width:2%" >  
+                <p:rowToggler  />  
+            </p:column>
+            <p:column style="text-align: center ; width: 7% ;" rendered="#{cc.attrs.renderActionColumn}">          
+                <f:facet name="header">
+<p:commandButton  ajax="true" id="buttonNuevo"
+                              value="Nuevo" 
+                              icon="ui-icon-document"    update="fp:form" 
+                              rendered="#{!tswRendicionComprasControlador.esABMPanel}"
+                              action="#{tswRendicionComprasControlador.accionABMDetalle()}">
+                <f:setPropertyActionListener
+                    target="#{tswRendicionComprasControlador.esModificarDetalle}"
+                    value="false" />
+            </p:commandButton></f:facet>
+                <p:commandButton type="push"
+                                 id="botonEditar"
+                                 ajax="true"  
+                                 widgetVar="botonEditar"
+                                 title="Editar Registro"
+                                 update="fp:form" 
+                                 icon="ui-icon-pencil"
+                                 action="#{cc.attrs.controller.cargaDatosParaEditar()}"
+                                 rendered="#{cc.attrs.renderEditar}">
+                    <f:setPropertyActionListener target="#{cc.attrs.controller.actualViejo}" value="#{fila}"/>
+                    <f:setPropertyActionListener target="#{cc.attrs.controller.esModificarDetalle}" value="true"/>
+                </p:commandButton>
+
+                <p:commandButton
+                    id="botonEliminar" 
+                    ajax="true" 
+                    title="Eliminar Registro"  
+                    onclick="PF('avisoEliminarComp').show()" 
+                    icon="pi pi-trash"
+                    rendered="#{cc.attrs.renderEliminar}">
+                    <f:setPropertyActionListener 
+                        target="#{cc.attrs.controller.detalleAeliminar}" 
+                        value="#{fila}"/>
+                      <f:setPropertyActionListener 
+                        target="#{cc.attrs.controller.rendicionAddCompras}" 
+                        value="#{fila.tswRendicionFondos}"/>
+                </p:commandButton>
+            </p:column>
+            <p:column  style="width: 7%">
+                <f:facet name="header">
+                    <h:outputText value="Fecha"/>
+                </f:facet>
+                <h:outputText value="#{fila.fecComprobante}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+             <p:column  filterable="#{cc.attrs.filtrarColumnas}" filterBy="#{fila.prwPresDetCat.bswCategoria.descripcion}">
+                <f:facet name="header">Item Pres.</f:facet>
+                <h:outputText  value="#{fila.prwPresDetCat.bswCategoria.descripcion}">
+                </h:outputText>
+            </p:column>
+
+            <p:column id="colCodP" filterable="#{cc.attrs.filtrarColumnas}" filterBy="#{fila.cmwProveedores.bswPersonas.nombre}"  >
+                <f:facet name="header">Razon Social</f:facet>
+                <h:outputText id="codP" value="#{fila.cmwProveedores.bswPersonas.nombre}"/>
+            </p:column>
+
+            <p:column filterable="#{cc.attrs.filtrarColumnas}" id="colDescripcionP"  filterBy="#{fila.ruc}">
+                <f:facet name="header">ruc</f:facet>
+                <h:outputText  value="#{fila.ruc}">
+                </h:outputText>
+            </p:column>
+            <p:column filterable="#{cc.attrs.filtrarColumnas}" filterBy="#{fila.timbrado}">
+                <f:facet name="header">Timbrado</f:facet>
+                <h:outputText  value="#{fila.timbrado}">
+                </h:outputText>
+            </p:column>
+            <p:column filterable="#{cc.attrs.filtrarColumnas}" style="width: 5%">
+                <f:facet name="header">Tipo</f:facet>
+                <h:outputText  value="#{fila.tipComprobante}">
+                </h:outputText>
+            </p:column>
+            <p:column filterable="#{cc.attrs.filtrarColumnas}"  filterBy="#{fila.serComprobante}">
+                <f:facet name="header">serie</f:facet>
+                <h:outputText  value="#{fila.serComprobante}">
+                </h:outputText>
+            </p:column>
+            <p:column filterable="#{cc.attrs.filtrarColumnas}"  filterBy="#{fila.numComprobante}">
+                <f:facet name="header">Numero</f:facet>
+                <h:outputText  value="#{fila.numComprobante}">
+                </h:outputText>
+            </p:column>
+            <p:column  filterable="#{cc.attrs.filtrarColumnas}" filterBy="#{fila.totComprobante}">
+                <f:facet name="header">Importe</f:facet>
+                <h:outputText  value="#{fila.totComprobante}">
+                    <f:convertNumber pattern="###,###.##" />
+                </h:outputText>
+            </p:column>
+           
+            <p:column  filterable="#{cc.attrs.filtrarColumnas}" filterBy="#{fila.cowDiarioCabeceras.numAsiento}">
+                <f:facet name="header">Asiento Nro.</f:facet>
+                <h:outputText  value="#{fila.cowDiarioCabeceras.numAsiento}">
+                </h:outputText>
+            </p:column>
+            <p:rowExpansion>  
+                                <p:panelGrid layout="grid" columns="7" >
+                <h:outputText styleClass="etiqueta" value="Item Presupuestario:"/>
+                <h:outputText  value="#{fila.prwPresDetCat.bswCategoria.descripcion}">
+                </h:outputText>
+                <h:outputText styleClass="etiqueta"  value="Cuenta Exenta:"/>
+                <h:outputText  value="#{fila.cowPlanCuentas.nombreCuenta}">
+                </h:outputText>
+                <h:outputText styleClass="etiqueta"  value="Cuenta 10%:"/>
+                <h:outputText  value="#{fila.cowPlanCuentasIva10.nombreCuenta}">
+                </h:outputText>
+                <h:outputText styleClass="etiqueta"  value="Cuenta 5%:"/>
+                <h:outputText  value="#{fila.cowPlanCuentasIva5.nombreCuenta}">
+                </h:outputText>
+                
+
+                </p:panelGrid>
+                
+            </p:rowExpansion>
+        </p:dataTable>
+
+    </composite:implementation>
+</ui:composition>

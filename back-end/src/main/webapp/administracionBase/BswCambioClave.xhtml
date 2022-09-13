@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+            <ui:define name="content">
+
+
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="false" />
+                    <h:panelGrid>
+                        <h:panelGroup>
+                            <h:outputText id="BswCambioClave"
+                                          value="Cambio de contraseña"
+                                          styleClass="tituloTabla" />
+                            <p:toolbar>
+                                <p:toolbarGroup align="left">
+
+                                    <p:commandButton
+                                        ajax="false"
+                                        value="Cambiar"
+                                        icon="ui-icon ui-icon-disk"
+                                        action="#{bswCambioClave.cambiar}">
+                                    </p:commandButton>
+
+                                    <p:commandButton
+                                        onclick="bswCambioClave"
+                                        value="Limpiar"
+                                        action="#{bswCambioClave.limpiar}"/>
+
+                                  
+                                    <p:commandButton type="push"
+                                                     title="Ayuda"
+                                                     icon="ui-icon-help"
+                                                     onclick="PF('dialogoAyuda').show();"/>
+                                    <p:commandButton type="push"
+                                                     title="Acerca de"
+                                                     icon="ui-icon-info"
+                                                     onclick="PF('dialogoAcercaDe').show();"/>
+                                         <p:commandButton type="push"
+	                               title="Ir a Inicio"
+	                               icon="ui-icon-home"  id="inicio_modulo"
+	                               action="inicio.xhtml?faces-redirect=true"/>
+                                  
+                                </p:toolbarGroup>
+
+                             
+                               
+                             <p:toolbarGroup align="right">                                     <p:menuButton value="Mas Visitados">                                         <p:menuitem value="Lista de Articulos" url="/faces/controlStock/StwArticulos.xhtml"/>                                         <p:menuitem value="Compra" url="/faces/controlStock/StwEntSal.xhtml"/>                                         <p:menuitem value="Venta" url="/faces/ventas/VtwFacturaPymes.xhtml"/>                                         <p:menuitem value="Envio entre sucursales" url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                     </p:menuButton>                                 </p:toolbarGroup>                             </p:toolbar>
+                        </h:panelGroup>
+                    
+                    <p:panelGrid styleClass="bgpanelgrid" id="accesoGrupoPanelGridReporte"   columnClasses="label,label,label" columns="3" style="width: 50%; ">
+
+                        <h:panelGroup>
+                            <h:outputText id="lblUsuario"
+                                          styleClass="etiqueta"
+                                          value="Usuario: " />
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:outputText id="txtUsuario"
+                                          value="#{bswCambioClave.usuarioLogueado.codUsuario}"/>
+                        </h:panelGroup>
+                        <h:panelGroup/>
+
+                        <h:panelGroup>
+                            <h:outputText id="lblVieja"
+                                          styleClass="etiqueta"
+                                          value="Contraseña actual: " />
+                        </h:panelGroup>
+
+                        <h:panelGroup>
+                            <h:inputSecret  id="txtVieja"
+                                          value="#{bswCambioClave.claveVieja}"
+                                          size="20"
+                                          immediate="true"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup/>
+
+                        <h:panelGroup>
+                            <h:outputText id="lblNueva"
+                                          styleClass="etiqueta"
+                                          value="Contraseña nueva: " />
+                        </h:panelGroup>
+
+                        <h:panelGroup>
+                            <h:inputSecret id="txtNueva"
+                                          value="#{bswCambioClave.claveNueva}"
+                                          size="20"
+                                          immediate="true"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup/>
+
+                        <h:panelGroup>
+                            <h:outputText id="lblConfirmacion"
+                                          styleClass="etiqueta"
+                                          value="Confirmar contraseña nueva: " />
+                        </h:panelGroup>
+
+                        <h:panelGroup>
+                            <h:inputSecret  id="txtConfirmacion"
+                                          value="#{bswCambioClave.confirmacionClave}"
+                                          size="20"
+                                          immediate="true"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup/>
+                    </p:panelGrid>
+
+                    <!--***************************************************************************************************************** -->
+
+                    <p:dialog header="Ayuda!!!" widgetVar="dialogoAyuda" modal="false" width="600">
+                        <c:forEach items="#{bswCambioClave.ayuda}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+                    <p:dialog header="Datos de la Pantalla!!!" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                        <c:forEach items="#{bswCambioClave.acercaDe}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+</h:panelGrid>
+
+                </h:form>
+          </ui:define>
+       </ui:composition>
+    </body>
+</html>

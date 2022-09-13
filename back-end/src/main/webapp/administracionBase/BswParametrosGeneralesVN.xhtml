@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:gdb="http://java.sun.com/jsf/composite/plantillas/componentes"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/WEB-INF/template.xhtml">
+             
+    <ui:define name="breadcrumb">
+ 
+        <li>Administracion Base</li>
+            </ui:define>
+        <ui:define name="content">
+
+            <gdb:p_form  nombre_forma="Parametros Generales - BSPARGEN" 
+                            nombre_modulo="Administracion Base" 
+                            include_panel_principal="../../../administracionBase/paneles_principales/BswParametrosGeneralesVN_panel_principal.xhtml"  
+                            permiso_consulta="#{consultaPermisosVentasControlador.puedeConsultarParamGenBase()}" id="form" 
+                            items_acerca_de="#{bswParametrosGeneralesControlador.acercaDe}" 
+                            itmes_ayuda="#{bswParametrosGeneralesControlador.ayuda}" rendered_confirm="true" 
+                            action="#{bswParametrosGeneralesControlador.eliminarRegistro()}" update="form:pp:grilla:grilla"/>
+     
+            </ui:define>      
+
+</ui:composition>

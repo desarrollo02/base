@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+>
+
+    <a href="#" id="layout-config-button" class="layout-config-button">
+        <i class="pi pi-cog"/>presupuestoActual
+    </a>
+
+    <div id="layout-config" class="layout-config">
+        <h:form id="config-form" styleClass="layout-config-form">
+            <h5 style="margin-top: 0">Configuración Actual</h5>
+
+            <ul>
+                <li jsf:onclick="PF('dialogSucursalActual').show();">
+                    <div class="task-info">
+                        <h6>Sucursal</h6>
+                        <span>#{loginControlador.sucursal.descripcion}</span>
+                    </div>
+                    <hr/>
+                </li>
+                <li jsf:onclick="PF('dialogEmpresaActual').show();">
+                    <div class="task-info">
+                        <h6>Empresa</h6>
+                        <span>#{loginControlador.empresaSeleccionada.descripcion}</span>
+                    </div>
+                    <hr/>
+                </li>
+            </ul>
+
+        </h:form>
+    </div>
+
+</ui:composition>

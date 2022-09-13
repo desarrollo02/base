@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">          
+    <p:column id="descBswModulosColumna" 
+        sortBy="#{fila.codProvincia}"
+        filterBy="#{fila.codProvincia}" >
+        <f:facet name="header">
+            <h:outputText value="#{i18n.column_codigo}"/>
+        </f:facet>
+        <h:outputText id="descBswModulosText" 
+            value="#{fila.codProvincia}"/>
+    </p:column>
+    <p:column sortBy="#{fila.descripcion}"
+        filterBy="#{fila.descripcion}">
+        <f:facet name="header">
+            <h:outputText value="#{i18n.column_desc}"/>
+        </f:facet>
+        <h:outputText id="colTxtParametro" 
+            value="#{fila.descripcion}"/>
+    </p:column>
+    <p:column id="colValor"
+        filterBy="#{fila.bswPaises.descripcion}">
+        <f:facet name="header">
+            <h:outputText value="#{i18n.column_pais}"/>
+        </f:facet>
+        <h:outputText value="#{fila.bswPaises.descripcion}"/>
+   </p:column>
+</ui:composition>

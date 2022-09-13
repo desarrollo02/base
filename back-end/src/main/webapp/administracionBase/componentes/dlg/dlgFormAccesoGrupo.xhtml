@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <dlg:dialogColumnsParam header="#{i18n.lista_modulos}"	
+                                              widgetVar="dialogoModulo"
+                                              idDataTable="grillaModulo"
+                                              dataTableList="#{utilControler.componentes.lazyListModulo}"
+                                              propertyActionListenerTarget="#{utilControler.componentes.bswModulosABM}"
+                                              selecionarUpdate="@widgetVar(inputCodModulo), @widgetVar(txtCodModulo),@widgetVar(growl)"
+                                              lazy="true">
+        <p:column style="width: 20%" 
+                          sortBy="#{fila.codModulo}"
+                          filterBy="#{fila.codModulo}">
+                    <f:facet name="header">Codigo</f:facet>
+                    <h:outputText value="#{fila.codModulo}"/>
+                </p:column>
+
+                <p:column sortBy="#{fila.descripcion}"
+                          filterBy="#{fila.descripcion}">
+                    <f:facet name="header">Descripcion</f:facet>
+                    <h:outputText value="#{fila.descripcion}"/>
+                </p:column> 
+    </dlg:dialogColumnsParam>    
+    <dlg:dialogColumnsParam header="#{i18n.lista_grupo_usuarios}"	
+                                              widgetVar="dialogoGrupo"
+                                              idDataTable="grillaGrupo"
+                                              dataTableList="#{utilControler.componentes.lazyListGrupoUsuario}"
+                                              propertyActionListenerTarget="#{utilControler.componentes.bswGruposUsuariosABM}"
+                                              selecionarUpdate="@widgetVar(inputCodigo), @widgetVar(txtCodGrupo),@widgetVar(growl)"
+                                              lazy="true">
+        
+        
+     <p:column style="width: 20%" 
+                          sortBy="#{fila.codGrupo}"
+                          filterBy="#{fila.codGrupo}">
+                    <f:facet name="header">Codigo</f:facet>
+                    <h:outputText value="#{fila.codGrupo}"/>
+                </p:column>
+
+                <p:column sortBy="#{fila.descripcion}"
+                          filterBy="#{fila.descripcion}">
+                    <f:facet name="header">Descripcion</f:facet>
+                    <h:outputText value="#{fila.descripcion}"/>
+                </p:column> 
+    </dlg:dialogColumnsParam>       
+    <dlg:dialogColumnsParam header="#{i18n.lista_formas}"	
+                                              widgetVar="dialogoFormulario"
+                                              idDataTable="grillaFormulario"
+                                              dataTableList="#{utilControler.componentes.lazyListDetalleFormas}"
+                                              propertyActionListenerTarget="#{utilControler.componentes.bswFormasABM}"
+                                              selecionarUpdate="@widgetVar(inputCodFormulario), @widgetVar(txtCodFormulario),@widgetVar(growl)"
+                                              lazy="true">
+     <p:column style="width: 20%" 
+                          sortBy="#{fila.nomForma}"
+                          filterBy="#{fila.nomForma}">
+                    <f:facet name="header">Codigo</f:facet>
+                    <h:outputText value="#{fila.nomForma}"/>
+                </p:column>
+
+                <p:column sortBy="#{fila.descripcion}"
+                          filterBy="#{fila.descripcion}">
+                    <f:facet name="header">Descripcion</f:facet>
+                    <h:outputText value="#{fila.descripcion}"/>
+                </p:column>  
+    </dlg:dialogColumnsParam>
+
+</ui:composition>

@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+    <composite:interface>
+        <composite:attribute name="converterMessage" default="Formato de Fecha inválido"/>
+        <composite:attribute name="value"/>
+         <composite:attribute name="valueOuput"/>
+         <composite:attribute name="disabled" default="false"/>
+        <composite:attribute name="locale" default="es"/>
+          <composite:attribute name="pattern" default="dd/MM/yyyy"/>
+        <composite:attribute name="size" default="10"/>
+        <composite:attribute name="blurUpdate"/>
+    </composite:interface>
+
+    <composite:implementation>
+         <b> <label for="" class="mb-0">#{cc.attrs.valueOuput} </label></b>
+       
+         <p:calendar converterMessage="#{cc.attrs.converterMessage}" navigator="true"
+                    value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}"
+                    pattern="#{cc.attrs.pattern}" size="#{cc.attrs.size}" locale="#{cc.attrs.locale}">
+            <p:ajax event="blur" update="#{cc.attrs.blurUpdate}"/>
+        </p:calendar>
+    </composite:implementation>
+
+</ui:composition>

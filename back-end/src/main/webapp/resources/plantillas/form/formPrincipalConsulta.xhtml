@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+
+    <composite:interface>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="cantColumn" default="1"/>
+        <composite:attribute name="guardarUpdate" default="@form"/>
+        <composite:attribute name="cancelarUpdate" default="@form"/>
+        <composite:attribute name="guardaryAgregar" default="false"/>
+        <composite:attribute name="mostrarPanelFiltros" default="true"/>
+        <composite:attribute name="mostrarPanelSumas" default="false"/>
+
+        <composite:attribute name="limpiarDatosUpdate" default="@widgetVar(panelCarga)"/>
+        <composite:attribute name="nombreForma"/>
+        <composite:attribute name="dataTable"/>
+        <composite:attribute name="filtros"/>
+
+        <composite:attribute name="totales"/>
+        <composite:attribute name="abmForm"/>
+        <composite:attribute name="abmFormCabeceraDetalle"/>
+        <composite:attribute name="dlgForm"/>
+        <composite:attribute name="minimizable" default="true"/>
+        <composite:attribute name="collapsed" default="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <style type="text/css">
+            .ui-paginator a {
+                margin-right: 5px;
+            }
+        </style>
+
+        <h:form id="form" style="width: 100%" rendered="#{cc.attrs.controlador.puedeConsultar}" >
+            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  widgetVar="growl"/>
+            <p:panel rendered="#{cc.attrs.mostrarPanelFiltros}" header="FILTROS" widgetVar="panel" toggleable="#{cc.attrs.minimizable}" collapsed="#{cc.attrs.collapsed}">
+
+                <ui:include   src="#{cc.attrs.filtros}" />
+            </p:panel>
+
+            <p:panel rendered="#{cc.attrs.mostrarPanelSumas}" header="TOTALES" widgetVar="panelSumas" toggleable="#{cc.attrs.minimizable}" collapsed="true">
+
+                <ui:include   src="#{cc.attrs.totales}" />
+            </p:panel>
+            <p:panel widgetVar="dt">
+
+                <ui:include   src="#{cc.attrs.dataTable}" />
+            </p:panel>
+
+
+        </h:form>
+
+    </composite:implementation>
+</ui:composition>

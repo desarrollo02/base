@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pnl="http://java.sun.com/jsf/composite/plantillas/panel"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+   <p:tabView>
+       <p:tab title="DATOS BASICOS" class="card gdb_yelowgreen">
+    <div class="p-grid">    
+        <p:card style="width: 43%; margin-bottom: 2em; margin-right: 2em;" class="p-col">    
+            <p:divider align="center" >
+                <div class="p-d-inline-flex p-ai-center">
+                    <i class="pi pi-book p-mr-2"/>
+                    <b>DATOS DE LA PERSONA</b>
+                </div>
+            </p:divider>
+            <h:panelGrid columns="1" > 
+                <h:panelGroup>               
+                    <span class="ui-float-label"> 
+                        <p:inputText id="panelGrigInputModificarCod" 
+                                     value="#{bswPersonasControlador.actual.codPersona}" 
+                                     size="10" 
+                                     maxlength="20"/>
+                        <p:outputLabel for="@previous" 
+                                       value="Código(*)"/>   
+                    </span>
+                </h:panelGroup>
+            <br/>
+                <h:panelGroup>  
+                    <span class="ui-float-label"> 
+                        <p:inputText id="panelGrigInputModificarDesc"
+                                     value="#{bswPersonasControlador.actual.primerNombre}"
+                                     maxlength="100"
+                                     size="60"
+                                     style="text-transform: uppercase; width:auto"
+                                     onkeyup="cUpper(this)"/>
+                        <p:outputLabel for="@previous" 
+                                       value="Nombre(*)"/>   
+                    </span>
+                </h:panelGroup>
+                    <h:panelGroup>  <br/>
+                    <span class="ui-float-label"> 
+                        <p:inputText id="panelGrigInputModificarDescApel"
+                                     value="#{bswPersonasControlador.actual.primerApellido}"
+                                     maxlength="100"
+                                     size="60"
+                                     style="text-transform: uppercase; width:auto"
+                                     onkeyup="cUpper(this)"/>
+                        <p:outputLabel for="@previous" 
+                                       value="Apellido(*)"/>   
+                    </span>
+                </h:panelGroup>
+            </h:panelGrid>
+            <br/>  
+            <h:panelGrid columns="4" > 
+                <h:panelGroup>  
+                    <span class="ui-float-label"> 
+                            <p:calendar id="panelGrigInputModificarFechaNac"
+                             value="#{bswPersonasControlador.actual.fecNacimiento}"
+                             size="15"/>
+                        <p:outputLabel for="@previous" 
+                                       value="Fecha de Nacimiento"/>   
+                    </span>
+                </h:panelGroup> <p:outputLabel 
+                                       value="Sexo"/> :
+                <h:panelGroup>  
+                    <span class="ui-float-label">  
+                         <p:selectOneMenu id="tipoList2" 
+                                 value="#{bswPersonasControlador.actual.sexo}" 
+                                 title="#{i18n.label_seleccione_opcion}">
+                        <f:selectItem  itemLabel="#{i18n.label_seleccione_opcion}" />
+                        <f:selectItem id="s12" itemLabel="#{i18n.label_masculino}" itemValue="M"/>
+                        <f:selectItem id="s22" itemLabel="#{i18n.label_Femenino}" itemValue="F"/>
+                    </p:selectOneMenu>
+                       
+                    </span>
+                </h:panelGroup>
+              
+            </h:panelGrid>
+          <oupt:codigoDescripcionOuput id="oupt2"
+                                     codigoId="inputCodNiverEstudio" 
+                                     valueOuput="Niver de Educacion"
+                                     object="#{utilControler.componentes.bswNivelEstudioABM}"
+                                     valueCodigo="#{utilControler.componentes.bswNivelEstudioABM.codNivel}"
+                                     blurUpdate="@widgetVar(txtNivelEstudio), @widgetVar(growl)"
+                                     dialogWidgetVar="dialogoNivelEstudio"
+                                     btnTitle="Nivel de Estudio"
+                                     valueDescripcion="#{utilControler.componentes.bswNivelEstudioABM.descripcion}"
+                                     descripcionId="txtNivelEstudio"/>
+        </p:card>    
+        <p:card style="width: 35%; margin-bottom: 2em;" class="p-col">
+            <p:divider align="center" >
+                <div class="p-d-inline-flex p-ai-center">
+                    <i class="pi pi-book p-mr-2"/>
+                    <b>DATOS DE UBICACIONES</b>
+                </div>
+            </p:divider>
+             <h:panelGrid columns="2" > 
+                <h:panelGroup>  
+                    <span class="ui-float-label"> 
+                             <p:inputText   id="panelGrigInputModificarCelular"
+                               value="#{bswPersonasControlador.actual.celular}"
+                               size="15" maxlength="60"/>
+                        <p:outputLabel for="@previous" 
+                                       value="#{i18n.label_celular}"/>   
+                    </span>
+                         
+                </h:panelGroup>            <h:panelGroup>  
+
+                    <span class="ui-float-label"> 
+                             <p:inputText id="panelGrigInputModificarLineaBaja"
+                        value="#{bswPersonasControlador.actual.lineaBaja}"
+                        size="15" 
+                        maxlength="60"/>
+                        <p:outputLabel for="@previous" 
+                                       value="#{i18n.label_linea_baja}"/>   
+                    </span>
+                          
+                </h:panelGroup>      
+                
+                             </h:panelGrid>
+            <br/>    
+            <h:panelGrid columns="1" > 
+
+                <h:panelGroup>  
+                    <span class="ui-float-label"> 
+                            <p:inputText id="panelGrigInputModificarMail"
+                        value="#{bswPersonasControlador.actual.direcElectronica}"
+                        size="60" 
+                        maxlength="60"/>
+                        <p:outputLabel for="@previous" 
+                                       value="#{i18n.label_email}"/>   
+                    </span>     
+                </h:panelGroup>     <br/>               <h:panelGroup>  
+
+                     <span class="ui-float-label"> 
+                            <p:inputText id="panelGrigInputModificarDireccion"
+                        value="#{bswPersonasControlador.actual.direccion}"
+                        size="60" 
+                        maxlength="60"/>
+                        <p:outputLabel for="@previous" 
+                                       value="#{i18n.label_Direccion}"/>   
+                    </span>
+                    
+                </h:panelGroup></h:panelGrid>
+            
+                      
+               
+             
+        </p:card>
+    </div>
+    
+    
+    </p:tab></p:tabView>
+</ui:composition>

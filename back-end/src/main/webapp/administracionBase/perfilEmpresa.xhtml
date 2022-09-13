@@ -1,0 +1,125 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="breadcrumb">
+        <li>Perfil de Empresa</li>
+        <li></li>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" style="width: 100%" enctype="multipart/form-data" acceptcharset="UTF-8">
+            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}" widgetVar="growl"/>
+
+            <div class="ui-g ui-fluid">
+
+                <div class="ui-g-12 ui-lg-3">
+
+
+                    <div class="card card-w-title">
+                        <h3>DATOS DE LA EMPRESA</h3>
+
+                        <inpt:inputText valueOuput="#{i18n.label_nombre} (*)"
+                                        value="#{bswPerfilEmpresaControlador.componentes.empresasAbm.descripcion}"
+                                        size="30" maxlength="60"/>
+<br/>
+                        <inpt:inputText valueOuput="#{i18n.label_ruc} (*)"
+                                        value="#{bswPerfilEmpresaControlador.componentes.empresasAbm.ruc}" size="30"
+                                        maxlength="60"/>
+                        <p:separator/>
+                        <b> <label for="" class="mb-0">Representante Legal (*)</label></b>
+                        <p:selectOneMenu filter="true" style="width: 100%"
+                                         value="#{bswPerfilEmpresaControlador.componentes.bswPersonas}"
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION"/>
+                            <f:selectItems value="#{admParticipante.listaTodosActual}" var="product"
+                                           itemLabel="#{product.nombre}" itemValue="#{product}"/>
+
+                        </p:selectOneMenu>
+
+                    </div>
+
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
+                        <h3>DATOS SUCURSALES</h3>
+
+
+                        <p:dataTable size="small" paginator="true"
+                                     rows="15" reflow="true"
+                                     widgetVar="grillaArticulosCarga"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     var="dep"
+                                     value="#{bswPerfilEmpresaControlador.componentes.empresasAbm.bswSucursalesSet}"
+                                     rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx">
+
+
+                            <p:column>
+                                <f:facet name="header">NOMBRE</f:facet>
+
+                                <p:inputText  value="#{dep.descripcion}"/>
+
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">DIRECCION</f:facet>
+
+                                <p:inputText value="#{dep.direccion}"/>
+
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">TELEFONO</f:facet>
+
+                                <p:inputText value="#{dep.telefono}"/>
+
+                            </p:column>
+
+                        </p:dataTable>
+                    </div>
+
+                </div>
+                <div class="ui-g-12 ui-lg-3">
+                    <div class="card card-w-title">
+                        <h3 style="left:5%">LOGO</h3>
+                        <p:graphicImage style="width: 100%;" id="image"
+                                        name="images/tmp/#{bswPerfilEmpresaControlador.componentes.empresasAbm.nombreImagen}"
+                                        library="freya-layout"/>
+                        <p:fileUpload label="Seleccionar" uploadLabel="Subir Imagen" skinSimple="false" style="grid"
+                                      listener="#{bswPerfilEmpresaControlador.handleFileUpload}" mode="advanced"
+                                      auto="true" dragDropSupport="true"
+                                      update="@widgetVar(growl) image" sizeLimit="1000000"
+                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+
+
+                    </div>
+                </div>
+
+              
+                <div class="ui-g-12 ui-lg-12">
+
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
+
+                        <p:toolbarGroup align="right">
+                            <p:commandButton styleClass="green-btn" icon="ui-icon-save" update="@widgetVar(growl)"
+                                             value="CONFIRMAR CAMBIOS" action="#{bswPerfilEmpresaControlador.grabar()}">
+
+
+                            </p:commandButton>
+
+                        </p:toolbarGroup>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

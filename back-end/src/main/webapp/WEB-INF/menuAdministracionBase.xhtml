@@ -1,0 +1,89 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+>
+    <p:submenu id="moduloBase" label="Base"  icon="pi pi-cog">
+        <p:submenu label="Definiciones" icon="pi pi-bars">
+            <p:menuitem value="Modulos" icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        ajax="false"
+                        url="../administracionBase/BswCOModulos.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarModulosBase()}"/>
+            <p:menuitem value="Parámetros Generales" icon="pi pi-bars"
+                        actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOParametrosGenerales.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarParamGenBase()}"/>
+            <p:menuitem value="Formas" icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOFormas.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarFormasBase()}"/>
+            <p:menuitem value="Grupos Usuarios" icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOGrupoUsuarios.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarGrupoUserBase()}"/>
+            <p:menuitem value="Acceso a Grupos" icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOAccesosGrupos.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarAccesoGrBase()}"/>
+            <p:menuitem value="Mensajes Usuario" icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOMensajeUsuario.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarMsnUserBase()}"/>
+            <p:menuitem value="Usuarios" icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOUsuarios.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarUserBase()}"/>
+            <p:menuitem value="Personas" icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOPersonas.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarPersonasBase()}"/>
+            <p:menuitem value="Opciones Permisos" icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOOpcionesPermisos.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarOpcionPerBase()}"/>
+            <p:menuitem value="Opciones Param." icon="pi pi-bars" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOOpcionesParametros.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarOpcionParamBase()}"/>
+            <p:menuitem value="Sectores Econ." 
+                        icon="pi pi-bars" 
+                        actionListener="#{loginControlador.setHorizontal(false)}"
+                        ajax="false"
+                        url="../administracionBase/BswSectorEcon.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarSectorEcon()}"/>
+            <p:menuitem value="Nivel de Estudio" 
+                        icon="pi pi-bars" 
+                        actionListener="#{loginControlador.setHorizontal(false)}"
+                        ajax="false"
+                        url="../administracionBase/BswNivelEstudio.xhtml"
+                        rendered="#{consultaPermisosControlador.puedeConsultarNivelEstudioBase()}"/>
+        </p:submenu>
+        <p:submenu id="moduloMonitoreo" label="Monitoreo" icon="today" rendered="#{consultaPermisosControlador.puedeConsultarModuloMonitoreo()}">
+
+
+            <p:menuitem value="Reg.Auditoria"  icon="input" actionListener="#{loginControlador.setHorizontal(false)}" url="../monitoreo/MoCOCambios.xhtml" rendered="#{consultaPermisosControlador.puedeConsultarAuditoria()}"/>
+            <p:menuitem value="Reg.Sessiones"  icon="input" actionListener="#{loginControlador.setHorizontal(false)}" url="../monitoreo/MoSession.xhtml" rendered="#{consultaPermisosControlador.puedeConsultarSession()}"/>
+
+        </p:submenu>
+        <p:submenu  label="Datos Empresa" icon="business">
+            <p:menuitem value="Empresas" icon="input" actionListener="#{loginControlador.setHorizontal(false)}"
+                        url="../administracionBase/BswCOEmpresas.xhtml" rendered="#{consultaPermisosControlador.puedeConsultarEmpresasVarias()}"/>
+
+            <p:menuitem value="Sucursales" icon="input" actionListener="#{loginControlador.setHorizontal(false)}" url="../administracionBase/BswCOSucursales.xhtml" rendered="#{consultaPermisosControlador.puedeConsultarSucursalBase()}"/>
+
+        </p:submenu>
+        <p:submenu label="Ubicaciones" 
+                       icon="pi pi-edit">
+                <p:menuitem value="Paises" 
+                            icon="pi pi-bars" 
+                            actionListener="#{loginControlador.setHorizontal(false)}"
+                            ajax="false"
+                            url="../administracion/BswPaises.xhtml"
+                            rendered="#{consultaPermisosControlador.puedeConsultarPaisBase()}"/>
+                <p:menuitem value="Departamentos" 
+                            icon="pi pi-bars" 
+                            actionListener="#{loginControlador.setHorizontal(false)}"
+                            ajax="false"
+                            url="../administracion/BswProvincias.xhtml"
+                            rendered="#{consultaPermisosControlador.puedeConsultarDeptoBase()}"/>
+                <p:menuitem value="Ciudades" 
+                            icon="pi pi-bars" 
+                            actionListener="#{loginControlador.setHorizontal(false)}"
+                            ajax="false"
+                            url="../administracion/BswCiudades.xhtml"
+                            rendered="#{consultaPermisosControlador.puedeConsultarCiudadesBase()}"/></p:submenu>
+
+    </p:submenu>
+</ui:composition>

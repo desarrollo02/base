@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                          
+                            <p:column id="colper1" 
+                  sortBy="#{fila.codPersona}" 
+                  filterBy="#{fila.codPersona}">
+            <f:facet name="header">Cod. Persona</f:facet>
+            <h:outputText id="codper1" value="#{fila.codPersona}"/>
+        </p:column>
+
+        <p:column id="colper2" sortBy="#{fila.nombre}" filterBy="#{fila.nombre}" >
+            <f:facet name="header">Nombre y Apellido</f:facet>
+            <h:outputText id="codper2"
+                          value="#{fila.nombre}"/>
+        </p:column>
+        <p:column id="colper3" sortBy="#{fila.bswSectoresEcon.descripcion}" filterBy="#{fila.bswSectoresEcon.descripcion}" >
+            <f:facet name="header">Sector Economico</f:facet>
+            <h:outputText value="#{fila.bswSectoresEcon.descripcion}"/>
+        </p:column>
+
+        <p:column sortBy="#{fila.bswProfesiones.descripcion}" filterBy="#{fila.bswProfesiones.descripcion}" >
+            <f:facet name="header">Profesion</f:facet>
+            <h:outputText value="#{fila.bswProfesiones.descripcion}"/>
+        </p:column>
+
+        <p:column sortBy="#{fila.nacionalidad}" filterBy="#{fila.nacionalidad}" >
+            <f:facet name="header">Nacionalidad</f:facet>
+            <h:outputText id="codper7"
+                          value="#{fila.nacionalidad}"/>
+        </p:column>
+    
+    <p:rowExpansion>  
+            <p:panel>                          <f:facet name="header">Mas Datos</f:facet>
+
+                <h:outputText styleClass="etiqueta" value="Fecha Nacimiento: " />
+                <p:calendar  value="#{fila.fecNacimiento}"  disabled="true" pattern="dd/MM/yyyy" />
+                <p:spacer width="15px"/>
+                <h:outputText  styleClass="etiqueta" value="Email: " />
+                <h:outputText  value="#{fila.direcElectronica}"/>
+                <p:spacer width="15px"/>
+
+                <h:outputText  styleClass="etiqueta" value="Es Persona Fisica? " />
+                <p:selectBooleanCheckbox disabled="true"  value="#{(fila.esFisica!=null and fila.esFisica=='S')?'true':'false'}"/>
+                <p:spacer width="15px"/>
+                <p:spacer width="15px"/>
+            </p:panel>
+        </p:rowExpansion>   
+
+
+
+</ui:composition>

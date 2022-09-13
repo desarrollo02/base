@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <p:toolbar>
+        <p:toolbarGroup align="right">
+            <p:menuButton value="Tipo Persona">
+                <p:menuitem value="P. JUR. /CONSORCIO" actionListener="#{conwRDCControlador.cargaJuridicaConsorcio}" ajax="false"/>
+                <p:menuitem value="P. JURIDICAS" actionListener="#{conwRDCControlador.cargaJuridica}" ajax="false"/>
+                <p:menuitem value="P. FISICAS" actionListener="#{conwRDCControlador.cargaFisica}" ajax="false"/>
+            </p:menuButton>
+            <p:separator/>
+            <p:commandButton icon="ui-icon ui-icon-disk" 
+                             value="Guardar"   
+                             update=":form"  ajax="true"
+                             action="#{conwRDCControlador.actualizarRdcTwo()}">
+            </p:commandButton>    
+            <p:commandButton icon="ui-icon ui-icon-disk" 
+                             value="Guardar y Salir"   
+                             update=":form"  ajax="true"
+                             action="#{conwRDCControlador.grabarRDC}">
+            </p:commandButton>    
+            <p:separator rendered="false"/>
+            <p:commandButton type="push"
+                             ajax ="false"
+                             value="IMPRIMIR REPORTE"
+                             icon="ui-icon-document"                     
+                             rendered="#{conwRDCControlador.actual.id != null and false}"
+                             actionListener="#{conwRDCControlador.imprimirReporte()}">
+            </p:commandButton>  
+
+                        <p:commandButton type="push"
+                             ajax ="false"
+                             value="IMPRIMIR REPORTE DOCM"
+                             icon="ui-icon-document"                     
+                             rendered="#{conwRDCControlador.actual.id != null and false}"
+                             actionListener="#{conwRDCControlador.imprimirReporteDOCM()}">
+            </p:commandButton> 
+            
+        </p:toolbarGroup>
+    </p:toolbar>
+
+</ui:composition>

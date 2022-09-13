@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+
+     <oupt:outputText value="#{i18n.abm_panel}" />
+
+     <p:panelGrid layout="grid"  columns="1" >
+        
+         <oupt:codigoDescripcionOuput  
+             id="ouptTP_1" valueOuput="#{i18n.label_grupo} (*)"
+            codigoId="inputCodigo"
+            valueCodigo="#{utilControler.componentes.bswGruposUsuariosABM.codModulo}"
+            changeListener="#{utilControler.componentes.grupoUsuarioChangeListener}"
+            dialogWidgetVar="dialogoGrupo"
+            btnTitle="#{i18n.lista_grupo_usuarios}"
+            blurUpdate="@widgetVar(txtCodGrupo), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswGruposUsuariosABM}"                         
+            valueDescripcion="#{bswParametrosGeneralesControlador.componentes.bswGruposUsuariosABM.descripcion}"
+            descripcionId="txtCodGrupo"/>
+         
+          <oupt:codigoDescripcionOuput  
+            id="ouptTP_2" valueOuput="#{i18n.label_modulo} (*)"
+            codigoId="inputCodModulo"
+            valueCodigo="#{utilControler.componentes.bswModulosABM.codModulo}"
+            changeListener="#{utilControler.componentes.moduloChangeListener}"
+            dialogWidgetVar="dialogoModulo"
+            btnTitle="#{i18n.lista_modulos}"
+            blurUpdate="@widgetVar(txtCodModulo), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswModulosABM}"                         
+            valueDescripcion="#{bswParametrosGeneralesControlador.componentes.bswModulosABM.descripcion}"
+            descripcionId="txtCodModulo"/>
+          
+          <oupt:codigoDescripcionOuput  
+              id="ouptTP_3" valueOuput="#{i18n.label_formulario} (*)"
+            codigoId="inputCodFormulario"
+            valueCodigo="#{utilControler.componentes.bswFormasABM.froma}"
+            changeListener="#{utilControler.componentes.moduloChangeListener}"
+            dialogWidgetVar="dialogoFormulario"
+            btnTitle="#{i18n.lista_formas}"
+            blurUpdate="@widgetVar(txtCodFormulario), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswFormasABM}"                         
+            valueDescripcion="#{bswParametrosGeneralesControlador.componentes.bswFormasABM.titulo}"
+            descripcionId="txtCodFormulario"/>
+         
+          <h:panelGroup>
+           <h:outputText id="labelActivoEdit"  styleClass="etiqueta"  value="Puede Insertar: " />
+                                <p:selectBooleanCheckbox  value="#{bswAccesosGruposControlador.actual.puedeInsertarABM}" id="pi" />
+                                <h:outputText id="labelMenuEdit"  styleClass="etiqueta"  value="Puede Borrar: " />
+                                <p:selectBooleanCheckbox  value="#{bswAccesosGruposControlador.actual.puedeEliminarABM}" id="pb" />
+                                <h:outputText id="labelUpdateEdit"  styleClass="etiqueta"  value="Puede Actualizar: " />
+                                <p:selectBooleanCheckbox  value="#{bswAccesosGruposControlador.actual.puedeModificarABM}" id="pa"  />
+                                <h:outputText id="labelConsultarEdit"  styleClass="etiqueta"  value="Puede Consultar: " />
+                                <p:selectBooleanCheckbox  value="#{bswAccesosGruposControlador.actual.puedeConsultarABM}" id="pc" />
+    </h:panelGroup>
+    </p:panelGrid>
+</ui:composition>

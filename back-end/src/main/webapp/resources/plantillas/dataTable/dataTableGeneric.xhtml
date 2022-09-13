@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones">
+
+
+    <composite:interface>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="rowTogglerRendered" default="false"/>
+        <composite:attribute name="mostrar_boton_eliminar" default="true"/>
+        <composite:attribute name="mostrar_boton_editar" default="true"/>
+        <composite:attribute name="esLazy" default="true"/>
+        <composite:attribute name="sticky" default="false"/>
+        <composite:attribute name="esScrollable" default="false"/>
+        <composite:attribute name="scrollHeightP" default="150"/>
+        <composite:attribute name="frozenColumnsP" default="1"/>
+        <composite:attribute name="scrollWidthP" default="300"/>
+        <composite:attribute name="cantRow" default="10"/>
+        <composite:attribute name="lazyList"/>
+        <composite:attribute name="columns"/>
+        <composite:attribute name="listener_row_expansion_optional" default="#{utilControler.dummy()}"  method-signature="void listener()"/>
+        <composite:attribute name="widgetVarParam" default="grilla"/>
+        <composite:attribute name="targetReport" default="#{cc.attrs.widgetVarParam}"/>
+        <composite:attribute name="btnEditUpdate" default="@form"/>
+        <composite:attribute name="botonesColumn" default="true"/>
+        <composite:attribute name="tituloReporteGenerico" default="Listado"/>
+        <composite:attribute name="posicionPaginador" default="bottom"/>
+
+
+    </composite:interface>
+
+    <composite:implementation>
+        <p:dataTable reflow="true" 
+                     id="#{cc.attrs.widgetVarParam}"
+                     paginator="true"
+                     paginatorPosition="#{cc.attrs.posicionPaginador}"
+                     rows="#{cc.attrs.cantRow}"
+                     currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} registros"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="10, #{cc.attrs.cantRow},#{cc.attrs.cantRow+10},100"
+                     emptyMessage="No existen registros."
+                     var="fila"
+                     rendered="#{cc.attrs.controlador.puedeConsultar or true}"
+                     value="#{cc.attrs.lazyList}"
+                     rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                     rowIndexVar="rowIx"
+                     lazy="#{cc.attrs.esLazy}"
+                     rowKey="#{fila.id}"
+                     widgetVar="#{cc.attrs.widgetVarParam}">
+
+             <p:column style="width:5%" rendered="#{cc.attrs.rowTogglerRendered}">  
+                <p:rowToggler />  
+            </p:column>
+            <ui:include   src="#{cc.attrs.columns}" />
+            <composite:insertChildren />
+            <f:facet name="header" >
+                <p:outputPanel rendered="false" style="position: relative;left: 1%">
+                    <h:outputText value="#{cc.attrs.tituloReporteGenerico}" />
+                    <p:inputText id="globalFilter" onkeyup="PF('#{cc.attrs.widgetVarParam}').filter()"  placeholder="Enter keyword"/>
+                </p:outputPanel>
+            </f:facet>
+
+            <f:facet name="footer">
+
+                <h:commandLink title="Exportar xls" id="downloadXLS">
+                    <!-- <p:graphicImage name="/img/excel.png" width="24"/> -->
+                    <pe:exporter type="xlsx" target="#{cc.attrs.targetReport}" fileName="listado" datasetPadding="4"/>
+                </h:commandLink>
+                <h:commandLink  title="Exportar pdf" id="downloadPDF">
+                    <!-- <p:graphicImage name="/img/pdf.png" width="24"/>-->
+                    <pe:exporter orientation="Landscape" type="pdf" target="#{cc.attrs.targetReport}" fileName="listado" datasetPadding="4" />
+                </h:commandLink>
+                <h:commandLink  title="Exportar csv" id="downloadCSV">
+                    <!--  <p:graphicImage name="/img/csv.png" width="24"/>-->
+                    <p:dataExporter   type="csv" target="#{cc.attrs.targetReport}" fileName="listado" />
+                </h:commandLink>
+
+            </f:facet>
+
+
+            <p:column exportable="false" style="width: 7%;" rendered="#{cc.attrs.botonesColumn}">
+                <btn:btnEdit controlador="#{cc.attrs.controlador}" update="#{cc.attrs.btnEditUpdate}" rendered="#{cc.attrs.mostrar_boton_editar}"/>
+                <btn:btnDelete controlador="#{cc.attrs.controlador}"  rendered="#{cc.attrs.mostrar_boton_eliminar}"/>
+            </p:column> 
+
+        </p:dataTable>
+
+    </composite:implementation>
+</ui:composition>

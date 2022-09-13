@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs">
+
+
+    <h:outputText value="Agregar/Modificar Párametros Generales" styleClass="tituloTabla"/>
+
+    <p:panelGrid  id="panelGridModificar"   columns="2" >
+        <h:outputText
+            styleClass="etiqueta"
+            value="Usuario(*): "/>
+        <oupt:codigoDescripcionOuput 
+            id="ouptTP_2"
+            codigoId="inputCodUsuario"
+            valueCodigo="#{componentesVarios.usuariosABM.codUsuario}"
+            changeListener="#{componentesVarios.usuarioChangeListener}"
+            dialogWidgetVar="dialogoUsuario"
+            btnTitle="Lista de Usuarios"
+            blurUpdate=":form:ouptTP_2:txtCodUsuario, :form:growl"
+            valueDescripcion="#{bswRolPorSucursalesControlador.componentes.usuariosABM.bswPersonas.nombre}"
+            descripcionId="txtCodUsuario"
+            object="#{componentesVarios.usuariosABM}"/>
+        <h:outputText
+            styleClass="etiqueta"
+            value="Sucursal(*): "/>
+        <oupt:codigoDescripcionOuput 
+            id="ouptTP_1"
+            codigoId="inputCodSucursal"
+            valueCodigo="#{componentesVarios.sucursalABM.codSucursal}"
+            changeListener="#{componentesVarios.sucursalesChangeListener}"
+            dialogWidgetVar="dialogoSucursal"
+            btnTitle="Lista de Sucursal"
+            blurUpdate=":form:ouptTP_1:txtCodSucursal, :form:growl"
+            valueDescripcion="#{bswRolPorSucursalesControlador.componentes.sucursalABM.descripcion}"
+            descripcionId="txtCodSucursal"
+            object="#{componentesVarios.sucursalABM}"/>
+        <h:outputText
+            styleClass="etiqueta"
+            value="Grupo Usuario(*): "/>
+        <oupt:codigoDescripcionOuput 
+            id="ouptTP"
+            codigoId="inputCodGrupoUsuario"
+            valueCodigo="#{componentesVarios.bswGruposUsuariosABM.codGrupo}"
+            changeListener="#{componentesVarios.grupoUsuarioChangeListener}"
+            dialogWidgetVar="dialogoGrupoUsuario"
+            btnTitle="Lista de Grupo Usuario"
+            blurUpdate=":form:ouptTP:txtCodGrupoUsuario, :form:growl"
+            valueDescripcion="#{bswRolPorSucursalesControlador.componentes.bswGruposUsuariosABM.descripcion}"
+            descripcionId="txtCodGrupoUsuario"
+            object="#{componentesVarios.bswGruposUsuariosABM}"/>
+        <h:outputText styleClass="etiqueta" value="Firmante: " />
+        <p:selectBooleanCheckbox value="#{bswRolPorSucursalesControlador.actual.firmante}" />
+    </p:panelGrid>
+</ui:composition>

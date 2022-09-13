@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones">
+
+
+    <p:dataTable size="small"        
+        paginator="true"
+        emptyMessage="No existen registros."
+        rows="10"
+        id="grilla"
+        rowsPerPageTemplate="5,10,15"
+        paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown} "
+        var="fila" 
+        rowKey="fila.id"
+        value="#{bswRolPorSucursalesControlador.listaTodosActualLazy}"
+        rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+        rowIndexVar="rowIx"
+        lazy="true"
+        widgetVar="grilla" reflow="true">
+
+        <p:column style="text-align: center ; width: 10% ;">                                                  
+            <btn:btnEdit controlador="#{bswRolPorSucursalesControlador}"
+                         update=":form"/>
+            <btn:btnDelete controlador="#{bswRolPorSucursalesControlador}"/>
+        </p:column>            
+        <p:column id="colUsuario" sortBy="#{fila.bswUsuarios.codUsuario}" filterBy="#{fila.bswUsuarios.codUsuario}"  >
+            <f:facet name="header">Codigo Usuario</f:facet>
+            <h:outputText id="codUsuario"
+                          value="#{fila.bswUsuarios.codUsuario}"/>
+        </p:column>
+        <p:column id="persona" sortBy="#{fila.bswUsuarios.bswPersonas.nombre}" filterBy="#{fila.bswUsuarios.bswPersonas.nombre}"  >
+            <f:facet name="header">Nombre</f:facet>
+            <h:outputText id="personac"
+                          value="#{fila.bswUsuarios.bswPersonas.nombre}"/>
+        </p:column>
+        <p:column id="dSucursal" sortBy="#{fila.bswSucursales.descripcion}" filterBy="#{fila.bswSucursales.descripcion}">
+            <f:facet name="header">Sucursal</f:facet>
+            <h:outputText id="desSucursal" value="#{fila.bswSucursales.descripcion}">
+            </h:outputText>
+        </p:column>
+        <p:column id="delGrupo" sortBy="#{fila.bswGruposUsuarios.descripcion}" filterBy="#{fila.bswGruposUsuarios.descripcion}">
+            <f:facet name="header">Grupo Usuarios</f:facet>
+            <h:outputText id="desGrupo" value="#{fila.bswGruposUsuarios.descripcion}">
+            </h:outputText>
+        </p:column>
+    </p:dataTable>
+</ui:composition>

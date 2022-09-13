@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones"
+                xmlns:h="http://java.sun.com/jsf/html"
+                >
+
+
+    <composite:interface>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="campos"/>
+        <composite:attribute name="btnActionImprimir" method-signature="void listener()"/>
+        <composite:attribute name="btnLimpiarCampos" method-signature="void listener()"/>
+        <composite:attribute name="btCancelar"/>
+        <composite:attribute name="btnActionFiltrar" method-signature="void listener()"/>
+        <composite:attribute name="btnUpdateFiltros" default="@widgetVar(lista)"/>
+        <composite:attribute name="btnActionLimpiarFiltrar" method-signature="void listener()"/>
+
+
+    </composite:interface>
+
+    <composite:implementation>
+        <p:panel>
+            <h:panelGrid columns="1">
+                <ui:include   src="#{cc.attrs.campos}" />
+                <p:column >
+                    <p:commandButton  ajax="true"  id="add" update="#{cc.attrs.btnUpdateFiltros}"
+                                      icon="ui-icon-search" action="#{cc.attrs.btnActionFiltrar}"/>
+                    <p:commandButton  icon="ui-icon-print" ajax="false" action="#{cc.attrs.btnActionImprimir}"/>
+                    <p:commandButton  icon="ui-icon-cancel" ajax="false"  actionListener="#{cc.attrs.btnActionFiltrar.btnActionLimpiarFiltrar}" update="fp"/>
+                </p:column>
+            </h:panelGrid>
+        </p:panel>
+    </composite:implementation>
+</ui:composition>

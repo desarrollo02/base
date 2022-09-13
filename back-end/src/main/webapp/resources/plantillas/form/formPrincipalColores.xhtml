@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+
+    <composite:interface> 
+        <composite:attribute name="icon_boton_opcional" default="ui-icon pi pi-check"/>
+        <composite:attribute name="filtros_header" default="FILTROS"/>
+        <composite:attribute name="titulo_boton_opcional" default="BO"/>
+        <composite:attribute name="styleclass_boton_opcional" default="red-btn"/>
+        <composite:attribute name="onclick_boton_opcional" />
+        <composite:attribute name="es_pantalla_carga_opcional" default="false"/>
+        <composite:attribute name="filtros_collapsed" default="true"/>
+        <composite:attribute name="filtros_toggleable" default="true"/>
+        <composite:attribute name="render_boton_opcional" default="false"/>
+        <composite:attribute name="update_boton_opcional"/>
+        <composite:attribute name="ajax_boton_opcional" default="true"/>
+        <composite:attribute name="action_boton_opcional" default="#{utilControler.dummy()}"  method-signature="void listener()"/>
+        <composite:attribute name="icon_boton_guardar" default="ui-icon ui-icon-save"/>
+        <composite:attribute name="styleclass_boton_guardar" />
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="cantColumn" default="1"/>
+        <composite:attribute name="guardarUpdate" default="@form"/>
+        <composite:attribute name="cancelarUpdate" default="@form"/>
+        <composite:attribute name="guardaryAgregar" default="false"/>
+        <composite:attribute name="ajax" default="true"/>
+        <composite:attribute name="limpiarDatosUpdate" default="@widgetVar(panelCarga)"/>
+        <composite:attribute name="updateLimpiarDatos" default="@form"/>
+        <composite:attribute name="nombreForma"/>
+        <composite:attribute name="tituloBotonGuardar" default="Guardar"/>
+        <composite:attribute name="dataTable"/>
+        <composite:attribute name="abmForm"/>
+        <composite:attribute name="prependId" default="true"/>
+        <composite:attribute name="dlgForm"/>
+        <composite:attribute name="actionEliminar" default="#{cc.attrs.controlador.eliminarRegistro()}" method-signature="void listener()"/>
+        <composite:attribute name="actionGrabar" default="#{cc.attrs.controlador.grabar}" method-signature="void listener()"/>
+        <composite:attribute name="mostrarPanelFiltros" default="false"/>
+        <composite:attribute name="toolBarMostrarBotonGuardar" default="true"/>
+        <composite:attribute name="toolBarMostrarBotonNuevo" default="true"/>
+        <composite:attribute name="toolBarMostrarBotonLimpiar" default="true"/>
+        <composite:attribute name="filtros"/>
+        <composite:attribute name="panelAux"/>
+        <composite:attribute name="mostrarPanelAux" default="false"/>
+        <composite:attribute name="toolBarMostrarAnular" default="false"/>
+
+
+    </composite:interface>
+
+    <composite:implementation>
+        <h:form id="form"  style="width: 100%" rendered="#{cc.attrs.controlador.puedeConsultar}" enctype="multipart/form-data" acceptcharset="UTF-8" prependId="#{cc.attrs.prependId}">
+            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  widgetVar="growl"/>
+ 
+
+            <h:panelGroup>
+<!--                    <h:outputText  value="#{cc.attrs.nombreForma}" styleClass="tituloTabla" />-->
+
+                <tool:abmToolbar controlador="#{cc.attrs.controlador}"
+                                 guardarUpdate="#{cc.attrs.guardarUpdate}"
+                                 cancelarUpdate="#{cc.attrs.cancelarUpdate}"
+                                 nombreForma="#{cc.attrs.nombreForma}"
+                                 actionGrabar="#{cc.attrs.actionGrabar}"
+                                 tituloBotonGuardar="#{cc.attrs.tituloBotonGuardar}"
+                                 guardaryAgregar="#{cc.attrs.guardaryAgregar}"
+                                 ajax="#{cc.attrs.ajax}"
+                                 updateLimpiarDatos="#{cc.attrs.limpiarDatosUpdate}"
+                                 mostrarBotonGuardar="#{cc.attrs.toolBarMostrarBotonGuardar}"
+                                 mostrarBotonLimpiar="#{cc.attrs.toolBarMostrarBotonLimpiar}"
+                                 mostrarBotonNuevo="#{cc.attrs.toolBarMostrarBotonNuevo}"
+                                 icon_boton_opcional="#{cc.attrs.icon_boton_opcional}"
+                                 styleclass_boton_opcional="#{cc.attrs.styleclass_boton_opcional}"
+                                 titulo_boton_opcional="#{cc.attrs.titulo_boton_opcional}"
+                                 update_boton_opcional="#{cc.attrs.update_boton_opcional}"
+                                 render_boton_opcional="#{cc.attrs.render_boton_opcional}"
+                                 ajax_boton_opcional="#{cc.attrs.ajax_boton_opcional}"
+                                 action_boton_opcional="#{cc.attrs.action_boton_opcional}"
+                                 icon_boton_guardar="#{cc.attrs.icon_boton_guardar}"
+                                 styleclass_boton_guardar="#{cc.attrs.styleclass_boton_guardar}"
+                                 onclick_boton_opcional="#{cc.attrs.onclick_boton_opcional}" 
+                                 mostrarAnular="#{cc.attrs.toolBarMostrarAnular}"
+                                 />
+            </h:panelGroup>
+
+            <p:panel rendered="#{cc.attrs.mostrarPanelFiltros and !cc.attrs.controlador.esABMPanel}" header="#{cc.attrs.filtros_header}" widgetVar="panel" toggleable="#{cc.attrs.filtros_toggleable}" collapsed="#{cc.attrs.filtros_collapsed}">
+
+                <ui:include   src="#{cc.attrs.filtros}" />
+            </p:panel>
+
+            <p:panel rendered="#{cc.attrs.mostrarPanelAux}"  widgetVar="panelAux">
+                <ui:include   src="#{cc.attrs.panelAux}" />
+            </p:panel>
+
+            <p:focus context="dtable"/>
+
+            <p:panel id="dtable" rendered="#{!cc.attrs.controlador.esABMPanel}" >
+
+                <ui:include   src="#{cc.attrs.dataTable}" />
+            </p:panel>
+
+            <div jsf:id="panelCargaPanelColores1982" jsf:widgetVar="panelCarga"  jsf:rendered="#{cc.attrs.controlador.esABMPanel or cc.attrs.es_pantalla_carga_opcional}">
+                <p:focus context="panelCargaPanelColores1982"/>
+                <ui:include   src="#{cc.attrs.abmForm}" />
+            </div>
+            
+
+            <ui:include   src="#{cc.attrs.dlgForm}" />
+
+        </h:form>
+        <dlg:deleteDialogPlantilla widget_var="avisoEliminar"
+                                   action="#{cc.attrs.actionEliminar}"
+                                   aceptar_update_value="@widgetVar(grilla), @widgetVar(growl)"/>
+
+
+    </composite:implementation>
+</ui:composition>

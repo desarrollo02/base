@@ -1,0 +1,86 @@
+
+=======
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <composite:interface>
+        <!--TOOL BAR -->
+        
+        <!--BOTON NUEVO-->
+        <composite:attribute name="type_boton_nuevo" default="push"/>
+        <composite:attribute name="value_boton_nuevo" default="Nuevo"/>
+        <composite:attribute name="update_boton_nuevo" default=":form"/>
+        <composite:attribute name="rendered_boton_nuevo" required="true"/>
+        <composite:attribute name="onclick_boton_nuevo" default="none"/>
+        <composite:attribute name="property_target_boton_nuevo" default="none"/>     
+        <composite:attribute name="property_value_boton_nuevo" default="none"/>
+        <!--FIN BOTON NUEVO-->
+        <!--BOTON AYUDA-->
+        <composite:attribute name="title_boton_ayuda" default="Ayuda"/>
+        <composite:attribute name="onlick_boton_ayuda" default="PF('dialogoAyuda').show();"/>
+        <!--FIN BOTON AYUDA-->
+        <!--BOTON ACERCA DE-->
+        <composite:attribute name="title_boton_acercaDe" default="Acerca de"/>
+        <composite:attribute name="onlick_boton_acercaDe" default="PF('dialogoAcercaDe').show();"/>
+        <!--FIN BOTON AYUDA-->
+        <!--BOTON INICIO-->
+        <composite:attribute name="value_boton_inicio" default="Inicio"/>
+        <composite:attribute name="title_boton_inicio" default="Ir a Inicio"/>
+        <composite:attribute name="action_boton_inicio" default="inicio"/>
+        <!--FIN BOTON INICIO-->
+        <!--FIN TOOL BAR -->
+    </composite:interface>
+    <composite:implementation>
+   
+     <h:panelGroup>
+                                    
+                                    
+                                    <p:toolbar>
+                                        <p:toolbarGroup align="left">
+                                            <p:commandButton type="#{cc.attrs.type_boton_nuevo}"
+                                                             value="#{cc.attrs.value_boton_nuevo}" update="#{cc.attrs.update_boton_nuevo}" 
+                                                             icon="ui-icon-document"
+                                                             rendered="#{cc.attrs.rendered_boton_nuevo}"
+                                                             onclick="#{cc.attrs.onclick_boton_nuevo}">
+
+                                                <f:setPropertyActionListener target="#{cc.attrs.property_target_boton_nuevo}" value="#{cc.attrs.property_value_boton_nuevo}"/>
+                                            </p:commandButton>  
+
+
+
+
+                                            <p:commandButton type="push"
+                                                             title="#{cc.attrs.title_boton_ayuda}"
+                                                             icon="ui-icon-help"
+                                                             onclick="#{cc.attrs.onlick_boton_ayuda}"/>
+                                            
+                                            
+                                            <p:commandButton type="push"
+                                                             title="#{cc.attrs.title_boton_acercaDe}"
+                                                             icon="ui-icon-info"
+                                                             onclick="#{cc.attrs.onlick_boton_acercaDe}"/>
+                                                
+                                            
+                                            
+                                            <p:commandButton type="push" value="#{cc.attrs.value_boton_inicio}" id="inicio_modulo"
+                                                             title="#{cc.attrs.title_boton_inicio}" immediate="true"
+                                                     icon="ui-icon-home" 
+                                                     action="#{cc.attrs.action_boton_inicio}"/> 
+                                        </p:toolbarGroup>
+
+
+
+
+
+                                        <p:toolbarGroup align="right">                                     <p:menuButton value="Mas Visitados">                                         <p:menuitem value="Lista de Articulos" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}" url="/faces/controlStock/StwArticulos.xhtml"/>                                         <p:menuitem value="Compra" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}" url="/faces/controlStock/StwEntSal.xhtml"/>                                         <p:menuitem value="Venta" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="/faces/ventas/VtwFacturaPymes.xhtml"/> <p:menuitem value="Mov.Caja-Cobro" url="/faces/cuentasCobrar/CcwMovCajas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}"/>                                         <p:menuitem value="Envio entre sucursales"  rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                     </p:menuButton>                                 </p:toolbarGroup>                             </p:toolbar>
+                                </h:panelGroup>
+
+    </composite:implementation>
+</ui:composition>

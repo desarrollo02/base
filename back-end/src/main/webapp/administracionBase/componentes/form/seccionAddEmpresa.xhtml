@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui"
+>
+    <p:focus context="tab"/>
+
+    <p:tabView id="tab"  rendered="#{bswEmpresasControlador.esABMPanel}" dynamic="true" cache="true">
+        <p:tab title="DATOS" class="card gdb_yelowgreen">
+            <div class="p-formgroup-inline">
+                <div class="p-field">
+                    <inpt:inputText valueOuput="#{i18n.label_nombre} (*)"
+                                    value="#{bswEmpresasControlador.actual.descripcion}" size="40" maxlength="60"/>
+
+                </div>
+                <div class="p-field">
+                    <inpt:inputText valueOuput="#{i18n.label_reporte_factura} (*)"
+                                    value="#{bswEmpresasControlador.actual.reporteFactura}" size="40" maxlength="60"/>
+                </div>
+                <div class="p-field">
+                    <inpt:inputText valueOuput="#{i18n.label_reporte_presupuesto} (*)"
+                                    value="#{bswEmpresasControlador.actual.reportePresupuesto}" size="40" maxlength="60"/>
+                </div>
+                <div class="p-field">
+                    <inpt:inputText valueOuput="Representante Legal (*)"
+                                    value="#{bswEmpresasControlador.actual.represLegal}" size="40" maxlength="100"/>
+                </div>
+                <div class="p-field">
+                    <inpt:inputText valueOuput="Actividad (*)"
+                                    value="#{bswEmpresasControlador.actual.actividad}" size="40" maxlength="100"/>
+                </div>
+                <div class="p-field">
+                    <inpt:inputText valueOuput="Direccion"
+                                    value="#{bswEmpresasControlador.actual.direccion}" size="40" maxlength="100"/>
+                </div>
+                <div class="p-field">
+                    <inpt:inputText valueOuput="#{i18n.label_ruc} (*)"
+                                    value="#{bswEmpresasControlador.actual.ruc}" size="40" maxlength="60"/>
+                </div>
+                <div class="p-field">
+                    <oupt:codigoDescripcionOuput
+                            id="ouptTP_2" object="#{bswEmpresasControlador.componentes.bswPersonas}"
+                            valueOuput="#{i18n.label_titular}: (*)"
+                            codigoId="inputCodPersona"
+                            valueCodigo="#{bswEmpresasControlador.componentes.bswPersonas.codPersona}"
+                            changeListener="#{bswEmpresasControlador.componentes.personasChangeListener}"
+                            dialogWidgetVar="dialogoPersona"
+                            btnTitle="Lista de Persona"
+                            blurUpdate="@widgetVar(txtCodPersona), @widgetVar(growl)"
+                            valueDescripcion="#{bswEmpresasControlador.componentes.bswPersonas.descripcion}"
+                            descripcionId="txtCodPersona"/>
+                </div>
+                <div class="p-field">
+                    <oupt:codigoDescripcionOuput
+                            id="ouptTP_1" object="#{bswEmpresasControlador.componentes.monedasABM}"
+                            valueOuput="#{i18n.label_moneda}: (*)"
+                            codigoId="inputCodMoneda"
+                            valueCodigo="#{bswEmpresasControlador.componentes.monedasABM.codMoneda}"
+                            changeListener="#{bswEmpresasControlador.componentes.monedaChangeListener}"
+                            dialogWidgetVar="dialogoMoneda"
+                            btnTitle="Lista de Monedas"
+                            blurUpdate="@widgetVar(txtCodMoneda), @widgetVar(growl)"
+                            valueDescripcion="#{bswEmpresasControlador.componentes.monedasABM.descripcion}"
+                            descripcionId="txtCodMonedas"/>
+                </div>
+                <div class="p-field">
+                    <inpt:inputText valueOuput="#{i18n.label_ruc} (*)"
+                                    value="#{bswEmpresasControlador.actual.razonSocial}" size="40" maxlength="60"/>
+                </div>
+            </div>
+            <div class="p-formgroup-inline">
+                <div class="p-field-radiobutton">
+                    <inpt:selectBooleanChecBox valueOuput="#{i18n.label_mostrar_marca} "
+                                               value="#{bswEmpresasControlador.actual.mostrarMarca}" size="35" maxlength="200"/>
+                </div>
+                    <div class="p-field-radiobutton">
+                        <inpt:selectBooleanChecBox valueOuput="#{i18n.label_mostrar_linea}"
+                                                   value="#{bswEmpresasControlador.actual.mostrarLinea}" size="35" maxlength="200"/>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <inpt:selectBooleanChecBox valueOuput="#{i18n.label_mostrar_color}"
+                                                   value="#{bswEmpresasControlador.actual.mostrarColor}" size="35" maxlength="200"/>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <inpt:selectBooleanChecBox valueOuput="#{i18n.label_mostrar_modelo}"
+                                                   value="#{bswEmpresasControlador.actual.mostrarModelo}" size="35" maxlength="200"/>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <inpt:selectBooleanChecBox valueOuput="#{i18n.label_mostrar_talle}"
+                                                   value="#{bswEmpresasControlador.actual.mostrarTalle}" size="35" maxlength="200"/>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <inpt:selectBooleanChecBox valueOuput="#{i18n.label_mostrar_plan_cuenta}"
+                                                   value="#{bswEmpresasControlador.actual.mostrarPlanCuenta}" size="35" maxlength="200"/>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <inpt:selectBooleanChecBox valueOuput="#{i18n.label_mostrar_contrato}"
+                                                   value="#{bswEmpresasControlador.actual.mostrarContrato}" size="35" maxlength="200"/>
+
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <inpt:selectBooleanChecBox valueOuput="Rubro Presupuestario Articulos?"
+                                                   value="#{bswEmpresasControlador.actual.mostrarRubroPre}" size="35" maxlength="200"/>
+                    </div>
+                </div>
+            <div class="p-formgroup-inline">
+                <div class="p-field">
+                    <label for="image">Logo</label>
+
+                    <p:graphicImage id="image"  name="images/tmp/#{bswEmpresasControlador.actual.nombreImagen}" library="freya-layout" />
+
+                    <p:fileUpload label="Seleccionar" uploadLabel="Subir Imagen" skinSimple="false"  style="grid" listener="#{bswEmpresasControlador.handleFileUpload}" mode="advanced"  auto="true" dragDropSupport="true"
+                                  update="@widgetVar(growl) image" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                </div>
+                <div class="p-field">
+                    <label>Imagen logo para KuDE</label>
+                    <p:graphicImage id="imageLogoDE"  name="images/tmp/#{bswEmpresasControlador.actual.nombreImagenLogoDocumentoElectronico}" library="freya-layout" />
+
+                    <p:fileUpload label="Seleccionar" uploadLabel="Subir Imagen" skinSimple="false"  style="grid" listener="#{bswEmpresasControlador.handleFileUploadLogoDE}" mode="advanced"  auto="true" dragDropSupport="true"
+                                  update="@widgetVar(growl) imageLogoDE" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                </div>
+            </div>
+</p:tab>
+
+        <p:tab title="PREFERENCIAS" class="card gdb_yelowgreen">   
+            <div class="ui-g ui-fluid">
+
+                <div class="ui-g-12 ui-lg-3">
+
+
+
+
+
+                    <div class="card card-w-title">
+                        <h1>PREFERENCIAS</h1>
+
+                        <p:megaMenu orientation="vertical" style="width:200px">
+                            <p:submenu label="LAYOUT" icon="ui-icon-camera">
+
+                                <p:column>
+                                    <p:submenu label="CLASICOS I">
+                                        <p:menuitem id="layout1" value="Indigo - Pink"  actionListener="#{loginControlador.setLayout('indigo')}" ajax="false" />
+                                        <p:menuitem id="layout2" value="Pink - Amber"  actionListener="#{loginControlador.setLayout('pink')}" ajax="false" />
+                                        <p:menuitem id="layout3" value="Purple - Pink"  actionListener="#{loginControlador.setLayout('purple')}" ajax="false" />
+                                        <p:menuitem id="layout4" value="Deep Purple - Orange"  actionListener="#{loginControlador.setLayout('deeppurple')}" ajax="false" />
+                                        <p:menuitem id="layout5" value="Blue - Amber"  actionListener="#{loginControlador.setLayout('blue')}" ajax="false" />
+                                        <p:menuitem id="layout6" value="Light Blue - Blue Grey"  actionListener="#{loginControlador.setLayout('lightblue')}" ajax="false" />
+                                        <p:menuitem id="layout7" value="Cyan - Amber"  actionListener="#{loginControlador.setLayout('cyan')}" ajax="false" />
+                                        <p:menuitem id="layout8" value="Teal - Red"  actionListener="#{loginControlador.setLayout('teal')}" ajax="false" />
+                                        <p:menuitem id="layout9" value="Green - Brown"  actionListener="#{loginControlador.setLayout('green')}" ajax="false" />
+                                    </p:submenu>
+                                </p:column>
+                                <p:column>
+                                    <p:submenu label="CLASICOS II">
+
+                                        <p:menuitem id="layout10" value="Light Green - Purple"  actionListener="#{loginControlador.setLayout('lightgreen')}" ajax="false" />
+                                        <p:menuitem id="layout11" value="Lime - Blue Grey"  actionListener="#{loginControlador.setLayout('lime')}" ajax="false" />
+                                        <p:menuitem id="layout12" value="Yellow - Teal"  actionListener="#{loginControlador.setLayout('yellow')}" ajax="false" />
+                                        <p:menuitem id="layout13" value="Amber - Pink"  actionListener="#{loginControlador.setLayout('amber')}" ajax="false" />
+                                        <p:menuitem id="layout14" value="Orange - Indigo"  actionListener="#{loginControlador.setLayout('orange')}" ajax="false" />
+                                        <p:menuitem id="layout15" value="Deep Orange - Cyan"  actionListener="#{loginControlador.setLayout('deeporange')}" ajax="false" />
+                                        <p:menuitem id="layout16" value="Brown - Cyan"  actionListener="#{loginControlador.setLayout('brown')}" ajax="false" />
+                                        <p:menuitem id="layout17" value="Grey - Indigo"  actionListener="#{loginControlador.setLayout('grey')}" ajax="false" />
+                                        <p:menuitem id="layout18" value="Blue Grey - Green"  actionListener="#{loginControlador.setLayout('bluegrey')}" ajax="false" />
+
+                                    </p:submenu>
+                                </p:column>
+                                <p:column>
+                                    <p:submenu label="ESPECIALES">
+                                        <p:menuitem id="layout19" value="Reflection"  actionListener="#{loginControlador.setLayout('reflection')}" ajax="false" />
+                                        <p:menuitem id="layout20" value="Moody"  actionListener="#{loginControlador.setLayout('moody')}" ajax="false" />
+                                        <p:menuitem id="layout21" value="Cityscape"  actionListener="#{loginControlador.setLayout('cityscape')}" ajax="false" />
+                                        <p:menuitem id="layout22" value="Cloudy"  actionListener="#{loginControlador.setLayout('cloudy')}" ajax="false" />
+                                        <p:menuitem id="layout23" value="Storm"  actionListener="#{loginControlador.setLayout('storm')}" ajax="false" />
+                                        <p:menuitem id="layout24" value="Palm"  actionListener="#{loginControlador.setLayout('palm')}" ajax="false" />
+                                        <p:menuitem id="layout25" value="Flatiron"  actionListener="#{loginControlador.setLayout('flatiron')}" ajax="false" />
+                                        <p:menuitem id="layout26" value="Panaroma"  actionListener="#{loginControlador.setLayout('panaroma')}" ajax="false" />
+                                        <p:menuitem id="layout27" value="Horizon"  actionListener="#{loginControlador.setLayout('horizon')}" ajax="false" />                                        
+
+                                    </p:submenu>
+                                </p:column>
+
+                            </p:submenu>
+
+                            <p:submenu label="TEMAS" icon="ui-icon-pencil">
+
+                                <p:column>
+                                    <p:submenu label="TEMAS I">
+                                        <p:menuitem id="theme1" value="Indigo - Pink"  actionListener="#{loginControlador.setTheme('indigo')}" ajax="false" />
+                                        <p:menuitem id="theme2" value="Pink - Amber"  actionListener="#{loginControlador.setTheme('pink')}" ajax="false" />
+                                        <p:menuitem id="theme3" value="Purple - Pink"  actionListener="#{loginControlador.setTheme('purple')}" ajax="false" />
+                                        <p:menuitem id="theme4" value="Deep Purple - Orange"  actionListener="#{loginControlador.setTheme('deeppurple')}" ajax="false" />
+                                        <p:menuitem id="theme5" value="Blue - Amber"  actionListener="#{loginControlador.setTheme('blue')}" ajax="false" />
+                                        <p:menuitem id="theme6" value="Light Blue - Blue Grey"  actionListener="#{loginControlador.setTheme('lightblue')}" ajax="false" />
+                                        <p:menuitem id="theme7" value="Cyan - Amber"  actionListener="#{loginControlador.setTheme('cyan')}" ajax="false" />
+                                        <p:menuitem id="theme8" value="Teal - Red"  actionListener="#{loginControlador.setTheme('teal')}" ajax="false" />
+
+                                        <p:menuitem id="theme9" value="Green - Brown"  actionListener="#{loginControlador.setTheme('green')}" ajax="false" />
+                                    </p:submenu>
+                                </p:column>
+
+                                <p:column>
+                                    <p:submenu label="TEMAS II">
+
+                                        <p:menuitem id="theme10" value="Light Green - Purple"  actionListener="#{loginControlador.setTheme('lightgreen')}" ajax="false" />
+                                        <p:menuitem id="theme11" value="Lime - Blue Grey"  actionListener="#{loginControlador.setTheme('lime')}" ajax="false" />
+                                        <p:menuitem id="theme12" value="Yellow - Teal"  actionListener="#{loginControlador.setTheme('yellow')}" ajax="false" />
+                                        <p:menuitem id="theme13" value="Amber - Pink"  actionListener="#{loginControlador.setTheme('amber')}" ajax="false" />
+                                        <p:menuitem id="theme14" value="Orange - Indigo"  actionListener="#{loginControlador.setTheme('orange')}" ajax="false" />
+                                        <p:menuitem id="theme15" value="Deep Orange - Cyan"  actionListener="#{loginControlador.setTheme('deeporange')}" ajax="false" />
+                                        <p:menuitem id="theme16" value="Brown - Cyan"  actionListener="#{loginControlador.setTheme('brown')}" ajax="false" />
+                                        <p:menuitem id="theme17" value="Grey - Indigo"  actionListener="#{loginControlador.setTheme('grey')}" ajax="false" />
+                                        <p:menuitem id="theme18" value="Blue Grey - Green"  actionListener="#{loginControlador.setTheme('bluegrey')}" ajax="false" />
+
+                                    </p:submenu>
+                                </p:column>
+
+                            </p:submenu>
+
+                            <p:submenu label="OPCIONES MENU" icon="ui-icon-menu">
+                                <p:column>
+
+                                    <p:submenu label="POSICION">
+                                        <p:menuitem id="menu1" value="Vertical Menu" icon="&#xE233;" actionListener="#{loginControlador.setHorizontal(false)}" ajax="false"/>
+                                        <p:menuitem id="menu2" value="Horizontal Menu" icon="&#xE22C;" actionListener="#{loginControlador.setHorizontal(true)}" ajax="false"/>
+
+                                    </p:submenu>
+
+                                    <p:submenu label="ORIENTACION">
+                                        <p:menuitem id="sr_ltr" value="LTR" icon="&#xE236;" actionListener="#{loginControlador.setOrientationRTL(false)}" ajax="false" />
+                                        <p:menuitem id="sr_rtl" value="RTL" icon="&#xE237;" actionListener="#{loginControlador.setOrientationRTL(true)}" ajax="false" />
+
+                                    </p:submenu>
+
+                                </p:column>
+
+                                <p:column>
+                                    <p:submenu label="TONALIDAD">
+                                        <p:menuitem id="menu3" value="Light Menu" icon="&#xE893;" actionListener="#{loginControlador.setDarkMenu(false)}" ajax="false"/>
+                                        <p:menuitem id="menu4" value="Dark Menu" icon="&#xE892;" actionListener="#{loginControlador.setDarkMenu(true)}" ajax="false"/>
+
+                                    </p:submenu>
+                                </p:column>
+                            </p:submenu>
+                            <p:separator/> 
+
+                            <p:menuitem style="font-weight: bolder" value="LAYOUT ACTUAL: #{loginControlador.layout}"/>
+                            <p:menuitem style="font-weight: bolder" value="THEME ACTUAL: #{loginControlador.theme}"/>
+                            <p:separator/> 
+
+
+                        </p:megaMenu>
+                        <br/>  <br/>
+
+
+                    </div>
+
+                </div>   
+
+                <div class="ui-g-12 ui-lg-9">
+                    <div class="card card-w-title">
+                        <h:panelGrid columns="4">
+                            <p:selectOneMenu   dynamic="true" style="width: 100%" value="#{bswCoEmpresasControlador.empresaABM}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems  value="#{bswCoEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                            </p:selectOneMenu> 
+                            <h:panelGroup>
+                                <h:outputText   styleClass="etiqueta"  value="Plan de Cuentas" />
+                                <p:selectBooleanCheckbox  value="#{bswCoEmpresasControlador.planCuenta}" /> 
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <h:outputText   styleClass="etiqueta"  value="Sucursal" />
+                                <p:selectBooleanCheckbox  value="#{bswCoEmpresasControlador.sucursal}" /> 
+                            </h:panelGroup>
+
+                            <p:commandButton ajax="true" update="fp:form"
+                                             icon="fa fa-files-o"
+                                             action="#{bswCoEmpresasControlador.clonarEmpresa()}">
+
+
+                            </p:commandButton>
+                        </h:panelGrid>
+
+                    </div>
+
+                </div>   
+            </div>
+        </p:tab> 
+    </p:tabView>     
+</ui:composition>

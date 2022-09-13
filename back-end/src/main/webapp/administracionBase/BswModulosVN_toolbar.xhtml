@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:gdb="http://java.sun.com/jsf/composite/plantillas/componentes"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    
+    <gdb:p_form_toolbar  update_boton_nuevo=":form" rendered_boton_nuevo=" " 
+                        onclick_boton_nuevo="PF('dialogoAgregar').show();" property_target_boton_nuevo="#{bswModulosControlador.esModificarDetalle}"
+                        property_value_boton_nuevo="false" onlick_boton_ayuda="PF('dialogoAyuda').show();" onlick_boton_acercaDe="PF('dialogoAcercaDe').show();"/>
+
+
+</ui:composition>

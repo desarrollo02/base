@@ -1,0 +1,248 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+
+    <ui:define name="breadcrumb">
+        <li>PANEL ADMINISTRACION</li>
+        <li></li>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" style="width: 100%"  enctype="multipart/form-data" acceptcharset="UTF-8" rendered="#{loginControlador.usuario.superUsuario}">
+            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  widgetVar="growl"/>
+
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-3">
+                    <div class="card card-w-title">
+                        <h1>DATOS DE LA EMPRESA</h1>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Modulos"
+                                         onclick="PF('dialogModulo').show();" 
+                                         title="Replicar Modulos" >
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Grupo de Usuarios"
+                                         onclick="PF('dialogGrupoUsuario').show();" 
+                                         title="Replicar Grupo de usarios" >
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Grupo Acceso"
+                                         onclick="PF('dialogGrupoAcceso').show();" 
+                                         title="Replicar Grupo Acceso" >
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Plan de Cuentas"
+                                         onclick="PF('dialogPlanCuentas').show();" 
+                                         title="Replicar Plan de Cuentas" >
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Ejercicos"
+                                         onclick="PF('dialogEjercicos').show();" 
+                                         title="Replicar Ejercicos" >
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Categoria"
+                                         onclick="PF('dialogCategoria').show();" 
+                                         title="Replicar Categoria" >
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Periodo"
+                                         onclick="PF('dialogPeriodo').show();" 
+                                         title="Replicar Periodo" >
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Presupuesto"
+                                         onclick="PF('dialogPresupuesto').show();" 
+                                         title="Replicar Presupuesto" >
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton ajax="true" 
+                                         value="Replicar Rel.Cuentas"
+                                         onclick="PF('dialogRelacionesCuentas').show();" 
+                                         title="Replicar Rel.Cuentas" >
+                        </p:commandButton>
+                    </div>
+                </div>   
+            </div>   
+
+            <p:dialog header="Replicar Modulos" widgetVar="dialogModulo"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenModuloABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoModuloABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarModulo}"
+                    />
+            </p:dialog>
+            <p:dialog header="Replicar Grupo de Usuarios" widgetVar="dialogGrupoUsuario"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarGruposUsuarios}"
+                    />
+            </p:dialog>
+            <p:dialog header="Replicar Grupo Acceso" widgetVar="dialogGrupoAcceso"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenAccesoABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoAccesoABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarGruposAcceso}"
+                    />
+            </p:dialog>
+            <p:dialog header="Replicar Plan cuentas" widgetVar="dialogPlanCuentas"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenPlanABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoPlanABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarPlanCuentas}"
+                    />
+            </p:dialog>
+            <p:dialog header="Replicar Ejercicios" widgetVar="dialogEjercicos"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenEjerciciosABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoEjerciciosABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarEjercicios}"
+                    />
+            </p:dialog>
+            <p:dialog header="Replicar Categoria" widgetVar="dialogCategoria"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenCategoriaABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoCategoriaABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarCategoria}"
+                    />
+            </p:dialog>
+            <p:dialog header="Replicar Periodo" widgetVar="dialogPeriodo"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenPrwPeriodoCabABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoPrwPeriodoCabABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarPrwPeriodo}"
+                    />
+            </p:dialog>
+            <p:dialog header="Replicar Presupuesto" widgetVar="dialogPresupuesto"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenPresupuestoABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoPresupuestoABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarPresupuesto}"
+                    />
+            </p:dialog>
+              <p:dialog header="Replicar Rel.Cuentas" widgetVar="dialogRelacionesCuentas"  styleClass="etiqueta"  width="900">
+                <b> <label for="" class="mb-0">Empresa Origen</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasOrigenRelacionesCuentasABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Empresa Destino</label></b>
+                <p:selectOneMenu   style="width: 100%" value="#{bswPanelAdministracion.bswEmpresasDestinoRelacionesCuentasABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{bswEmpresasControlador.listaTodosActual}" var="empresa" itemLabel="#{empresa.descripcion}" itemValue="#{empresa}" />
+                </p:selectOneMenu>
+                <p:commandButton 
+                    value="Replicar"   
+                    update="@widgetVar(growl)" 
+                    ajax="true"
+                    action="#{bswPanelAdministracion.guardarRElacionesCuentas()}"
+                    />
+            </p:dialog>
+        </h:form>   
+    </ui:define>
+</ui:composition>

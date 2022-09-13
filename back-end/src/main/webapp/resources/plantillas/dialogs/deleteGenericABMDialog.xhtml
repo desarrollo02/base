@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <composite:interface>
+        <composite:attribute name="widget_var"/>
+        <composite:attribute name="mesagge" default="Esta seguro que desea eliminar el registro?"/>
+        <composite:attribute name="aceptar_update_value" />
+        <composite:attribute name="render_boton_aceptar" default="true" />
+        <composite:attribute name="delete_object" />
+        <composite:attribute name="object_delete" />
+    </composite:interface>
+
+    <composite:implementation>
+        <p:confirmDialog appendTo="@(body)" 
+                         hideEffect="clip" 
+                         message="#{cc.attrs.mesagge}"
+                         header="Aviso" 
+                         severity="alert" 
+                         widgetVar="#{cc.attrs.widget_var}">
+            <h:form>
+                <p:commandButton 	value="Aceptar" 
+                                  onclick="PF('#{cc.attrs.widget_var}').hide()"
+                                  ajax="true" rendered="#{cc.attrs.render_boton_aceptar}"
+                                  update="#{cc.attrs.aceptar_update_value}"
+                                  title="Eliminar Registro">
+                    <f:setPropertyActionListener target="#{cc.attrs.delete_object}" 
+                                                 value="#{cc.attrs.object_delete}"/>
+                </p:commandButton>
+                <p:commandButton 	value="Cancelar" 
+                                  onclick="PF('#{cc.attrs.widget_var}').hide()"  
+                                  type="button"
+                                  title="Cancelar Accion">
+                </p:commandButton>
+            </h:form>
+        </p:confirmDialog> 
+    </composite:implementation>
+</ui:composition>

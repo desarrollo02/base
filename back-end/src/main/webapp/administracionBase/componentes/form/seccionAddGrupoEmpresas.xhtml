@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+
+    <oupt:outputText value="#{i18n.abm_panel}" />
+
+    <p:panelGrid layout="grid"  columns="1" >
+
+        <inpt:inputText valueOuput="#{i18n.label_nombre} (*)" value="#{bswGrupoEmpresaControlador.actual.nombre}" size="10" maxlength="25"/>
+
+        <inpt:inputText valueOuput="#{i18n.label_descripcion} (*)" value="#{bswGrupoEmpresaControlador.actual.descripcion}" size="50" maxlength="500"/>
+
+   
+    </p:panelGrid>
+    
+    <p:panel header="EMPRESAS ASOCIADAS">
+        
+    
+        <p:selectManyCheckbox id="grid" value="#{bswGrupoEmpresaControlador.empresasAsociadas}" layout="grid" columns="3" styleClass="grid-checkbox" converter="omnifaces.SelectItemsConverter">
+            <f:selectItems value="#{loginControlador.empresasList}" var="fila" itemLabel="#{fila.descripcion}" itemValue="#{fila}"/>
+        </p:selectManyCheckbox>
+        
+    </p:panel>
+
+</ui:composition>

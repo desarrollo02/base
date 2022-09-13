@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs"
+      xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars">
+
+    <body>
+
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="form" prependId="false" rendered="#{consultaPermisosVentasControlador.puedeConsultarFormasBase()}"> 
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <h:panelGrid id="pg">
+                        <h:panelGroup>
+                            <h:outputText id="BswFormas" value="Formas Existentes - BSFORMAS" styleClass="tituloTabla" />
+
+                            <tool:abmToolbar controlador="#{bswFormasControlador}"
+                                             guardarUpdate=":form, :form:grilla, :form:growl"
+                                             cancelarUpdate=":form"/>
+                        </h:panelGroup>
+
+                        <p:panel rendered="#{!bswFormasControlador.esABMPanel}">
+                            <ui:include   src="componentes/list/seccionDataTableForma.xhtml" />
+                        </p:panel>
+
+                        <p:panel rendered="#{bswFormasControlador.esABMPanel}" style="background-color: rgba(255, 0, 0, 0)">
+                            <ui:include   src="componentes/form/seccionAddForma.xhtml" />
+                        </p:panel>
+
+                    </h:panelGrid>
+                    <dlg:dialogCodDescripcion header="Lista de Modulos del Sistema"	
+                                              widgetVar="dialogoModulos"
+                                              idDataTable="grillaModulos"
+                                              dataTableList="#{componentesVarios.listaBswModulos}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswModulosABM}"
+                                              selecionarUpdate=":form:panelGridAgregar"/>
+                </h:form>
+                <dlg:deleteDialogPlantilla widget_var="avisoEliminar"
+                                           action="#{bswFormasControlador.eliminarRegistro()}"
+                                           aceptar_update_value=":form:grilla"/>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <composite:interface>
+
+        <!--BOTON CONFIRM DIALOG-->
+        <composite:attribute name="rendered_confirm" default="false" required="true"/>
+        <composite:attribute name="message" default="Esta seguro que desea eliminar el registro?"/>
+        <composite:attribute name="widgetvar" default="avisoEliminar"/>     
+        <composite:attribute name="value_ok" default="Aceptar"/>     
+        <composite:attribute name="onclick" default="PF('avisoEliminar').hide()"/>     
+        <composite:attribute name="action"  required="true" method-signature="void listener()"/>     
+        <composite:attribute name="update" default="form"/>
+        <composite:attribute name="title" default="Eliminar Registro"/>     
+        <composite:attribute name="value_noOk" default="Cancelar"/>
+        <composite:attribute name="onclickNoOK" default="PF('avisoEliminar').hide()"/>
+        <composite:attribute name="titleNoOK" default="Cancelar Accion"/>
+        <!--BOTON FIN CONFIRM DIALOG-->
+
+    </composite:interface>
+    <composite:implementation>
+        <p:confirmDialog appendTo="@(body)"  rendered="#{cc.attrs.rendered_confirm}"
+                         hideEffect="clip" 
+                         message="#{cc.attrs.message}"
+                         header="Aviso" 
+                         severity="alert" 
+                         widgetVar="#{cc.attrs.widgetvar}">
+            <h:form>            
+                <p:commandButton 	value="#{cc.attrs.value_ok}" 
+                                  onclick="#{cc.attrs.onclick}" 
+                                  ajax="true"  
+                                  action="#{cc.attrs.action}"
+                                  update="#{cc.attrs.update}"
+                                  title="#{cc.attrs.title}">
+                </p:commandButton>
+                <p:commandButton 	value="#{cc.attrs.value_noOk}" 
+                                  onclick="PF('#{cc.attrs.widgetvar}').hide()"  
+                                  type="button"
+                                  title="#{cc.attrs.titleNoOK}">
+                </p:commandButton>
+            </h:form>
+        </p:confirmDialog>
+    </composite:implementation>
+</ui:composition>

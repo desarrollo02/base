@@ -1,0 +1,32 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+    <composite:interface>
+        <composite:attribute name="updateBtnAdd"/>
+        <composite:attribute name="value" default="Agregar"/>
+        <composite:attribute name="updateBtnClean"/>
+        <composite:attribute name="idBtnAdd" default="add"/>
+        <composite:attribute name="action_property_boton_editar_datatable"  default="#{utilControler.dummy()}" method-signature="void listener()" />
+        <composite:attribute name="actionBtnClean" method-signature="void action(java.lang.String)" required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+
+        <div class="gdb">
+            <p:commandButton style="background-color: green" type="push"    update="#{cc.attrs.updateBtnAdd}" 
+                             icon="pi pi-plus"  action="#{cc.attrs.action_property_boton_editar_datatable}"
+                             ajax="true" value="Agregar"  />
+            <p:commandButton style="background-color: yellow;color: black;" value="Limpiar" icon="ui-icon-clear"
+                             update="#{cc.attrs.updateBtnAdd}"
+                             action="#{cc.attrs.actionBtnClean}"/>
+
+        </div>
+
+    </composite:implementation>
+</ui:composition>

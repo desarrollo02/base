@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+
+    <oupt:outputText value="#{i18n.abm_panel}" />
+
+    <p:panelGrid layout="grid"  columns="1" >
+
+        <oupt:codigoDescripcionOuput  
+            id="ouptTP_1" valueOuput="Cargo (*)"
+            codigoId="inputCodigo"
+            valueCodigo="#{utilControler.componentes.bswCargosABM.codigo}"
+            dialogWidgetVar="dialogoCargo"
+            btnTitle="#{i18n.lista_grupo_usuarios}"
+            blurUpdate="@widgetVar(txtcargo), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswCargosABM}"                         
+            valueDescripcion="#{bswGrupoCargoDepartamentoControlador.componentes.bswCargosABM.descripcion}"
+            descripcionId="txtcargo"/>
+
+        <oupt:codigoDescripcionOuput  
+            id="ouptTP_2" valueOuput="Departamentos (*)"
+            codigoId="inputdep"
+            valueCodigo="#{utilControler.componentes.bswDepartamentosABM.codDepartamento}"
+            dialogWidgetVar="dialogoDepartemento"
+            btnTitle="#{i18n.lista_modulos}"
+            blurUpdate="@widgetVar(txtCoDep), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswDepartamentosABM}"                         
+            valueDescripcion="#{bswGrupoCargoDepartamentoControlador.componentes.bswDepartamentosABM.descripcion}"
+            descripcionId="txtCoDep"/>
+
+        <oupt:codigoDescripcionOuput  
+            id="ouptTP_3" valueOuput="Usuario (*)"
+            codigoId="inputCodUsuarios"
+            valueCodigo="#{utilControler.componentes.usuariosABM.codUsuario}"
+            dialogWidgetVar="dialogoUsuarios"
+            btnTitle="Usuarios"
+            blurUpdate="@widgetVar(txtCodFormulario), @widgetVar(growl)"
+            object="#{utilControler.componentes.usuariosABM}"                         
+            valueDescripcion="#{bswGrupoCargoDepartamentoControlador.componentes.usuariosABM.bswPersonas.nombre}"
+            descripcionId="txtCodUsuarios"/>
+    </p:panelGrid>
+</ui:composition>

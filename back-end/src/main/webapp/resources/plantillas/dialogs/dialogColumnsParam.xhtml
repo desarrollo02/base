@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <composite:interface>
+        <composite:attribute name="header"/>
+        <composite:attribute name="widgetVar"/>
+        <composite:attribute name="idDataTable"/>
+        <composite:attribute name="height" default="320"/>
+        <composite:attribute name="width" default="590"/>
+        <composite:attribute name="dataTableList"/>
+        <composite:attribute name="action" default="#{utilControler.dummy()}" method-signature="void listener()"/>
+        
+        <composite:attribute name="propertyActionListenerTarget"/>
+        <composite:attribute name="selecionarUpdate"/>
+        <composite:attribute name="lazy" default="false" />
+
+    </composite:interface>
+
+    <composite:implementation>
+<!-- <p:focus context="#{cc.attrs.widgetVar}"/>-->
+        <p:dialog header="#{cc.attrs.header}" id="#{cc.attrs.widgetVar}"
+                  widgetVar="#{cc.attrs.widgetVar}"
+                  width="#{cc.attrs.width}"
+                  closable="true"
+                  height="#{cc.attrs.height}"
+                  modal="false"
+                  closeOnEscape="true"  responsive="true">
+
+            <p:dataTable reflow="true" id="#{cc.attrs.idDataTable}"
+                         paginator="true"
+                         rows="5" 
+                         lazy="#{cc.attrs.lazy}"
+                             currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} registros"  
+                     emptyMessage="No existen registros."
+                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15"
+                         var="fila" 
+                         value="#{cc.attrs.dataTableList}"
+                         rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                         rowIndexVar="rowIx"
+                         rowKey="fila.id"
+                         widgetVar="#{cc.attrs.idDataTable}">
+                <p:column >      
+                        <p:commandButton     
+                            ajax="true"
+                            title="Selecionar" action="#{cc.attrs.action}"
+                            onclick="PF('#{cc.attrs.widgetVar}').hide();"
+                            icon="pi pi-check"
+                            update="#{cc.attrs.selecionarUpdate}">
+                            <f:setPropertyActionListener target="#{cc.attrs.propertyActionListenerTarget}"
+                                                         value="#{fila}"/>
+                        </p:commandButton>
+                    
+                </p:column>  
+                <composite:insertChildren />
+
+            </p:dataTable>                               
+        </p:dialog>
+    </composite:implementation>
+</ui:composition>

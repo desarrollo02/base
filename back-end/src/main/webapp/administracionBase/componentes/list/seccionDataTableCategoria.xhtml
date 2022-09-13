@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones">
+
+
+    <p:treeTable  widgetVar="grilla"  id="grilla"  value="#{bswCategoriaControlador.root}" var="fila">  
+
+        <f:facet name="header">  
+            Lista de Categorias  
+        </f:facet>  
+
+          
+
+        <p:column id="descBswModulosColumna" sortBy="#{fila.codigo}"
+                  filterBy="#{fila.codigo}" 
+                  style="width: 20%">
+            <f:facet name="header">Codigo</f:facet>
+            <h:outputText  id="descBswModulosText" value="#{fila.codigo}"/>
+        </p:column>
+
+        <p:column sortBy="#{fila.descripcion}"
+                  filterBy="#{fila.descripcion}"
+                  style="width: 30%">
+            <f:facet name="header">Descripcion</f:facet>
+            <h:outputText  id="colTxtParametro" value="#{fila.descripcion}"/>
+        </p:column>
+
+        <p:column  
+            sortBy="##{fila.bswComponentes.descripcion}"
+            style="width: 30%"
+            rendered="false"
+            filterBy="#{fila.bswComponentes.descripcion}"   
+            >
+            <f:facet name="header">Componente</f:facet>
+            <h:outputText id="colTxtComponente" value="#{fila.bswComponentes.descripcion}"/>
+        </p:column>
+        
+         <p:column  
+            sortBy="##{fila.cowPlanCuentas.codigo}"
+            style="width: 30%"
+            filterBy="#{fila.cowPlanCuentas.codigo}"   
+            >
+            <f:facet name="header">Cod.Plan</f:facet>
+            <h:outputText  value="#{fila.cowPlanCuentas.codigo}"/>
+        </p:column>
+        <p:column  
+            sortBy="##{fila.cowPlanCuentas.descripcion}"
+            style="width: 30%"
+            filterBy="#{fila.cowPlanCuentas.descripcion}"   
+            >
+            <f:facet name="header">Plan Cuentas</f:facet>
+            <h:outputText  value="#{fila.cowPlanCuentas.descripcion}"/>
+        </p:column>
+         <p:column  
+            sortBy="##{fila.ultimoNivel}"
+            style="width: 30%"
+            >
+            <f:facet name="header">Es Ultimo Nivel?</f:facet>
+            <h:outputText  value="#{fila.ultimoNivel?'SI':'NO'}"/>
+        </p:column>
+
+        <p:column  style="text-align: center ; width: 10% ;">
+            <f:facet name="header">SubCategorias</f:facet>
+            <p:commandButton type="push"
+                             id="botonAddSubMenu"
+                             ajax="true" 
+                             widgetVar="botonAddSubMenu"
+                             title="Agregar SubCategorias"
+                             update="fp:form" 
+                             icon="pi pi-plus" action="#{bswCategoriaControlador.accionABMDetalle()}">
+                <f:setPropertyActionListener target="#{bswCategoriaControlador.menuPadreSeleccionado}" value="#{fila}"/>
+                <f:setPropertyActionListener target="#{bswCategoriaControlador.esAgregarSubMenu}" value="true"/>
+                <f:setPropertyActionListener
+                    target="#{bswCategoriaControlador.esModificarDetalle}"
+                    value="false" />
+                
+            </p:commandButton>
+        </p:column>
+        
+         <p:column style="text-align: center ; width: 10% ;">                                                  
+            <btn:btnEdit controlador="#{bswCategoriaControlador}"
+                         update="fp:form"/>
+            <btn:btnDelete controlador="#{bswCategoriaControlador}" />
+        </p:column>
+         
+    </p:treeTable>
+
+</ui:composition>

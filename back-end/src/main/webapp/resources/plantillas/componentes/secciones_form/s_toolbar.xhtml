@@ -1,0 +1,56 @@
+
+=======
+<?xml version='1.0' encoding='UTF-8' ?>m 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>m 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    
+    
+     <h:panelGroup>
+                                    
+                                    
+                                    <p:toolbar>
+                                        <p:toolbarGroup align="left">
+                                            <p:commandButton type="#{cc.attrs.type_boton_nuevo}"
+                                                             value="#{cc.attrs.value_boton_nuevo}" update="#{cc.attrs.update_boton_nuevo}" 
+                                                             icon="ui-icon-document"
+                                                             rendered="#{cc.attrs.rendered_boton_nuevo}"
+                                                             onclick="#{cc.attrs.onclick_boton_nuevo}">
+
+                                                <f:setPropertyActionListener target="#{cc.attrs.property_target_boton_nuevo}" value="#{cc.attrs.property_value_boton_nuevo}"/>
+                                            </p:commandButton>  
+
+
+
+
+                                            <p:commandButton type="push"
+                                                             title="#{cc.attrs.title_boton_ayuda}"
+                                                             icon="ui-icon-help"
+                                                             onclick="#{cc.attrs.onlick_boton_ayuda}"/>
+                                            
+                                            
+                                            <p:commandButton type="push"
+                                                             title="#{cc.attrs.title_boton_acercaDe}"
+                                                             icon="ui-icon-info"
+                                                             onclick="#{cc.attrs.onlick_boton_acercaDe}"/>
+                                                
+                                            
+                                            
+                                            <p:commandButton type="push" value="#{cc.attrs.value_boton_inicio}" id="inicio_modulo"
+                                                     title="#{cc.attrs.title_boton_inicio}" immediate="true"
+                                                     icon="ui-icon-home" 
+                                                     action="#{cc.attrs.action_boton_inicio}"/> 
+                                        </p:toolbarGroup>
+
+
+
+
+
+                                        <p:toolbarGroup align="right">                                     <p:menuButton value="Mas Visitados">                                         <p:menuitem value="Lista de Articulos" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}" url="/faces/controlStock/StwArticulos.xhtml"/>                                         <p:menuitem value="Compra" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}" url="/faces/controlStock/StwEntSal.xhtml"/>                                         <p:menuitem value="Venta" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="/faces/ventas/VtwFacturaPymes.xhtml"/> <p:menuitem value="Mov.Caja-Cobro" url="/faces/cuentasCobrar/CcwMovCajas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}"/>                                         <p:menuitem value="Envio entre sucursales"  rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                     </p:menuButton>                                 </p:toolbarGroup>                             </p:toolbar>
+                                </h:panelGroup>
+</ui:composition>

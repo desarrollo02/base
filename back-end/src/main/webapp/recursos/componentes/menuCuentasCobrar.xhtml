@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:component>
+        <div id="menu_horizontal">
+             <h:form id="menucuentascobrar">
+                 <p:menubar styleClass="menuTipoLetra">
+                       <p:submenu label="Definiciones">
+                            <p:menuitem value="Cobradores" rendered="#{consultaPermisosVentasControlador.puedeConsultarClientesVentas()}"  url="CcwCobradores.xhtml"/>
+                            <p:menuitem value="Condiciones de Ventas" rendered="#{consultaPermisosVentasControlador.puedeConsultarCondicionVentas()}" url="CcwCondicionesVentas.xhtml"/>
+                             
+                        </p:submenu>
+                        <p:submenu label="Movimientos">
+                             <p:submenu label="Consultas">
+                                 <p:menuitem value="Consulta Mov.Cajas" rendered="#{consultaPermisosVentasControlador.puedeConsultarConsultaMovCaja()}" url="CcwConsultaMovCajas.xhtml"/>
+                              </p:submenu>
+                            <p:menuitem value="Recibos"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRecibos()}" url="CcwRecibos.xhtml"/>
+                            <p:menuitem value="Movimientos de Cajas" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}" url="CcwMovCajas.xhtml"/>
+                            <p:menuitem value="Anulacion Mov.Cajas" rendered="#{consultaPermisosVentasControlador.puedeConsultarAnulaMovCaja()}" url="CcwMovCajasAnulacion.xhtml"/>
+                            
+                        </p:submenu>
+                         <p:submenu label="Reportes">
+                            <p:submenu label="Recibos">
+                               <p:menuitem value="Cobrados" url="CcwRptRecibosCobrados.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptRecibosCobrados()}"/>
+                                <p:menuitem value="No Cobrados" url="CcwRptRecibosNoCobrados.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptRecibosNoCobrados()}"/>
+                            </p:submenu>
+                             <p:submenu label="Cajas" rendered="false">
+                                <p:menuitem value="Resumen Movimientos"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptCajasResumen()}" url="CcwRptResumenMovCajas.xhtml"/>
+                                <p:menuitem value="Detalle Movimientos"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptCajasDetalle()}" url="CcwRptDetalleMovCajas.xhtml"/>
+                                <p:menuitem value="Det. Mov. por Fechas"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptCajasDetallePorFechas()}" url="CcwRptDetalleMovxFec.xhtml"/>
+                              
+                                <p:menuitem value="Mov. por Tipo Comp."  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptCajasDetallePorTipos()}" url="CcwRptMovCajXComp.xhtml"/>
+                                <p:menuitem value="Cheques recibidos" url="CcwChequesRecibidosCaja.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptCajasDetalleCheques()}"/>
+                               
+                            </p:submenu>
+                            <p:submenu label="Saldo de Clientes" >
+                                <p:menuitem value="Saldo de Clientes" url="CcwRptSaldosClientes.xhtml"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptSaldosCli()}"/>
+                                <p:menuitem value="Saldos a una fecha"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptSaldosAFecha()}" url="CcwRptSaldosClientesAfecha.xhtml"/>
+                                <p:menuitem value="Por Suc. a una fecha"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptSaldosAFechaSuc()}" url="CcwRptSaldosPorSucursalFecha.xhtml"/>
+                               </p:submenu>
+                            <p:menuitem value="Saldos Suc. a fecha" rendered="false" url="CcwRptSaldosPorSucursalFecha.xhtml" />
+                            <p:menuitem value="Eficiencia Cobradores"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptEfiCobradores()}" url="CcwEficienciaCobradores.xhtml"/>
+                            <p:menuitem value="Rec. Emitidos vs. Cob."  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptRecEmiVsCob()}" url="CcwComparativoRecibosEmitidosCobrados.xhtml"/>
+                            <p:menuitem value="Comp.Pendientes Cob."  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptCompPendCobro()}" url="VtwComprobantesPendientesCobro.xhtml" />
+                            <p:menuitem value="Fac.credito emitidas"  rendered="#{consultaPermisosVentasControlador.puedeConsultarFactCreditoEmi()}" url="CcwFacturasCreditoEmitidas.xhtml"/>
+                            <p:submenu label="Pend.p/Cierre de cajas" rendered="false">
+                                <p:menuitem value="Contado Pendientes"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptPendCierreCaja()}" url="CcwContadoPendientes.xhtml"/>
+                                <p:menuitem value="Rec.Pend.de cobro"  rendered="#{consultaPermisosVentasControlador.puedeConsultarRptRecPendCobro()}" url="CcwRecibosPendientesCobro.xhtml"/>
+                            </p:submenu>
+                            
+                    </p:submenu>    
+                 
+                     
+
+                </p:menubar>
+            </h:form>
+        </div>
+      
+    </ui:component>
+</html>
+
+
+

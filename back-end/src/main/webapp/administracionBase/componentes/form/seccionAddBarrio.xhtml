@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs">
+
+
+    <h:outputText value="Agregar/Modificar Barrio" styleClass="tituloTabla"/>
+
+    <p:panelGrid  id="panelGridModificar"   columns="2" >
+        <h:outputText id="panelGrigTextModificarCod"
+                      styleClass="etiqueta"
+                      value="Código(*): "/>
+        <p:inputText   id="panelGrigInputModificarCod"
+                       value="#{bswBarriosControlador.actual.codBarrio}"
+                       size="10" maxlength="5"
+                       style="text-transform: uppercase"
+                       onkeyup="cUpper(this)"/>
+        <h:outputText id="panelGrigTextModificarDesc"
+                      styleClass="etiqueta"
+                      value="Descripcion: "/>
+        <p:inputText   id="panelGrigInputModificarDesc"
+                       value="#{bswBarriosControlador.actual.descripcion}"
+                       size="35" maxlength="80"
+                       style="text-transform: uppercase"
+                       onkeyup="cUpper(this)"/>
+        <h:outputText id="panelGrigTextCiudadCod"
+                      styleClass="etiqueta"
+                      value="Ciudad(*): "/>
+        <oupt:codigoDescripcionOuput 
+            id="ouptTP_2"
+            codigoId="inputCodCiudad"
+            valueCodigo="#{componentesVarios.bswCiudadesABM.codCiudad}"
+            changeListener="#{componentesVarios.ciudadesChangeListener}"
+            dialogWidgetVar="dialogoCiudad"
+            btnTitle="Lista de Ciudad"
+            blurUpdate=":form:ouptTP_2:txtCodCiudad, :form:growl"
+            valueDescripcion="#{bswBarriosControlador.componentes.bswCiudadesABM.descripcion}"
+            descripcionId="txtCodCiudad"
+            object="#{componentesVarios.bswCiudadesABM}"/>
+        <h:outputText id="panelGrigTextPaisCod"
+                      styleClass="etiqueta"
+                      value="País(*): "/>
+        <oupt:codigoDescripcionOuput 
+            id="ouptTP_1"
+            codigoId="inputCodPais"
+            valueCodigo="#{componentesVarios.bswPaisesABM.codPais}"
+            changeListener="#{componentesVarios.paisesChangeListener}"
+            dialogWidgetVar="dialogoPais"
+            btnTitle="Lista de Paises"
+            blurUpdate=":form:ouptTP_1:txtCodPais, :form:growl"
+            valueDescripcion="#{bswBarriosControlador.componentes.bswPaisesABM.descripcion}"
+            descripcionId="txtCodPais"
+            object="#{componentesVarios.bswPaisesABM}"/>
+        <h:outputText id="panelGrigTextProvinciaCod"
+                      styleClass="etiqueta"
+                      value="Provincia(*): "/>
+        <oupt:codigoDescripcionOuput 
+            id="ouptTP"
+            codigoId="inputCodProvincia"
+            valueCodigo="#{componentesVarios.bswProvinciasABM.codProvincia}"
+            changeListener="#{componentesVarios.provinciaChangeListener}"
+            dialogWidgetVar="dialogoProvincia"
+            btnTitle="Lista de Provincias"
+            blurUpdate=":form:ouptTP:txtCodProvincia, :form:growl"
+            valueDescripcion="#{bswBarriosControlador.componentes.bswProvinciasABM.descripcion}"
+            descripcionId="txtCodProvincia"
+            object="#{componentesVarios.bswProvinciasABM.codProvincia}"/>
+    </p:panelGrid>
+</ui:composition>

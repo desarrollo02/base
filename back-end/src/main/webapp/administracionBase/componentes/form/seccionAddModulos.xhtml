@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+
+    <oupt:outputText value="#{i18n.abm_panel}" />
+
+    <p:panelGrid layout="grid"  columns="1" >
+
+        <inpt:inputText valueOuput="#{i18n.label_codigo} (*)" value="#{bswModulosControlador.actual.codModulo}" size="10" maxlength="4"/>
+
+        <inpt:inputText valueOuput="#{i18n.label_descripcion} (*)" value="#{bswModulosControlador.actual.descripcion}" size="50" maxlength="60"/>
+
+   
+    </p:panelGrid>
+   
+
+</ui:composition>

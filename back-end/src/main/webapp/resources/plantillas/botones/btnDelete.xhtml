@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+>
+
+
+    <composite:interface>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="update"/>
+    </composite:interface>
+
+    <composite:implementation>
+         <p:commandButton  rendered="#{cc.attrs.controlador.puedeBorrar}"
+                              id="botonEliminar" 
+                              ajax="true"
+                              title="Eliminar Registro"  
+                              onclick="PF('avisoEliminar').show()" 
+                              icon="pi pi-trash"
+                              style="margin-left: 5px !important;"
+                              styleClass="ui-button-warning rounded-button" process="@this">
+                <f:setPropertyActionListener 
+                    target="#{cc.attrs.controlador.detalleAeliminar}" 
+                    value="#{fila}"/>
+            </p:commandButton>
+
+    </composite:implementation>
+</ui:composition>

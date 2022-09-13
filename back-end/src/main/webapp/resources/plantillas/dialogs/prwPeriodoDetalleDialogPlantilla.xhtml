@@ -1,0 +1,83 @@
+
+=======
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <composite:interface>
+        <composite:attribute name="dialogo_widgetVar"/>
+        <composite:attribute name="id_comp" required="true"/>
+        <composite:attribute name="idParam" required="true"/>
+        <composite:attribute name="id_codigo" />
+        <composite:attribute name="onclick"/> 
+        <composite:attribute name="list" default="#{utilControler.componentes.lazyListPeriodoDetalle}"/> 
+        <composite:attribute name="id_filter" />
+        <composite:attribute name="update_value" />
+        <composite:attribute name="target_action_listener" method-signature="void listener()"/>
+        <composite:attribute name="header" /> 
+        <composite:attribute name="lazy" default="true"/> 
+        <composite:attribute name="controller" default="#{utilControler}"/> 
+
+    </composite:interface>
+    <composite:implementation id="#{cc.attrs.id_comp}">
+        <p:dialog header="#{cc.attrs.header}" widgetVar="#{cc.attrs.dialogo_widgetVar}" 
+                  styleClass="etiqueta"  width="500" resizable="false">
+
+            <p:outputPanel  style="text-align:center;">
+
+                <p:dataTable reflow="true" var="fila" id="#{cc.attrs.idParam}" 
+                             value="#{cc.attrs.list}" 
+                             paginator="true" rows="10" lazy="#{cc.attrs.lazy}"
+                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="10,15">
+                    <p:column> 
+                        <p:commandButton  type="push" 
+                                          ajax="true"  
+                                          title="Seleccionar Registro"	
+                                          onclick="PF('#{cc.attrs.dialogo_widgetVar}').hide();"
+                                          update="#{cc.attrs.update_value}" 
+                                          icon="pi pi-check">
+                            <f:setPropertyActionListener 
+                                target="#{cc.attrs.target_action_listener}" 
+                                value="#{fila}"/>
+                        </p:commandButton>  
+                    </p:column>
+
+                    <p:column filterBy="#{fila.descripcionMes}" id="#{cc.attrs.id_filter}">
+                        <f:facet name="header">
+                            <h:outputText value="Mes" />
+                        </f:facet>
+                        <h:outputText value="#{fila.descripcionMes}" />
+                    </p:column>
+
+
+                    <p:column filterBy="#{utilControler.filtroDate(fila.fechaDesde)}">
+                        <f:facet name="header">
+                            <h:outputText value="Fecha Inicio"/>
+                        </f:facet>
+                        <h:outputText value="#{fila.fechaDesde}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column filterBy="#{utilControler.filtroDate(fila.fechaHasta)}">
+                        <f:facet name="header">
+                            <h:outputText value="Fecha Fin"/>
+                        </f:facet>
+                        <h:outputText value="#{fila.fechaHasta}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+
+                </p:dataTable>
+            </p:outputPanel>			
+        </p:dialog>		                  	
+    </composite:implementation>
+</ui:composition>

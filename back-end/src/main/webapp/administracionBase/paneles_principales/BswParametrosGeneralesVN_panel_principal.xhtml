@@ -1,0 +1,174 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:gdb="http://java.sun.com/jsf/composite/plantillas/componentes"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <gdb:p_form_toolbar  update_boton_nuevo="form :form:botonAgregar" rendered_boton_nuevo="#{bswParametrosGeneralesControlador.puedeInsertar}" 
+                         onclick_boton_nuevo="PF('dialogoAgregar').show();" property_target_boton_nuevo="#{bswParametrosGeneralesControlador.esModificarDetalle}"
+                         property_value_boton_nuevo="false" onlick_boton_ayuda="PF('dialogoAyuda').show();" onlick_boton_acercaDe="PF('dialogoAcercaDe').show();"/>
+
+
+    <gdb:p_form_panel_principal id="pp"  id_datatable="grilla"  
+                                lista_datatable="#{bswParametrosGeneralesControlador.listaTodosActual}" 
+                                onclick_boton_editar_datatable="PF('dialogoAgregar').show();"
+                                update_boton_editar_datatable=":form:panelGridModificar :form:botonAgregar"
+                                
+                                rendered_property_boton_editar_datatable="false"
+                                rendered_property_boton_borrar_datatable="false"
+                                action_property_boton_editar_datatable="#{bswParametrosGeneralesControlador.cargarCamposRelacionados()}"
+                                render_boton_editar_datatable="#{bswParametrosGeneralesControlador.puedeActualizar}"
+                                
+                                target_property_boton_editar_datatable="#{bswParametrosGeneralesControlador.actual}"
+                                value_property_boton_editar_datatable="#{fila}"
+                                target_2_property_boton_editar_datatable="#{bswParametrosGeneralesControlador.esModificarDetalle}"
+                                value_2_property_boton_editar_datatable="true"
+                                
+                                render_boton_borrar_datatable="#{bswParametrosGeneralesControlador.puedeBorrar}"
+                                onclick_boton_borrar_datatable="PF('avisoEliminar').show()"
+                                
+                                target_property_boton_borrar_datatable="#{bswParametrosGeneralesControlador.detalleAeliminar}"
+                                value_property_boton_borrar_datatable="#{fila}"
+
+                                header_columna_datatable="Modulo" 
+                                filterby_columna_datatable="#{fila.bswModulos.descripcion}"
+                                value_out_columna_datatable="#{fila.bswModulos.descripcion}"
+
+                                    
+                                header_columna2_datatable="Parametro" 
+                                filterby_columna2_datatable="#{fila.parametro}"
+                                value_out_columna2_datatable="#{fila.parametro}"
+
+                                rendered_columna3_datatable="true"
+                                header_columna3_datatable="Valor" 
+                                filterby_columna3_datatable="#{fila.valor}"
+                                value_out_columna3_datatable="#{fila.valor}"
+                                
+                              
+                                />
+
+
+
+
+
+    
+    
+    
+    <!-- FALTA AJUSTAR APARTIR DE ACA -->
+                    <p:dialog header="ABM Parametros" id="dialogoAgregar"
+                        widgetVar="dialogoAgregar"
+                        width="650"
+                        closable="false"
+                        styleClass="outputpanel"
+                        height="270"
+                        modal="false">
+  <div class="ui-g-12">
+            <div class="card card-w-title">
+
+             
+                            
+                            
+                            <p:panelGrid  styleClass="bgpanelgridGray"   id="panelGridModificar" columns="2" columnClasses="label,label">
+                                
+                                <h:outputText id="panelGrigTextModulo"
+                                            styleClass="etiqueta"
+                                            value="Modulos(*): "/>
+                                <h:panelGroup>
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="txtCodModulo" style="text-transform: uppercase" 
+                                                  onkeyup="return cUpper(this);" 
+                                                  value="#{bswParametrosGeneralesControlador.componentes.bswModulosABM.codModulo}" 
+                                                  valueChangeListener="#{bswParametrosGeneralesControlador.componentes.moduloChangeListener}" size="5">
+                                            <p:ajax event="change" update=":form:panelGridModificar, :form:panelGrigInputDescModulo, :form:growl" />        
+                                    </p:inputText>
+                                    
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="panelGrigInputDescModulo"
+                                                  value="#{bswParametrosGeneralesControlador.componentes.bswModulosABM.descripcion}"
+                                                  style="text-transform: uppercase"
+                                                  size="35"
+                                                  onkeyup="cUpper(this)"
+                                                  disabled="true"/>
+                                    <p:commandButton type="push"
+                                                            id="botonBuscarModulo"
+                                                            ajax="true"  
+                                                            widgetVar="botonBuscarModulo"
+                                                            title="Lista de Modulos del Sistema"	
+                                                            onclick="PF('dialogoModulos').show();"
+                                                           icon="pi pi-search">
+                                            </p:commandButton>
+                                </h:panelGroup>
+                                
+                                <h:outputText id="panelGrigTextParametro"
+                                            styleClass="etiqueta"
+                                            value="Parametro(*): "/>
+                                <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="panelGrigInputParametro"
+                                              value="#{bswParametrosGeneralesControlador.actual.parametro}"
+                                              size="55" maxlength="60"
+                                              style="text-transform: uppercase"
+                                              onkeyup="cUpper(this)"/>
+                                
+                                <h:outputText id="panelGrigTextDescripcion"
+                                            styleClass="etiqueta"
+                                            value="Descripcion: "/>
+                                <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="panelGrigInputDescripcion"
+                                              value="#{bswParametrosGeneralesControlador.actual.descripcion}"
+                                              size="55" maxlength="240"
+                                            style="text-transform: uppercase"
+                                            onkeyup="cUpper(this)"/>
+
+                                <h:outputText id="panelGrigTextValor"
+                                            styleClass="etiqueta"
+                                            value="Valor(*): "/>
+                                <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="panelGrigInputValor"
+                                              value="#{bswParametrosGeneralesControlador.actual.valor}"
+                                              size="55" maxlength="80"
+                                            style="text-transform: uppercase"
+                                            onkeyup="cUpper(this)"/>
+                            </p:panelGrid>
+<br/> 
+
+                <div class="ui-dialog-footer ui-widget-content ui-helper-clearfix">
+                
+                                <p:commandButton icon="ui-icon-disk" id="botonAgregar"
+                                                 value="#{bswParametrosGeneralesControlador.esModificarDetalle?'Modificar':'Agregar'}"
+                                                 action="#{bswParametrosGeneralesControlador.grabar()}"
+                                                style="position: absolute; left: 140px; width: 100px"
+                                                rendered="#{bswParametrosGeneralesControlador.puedeActualizar}"
+                                                onclick="PF('dialogoAgregar').hide();"
+                                                update="form" />
+
+                               <p:commandButton icon="ui-icon ui-icon-close"
+                                                value="Salir"
+                                                style="position: absolute; left: 250px; width: 100px"
+                                                onclick="PF('dialogoAgregar').hide();"
+                                                update=":form:dialogoAgregar"
+                                                action="#{bswParametrosGeneralesControlador.limpiar()}"/>
+
+                        </div>
+            </div></div>
+                       </p:dialog>
+
+
+
+    
+<gdb:p_dialog_datatable id="dd" id_dialog="dialogoModulos" header_dialog="Lista de Modulos del Sistema" 
+                            widgetVar_dialog="dialogoModulos" id_datatable="grillaModulo"  render_boton_check_datatable="true"
+                            lista_datatable="#{bswParametrosGeneralesControlador.componentes.listaBswModulos}"
+                            
+                            header_columna_datatable="Codigo" value_out_columna_datatable="#{fila.codModulo}"
+                            filterby_columna_datatable="#{fila.codModulo}"
+                            header_columna2_datatable="Descripcion" value_out_columna2_datatable="#{fila.descripcion}"
+                            filterby_columna2_datatable="#{fila.descripcion}"
+                            onclick_boton_check_datatable="PF('dialogoModulos').hide();"
+                            target_property_boton_check_datatable="#{bswParametrosGeneralesControlador.componentes.bswModulosABM}"
+                            value_property_boton_check_datatable="#{fila}"
+                            update_boton_check_datatable=":form:panelGridModificar, :form:growl"
+                            />    
+    
+
+
+
+
+</ui:composition>

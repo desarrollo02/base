@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+     <dlg:dialogCodDescripcion header="#{i18n.listado_empresas}"	
+                                              widgetVar="dialogoEmpresa"
+                                              idDataTable="grillaEmpresa"
+                                              dataTableList="#{utilControler.componentes.lazyListEmpresas}"
+                                              propertyActionListenerTarget="#{utilControler.componentes.empresasAbm}"
+                                              selecionarUpdate="@widgetVar(inputCodEmpresa), @widgetVar(inputDescEmpresa),@widgetVar(growl)"
+                                              lazy="true"
+                                              id="dialogoEmpresa"/>
+     
+     
+     
+      <dlg:dialogCodDescripcion header="#{i18n.lista_sucursal}"	
+                                              widgetVar="dialogoSucursal"
+                                              idDataTable="grillaSucursal"
+                                              dataTableList="#{utilControler.componentes.sucursalesList}"
+                                              propertyActionListenerTarget="#{utilControler.componentes.sucursalABM}"
+                                              selecionarUpdate="@widgetVar(inputCodSucursal), @widgetVar(txtCodSucusarl),@widgetVar(growl)"
+                                              lazy="false"/>
+</ui:composition>

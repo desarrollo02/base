@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+        <p:dataTable size="small"  reflow="true" currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} registros"  paginator="true" emptyMessage="No existen registros."  rows="15" lazy="true" id="grillaCronogramaPagoDetalleVista" rowsPerPageTemplate="5,10,15"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                                     var="fila" rowKey="fila.tswCronogramaPagoDet.id"   value="#{utilControler.componentes.obtieneListaCronogramaPagoDetActividadTotal()}" 
+                                     rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx">
+<f:facet name="{Exporters}">
+              
+    <h:outputText rendered="false"  styleClass="etiqueta" value="Obligado Total:"  />
+                            <p:inputNumber rendered="false" disabled="true"  styleClass="Container80 Fnone MarAuto Fs18"   value="#{utilControler.componentes.obligadoTotal}" thousandSeparator=".">
+                            </p:inputNumber>
+           
+    <p:commandButton rendered="false" title="Calcular" action="#{utilControler.componentes.calculaTotales()}"
+                                              ajax="true" update="form"  icon="ui-icon-calculator">
+
+                            </p:commandButton>
+                            <p:commandButton
+                ajax="false"
+                value="Imprimir XLS"
+                icon="ui-icon ui-icon-print"
+                action="#{utilControler.componentes.imprimirObligacionesME()}">
+            </p:commandButton>
+                
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="tbl" fileName="cars"/>
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/csv.png" width="24"/>
+                <p:dataExporter type="csv" target="tbl" fileName="cars" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/xml.png" width="24"/>
+                <p:dataExporter type="xml" target="tbl" fileName="cars" />
+            </h:commandLink>
+        </f:facet>
+
+                            <p:column filterBy="#{fila.tswCronogramaPagoDet.tswCronogramaPagoCab.nroContrato}" >
+                                <f:facet name="header">Nro. Contrato</f:facet>
+                                    <h:outputText  value="#{fila.tswCronogramaPagoDet.tswCronogramaPagoCab.nroContrato}"/>
+                            </p:column>
+                            <p:column  rendered="false" filterBy="#{fila.tswCronogramaPagoDet.tswCronogramaPagoCab.estadoOrdenCompra}" style="text-align: center ; width: 5% ;"  >
+                                <f:facet name="header">Estado</f:facet>
+                                <h:outputText  value="#{fila.tswCronogramaPagoDet.tswCronogramaPagoCab.estadoOrdenCompra == 'A' ? 'Anulado' : fila.tswCronogramaPagoDet.tswCronogramaPagoCab.estadoOrdenCompra == 'F' ? 'Finalizado':'Activo'}">
+                                </h:outputText>
+                            </p:column>
+
+
+
+                            <p:column  filterBy="#{fila.tswCronogramaPagoDet.tswCronogramaPagoCab.cmwProveedores.bswPersonas.nombre}"  >
+                                <f:facet name="header">Razon Social</f:facet>
+                                <h:outputText value="#{fila.tswCronogramaPagoDet.tswCronogramaPagoCab.cmwProveedores.bswPersonas.nombre}"/>
+                            </p:column>
+
+                            <p:column style="width: 6%" filterBy="#{fila.tswCronogramaPagoDet.nroPago}"  >
+                                <f:facet name="header">
+                                    <h:outputText value="Nro. Pago" />
+                                </f:facet>
+                                <h:outputText value="#{fila.tswCronogramaPagoDet.nroPago}" />
+                            </p:column>
+
+                            <p:column style="width: 6%">
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha Prevista de Pago"/>
+                                </f:facet>
+                                <h:outputText value="#{fila.tswCronogramaPagoDet.fechaPago}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column style="width: 4%" filterBy="#{fila.prwPresDetCat.bswComponentes.codigo}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Comp." />
+                                </f:facet>
+                                <h:outputText value="#{fila.prwPresDetCat.bswComponentes.codigo}" />
+                            </p:column>
+
+                            <p:column style="width: 8%" filterBy="#{fila.prwPresDetCat.bswCategoria.descripcion}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Categoria" />
+                                </f:facet>
+                                <h:outputText value="#{fila.prwPresDetCat.bswCategoria.descripcion}" />
+                            </p:column>
+
+                            <p:column style="width: 4%" filterBy="#{fila.prwPresDetCat.prwActividades.codigo}" >
+                                <f:facet name="header">Act.Cod.</f:facet>
+                                <h:outputText  value="#{fila.prwPresDetCat.prwActividades.codigo}"/>
+                            </p:column>
+
+                            <p:column style="width: 6%" filterBy="#{fila.prwPresDetCat.prwActividades.descripcion}" >
+                                <f:facet name="header">Act.Desc.</f:facet>
+                                <h:outputText  value="#{fila.prwPresDetCat.prwActividades.descripcion}"/>
+                            </p:column>
+
+                            <p:column style="width: 6%" filterBy="#{fila.monto}"  rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}">
+                                <f:facet name="header">Monto</f:facet>
+
+                                <h:outputText  value="#{fila.monto}">
+                                    <f:convertNumber pattern="###,###.##" />
+                                </h:outputText>
+
+                            </p:column>
+            
+                            <p:column style="width: 6%" filterBy="#{fila.monto}"  rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}">
+                                <f:facet name="header">Monto</f:facet>
+
+                                <h:outputText  value="#{prwPresCategoriaComponenteControlador.realizaCambioMonedaPresupuesto(fila.monto)}">
+                                    <f:convertNumber pattern="###,###.##" />
+                                </h:outputText>
+
+                            </p:column>
+
+                            <p:column style="width: 6%" rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}"   >
+                                <f:facet name="header">Obligado</f:facet>
+
+                                <h:outputText   value="#{prwPresCategoriaComponenteControlador.realizaCambioMonedaPresupuesto(fila.obligado)}">
+                                    <f:convertNumber pattern="###,###.##" />
+                                </h:outputText>
+
+                            </p:column>
+            <p:column style="width: 6%" rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}"   >
+                                <f:facet name="header">Obligado</f:facet>
+
+                                <h:outputText   value="#{fila.obligado}">
+                                    <f:convertNumber pattern="###,###.##" />
+                                </h:outputText>
+
+                            </p:column>
+
+            <p:column rendered="false" style="width: 6%" filterBy="#{fila.ejecutado}" >
+
+                                <f:facet name="header">Ejecutado</f:facet>
+
+                                <h:outputText  value="#{fila.ejecutado}">
+                                    <f:convertNumber pattern="###,###.##" />
+                                </h:outputText>
+                            </p:column>
+
+
+            <p:column style="width: 6%" rendered="false" filterBy="#{fila.tswCronogramaPagoDet.tswComprobantesCabecera.numComprobante}"  >
+                                <f:facet name="header">
+                                    <h:outputText value="Nro. Factura" />
+                                </f:facet>
+                                <h:outputText value="#{fila.tswCronogramaPagoDet.tswComprobantesCabecera.tipComprobante}-#{fila.tswCronogramaPagoDet.tswComprobantesCabecera.serComprobante}-#{fila.tswCronogramaPagoDet.tswComprobantesCabecera.numComprobante}" />
+                            </p:column>
+
+
+                        </p:dataTable>
+
+</ui:composition>

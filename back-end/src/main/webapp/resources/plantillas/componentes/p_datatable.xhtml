@@ -1,0 +1,247 @@
+
+=======
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <composite:interface>
+        
+        <!--BOTON EDITAR-->
+        <composite:attribute name="render_boton_editar_datatable" default="false"/>
+        <composite:attribute name="disabled_boton_editar_datatable" default="false"/>     
+        <composite:attribute name="onclick_boton_editar_datatable" default="none"/>     
+        <composite:attribute name="update_boton_editar_datatable" default="false"/>
+        
+        <composite:attribute name="rendered_property_boton_editar_datatable" default="true"/> 
+        <composite:attribute name="target_property_boton_editar_datatable" default="false"/>     
+        <composite:attribute name="value_property_boton_editar_datatable" default="fila"/>
+        <composite:attribute name="action_property_boton_editar_datatable" default="#{utilControler.dummy()}" method-signature="void listener()"/>
+        
+        <composite:attribute name="rendered_2_property_boton_editar_datatable" default="true"/>
+        <composite:attribute name="target_2_property_boton_editar_datatable" default="false"/>     
+        <composite:attribute name="value_2_property_boton_editar_datatable" default="fila"/>
+        
+        
+        
+        <composite:attribute name="id_boton_editar_datatable" default="botonEditar"/>
+        <composite:attribute name="title_boton_editar_datatable" default="Editar Registro"/>
+        <!--FIN BOTON EDITAR-->
+        
+        <!--BOTON BORRAR-->
+        <composite:attribute name="render_boton_borrar_datatable" default="false"/>
+        <composite:attribute name="disabled_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="onclick_boton_borrar_datatable" default="PF('avisoEliminar').show()"/>     
+        <composite:attribute name="update_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="action_property_boton_borrar_datatable" default="#{utilControler.dummy()}" method-signature="void listener()"/>
+        <composite:attribute name="rendered_property_boton_borrar_datatable" default="true"/> 
+        <composite:attribute name="target_property_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="value_property_boton_borrar_datatable" default="fila"/>
+        <composite:attribute name="target_2_property_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="value_2_property_boton_borrar_datatable" default="fila"/>
+        <composite:attribute name="id_boton_borrar_datatable" default="botonEliminar"/>
+        <composite:attribute name="title_boton_borrar_datatable" default="Eliminar Registro"/>
+        <!--FIN BOTON BORRAR-->
+        
+        
+        <!--CULUMNA 1-->
+        <composite:attribute name="id_columna_datatable" default="col1"/>
+        <composite:attribute name="rendered_columna_datatable" default="true"/>
+        <composite:attribute name="sortby_columna_datatable" />
+        <composite:attribute name="filterby_columna_datatable" />
+        <composite:attribute name="header_columna_datatable" required="true"/>
+        <composite:attribute name="value_out_columna_datatable" required="true"/>
+        <composite:attribute name="id_out_columna_datatable" default="outcol1"/>
+        <!--FIN CULUMNA 1-->
+        <!--CULUMNA 2-->
+        <composite:attribute name="id_columna2_datatable" default="col2"/>
+        <composite:attribute name="rendered_columna2_datatable" default="true"/>
+        <composite:attribute name="sortby_columna2_datatable" />
+        <composite:attribute name="filterby_columna2_datatable" />
+        <composite:attribute name="header_columna2_datatable" required="true"/>
+        <composite:attribute name="value_out_columna2_datatable" required="true"/>
+        <composite:attribute name="id_out_columna2_datatable" default="outcol2"/>
+        <!--FIN CULUMNA 2-->
+        
+        
+        <!--CULUMNA 3-->
+        <composite:attribute name="id_columna3_datatable" default="col3"/>
+        <composite:attribute name="rendered_columna3_datatable" default="false"/>
+        <composite:attribute name="sortby_columna3_datatable" />
+        <composite:attribute name="filterby_columna3_datatable" />
+        <composite:attribute name="header_columna3_datatable" required="false"/>
+        <composite:attribute name="value_out_columna3_datatable" required="false"/>
+        <composite:attribute name="id_out_columna3_datatable" default="outcol3"/>
+        <!--FIN CULUMNA 3-->
+         <!--CULUMNA 4-->
+        <composite:attribute name="id_columna4_datatable" default="col4"/>
+        <composite:attribute name="rendered_columna4_datatable" default="false"/>
+        <composite:attribute name="sortby_columna4_datatable" />
+        <composite:attribute name="filterby_columna4_datatable" />
+        <composite:attribute name="header_columna4_datatable" required="false"/>
+        <composite:attribute name="value_out_columna4_datatable" required="false"/>
+        <composite:attribute name="id_out_columna4_datatable" default="outcol4"/>
+        <!--FIN CULUMNA 4-->
+           <!--CULUMNA 5-->
+        <composite:attribute name="id_columna5_datatable" default="col5"/>
+        <composite:attribute name="rendered_columna5_datatable" default="false"/>
+        <composite:attribute name="sortby_columna5_datatable" />
+        <composite:attribute name="filterby_columna5_datatable" />
+        <composite:attribute name="header_columna5_datatable" required="false"/>
+        <composite:attribute name="value_out_columna5_datatable" required="false"/>
+        <composite:attribute name="id_out_columna5_datatable" default="outcol5"/>
+        <!--FIN CULUMNA 5-->
+           <!--CULUMNA 6-->
+        <composite:attribute name="id_columna6_datatable" default="col6"/>
+        <composite:attribute name="rendered_columna6_datatable" default="false"/>
+        <composite:attribute name="sortby_columna6_datatable" />
+        <composite:attribute name="filterby_columna6_datatable" />
+        <composite:attribute name="header_columna6_datatable" required="false"/>
+        <composite:attribute name="value_out_columna6_datatable" required="false"/>
+        <composite:attribute name="id_out_columna6_datatable" default="outcol6"/>
+        <!--FIN CULUMNA 6-->
+        
+           <!--CULUMNA 7-->
+        <composite:attribute name="id_columna7_datatable" default="col7"/>
+        <composite:attribute name="rendered_columna7_datatable" default="false"/>
+        <composite:attribute name="sortby_columna7_datatable" />
+        <composite:attribute name="filterby_columna7_datatable" />
+        <composite:attribute name="header_columna7_datatable" required="false"/>
+        <composite:attribute name="value_out_columna7_datatable" required="false"/>
+        <composite:attribute name="id_out_columna7_datatable" default="outcol7"/>
+        <!--FIN CULUMNA 7-->
+        
+        <!--COLUMNA BOTON  CHECK-->
+        <composite:attribute name="render_boton_check_datatable" default="false"/>
+        <composite:attribute name="title_boton_check_datatable" default="Seleccionar Registro"/>
+        <composite:attribute name="onclick_boton_check_datatable" />     
+        <composite:attribute name="update_boton_check_datatable" default=":form"/>     
+        <composite:attribute name="update_boton_borrar_datatable" default="false"/>     
+        <composite:attribute name="action_property_boton_check_datatable" default="#{utilControler.dummy()}" method-signature="void listener()"/>
+        <composite:attribute name="rendered_property_boton_check_datatable" default="true"/> 
+        <composite:attribute name="target_property_boton_check_datatable" default="false"/>     
+        <composite:attribute name="value_property_boton_check_datatable" default="#{fila}"/>
+        <!--COLUMNA BOTON  CHECK-->
+        
+        <composite:attribute name="id_datatable" default="grilla"/>
+        <composite:attribute name="rendered_datatable" default="true"/>
+        <composite:attribute name="lista_datatable" required="true"/>
+        <composite:attribute name="lazy_datatable" default="false"/>
+        <composite:attribute name="rows_datatable" default="10"/>
+        
+    </composite:interface>
+    <composite:implementation>
+   
+ <p:dataTable reflow="false" id="#{cc.attrs.id_datatable}" emptyMessage="No existen registros."
+                                             paginator="true"
+                                             rows="#{cc.attrs.rows_datatable}"
+                                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15" 
+                                             var="fila" lazy="#{cc.attrs.lazy_datatable}"
+                                             rendered="#{cc.attrs.rendered_datatable}"
+                                             value="#{cc.attrs.lista_datatable}"
+                                             rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                             rowIndexVar="rowIx"
+                                             widgetVar="grilla" >
+                                    <p:column rendered="#{cc.attrs.render_boton_editar_datatable || cc.attrs.render_boton_borrar_datatable}">                                                  
+                                        <p:commandButton  rendered="#{cc.attrs.render_boton_editar_datatable}"
+                                                          type="push"
+                                                          id="#{cc.attrs.id_boton_editar_datatable}"
+                                                          ajax="true"  widgetVar="botonEditar"
+                                                          title="#{cc.attrs.title_boton_editar_datatable}"	 disabled="#{cc.attrs.disabled_boton_editar_datatable}"
+                                                          onclick="#{cc.attrs.onclick_boton_editar_datatable}"
+                                                          update="#{cc.attrs.update_boton_editar_datatable}" action="#{cc.attrs.action_property_boton_editar_datatable}"
+                                                          icon="ui-icon-pencil">
+                                            <f:setPropertyActionListener rendered="#{cc.attrs.rendered_property_boton_editar_datatable}"
+                                                target="#{cc.attrs.target_property_boton_editar_datatable}" 
+                                                value="#{cc.attrs.value_property_boton_editar_datatable}"/>
+                                            <f:setPropertyActionListener rendered="#{cc.attrs.rendered_2_property_boton_editar_datatable}" target="#{cc.attrs.target_2_property_boton_editar_datatable}" value="#{cc.attrs.value_2_property_boton_editar_datatable}"/>
+                                        </p:commandButton>
+                                        <p:commandButton  rendered="#{cc.attrs.render_boton_borrar_datatable}" 
+                                                          id="#{cc.attrs.id_boton_borrar_datatable}" 
+                                                          ajax="true"  disabled="#{cc.attrs.disabled_boton_editar_datatable}"
+                                                          title="#{cc.attrs.title_boton_borrar_datatable}"  action="#{cc.attrs.action_property_boton_borrar_datatable}"
+                                                          onclick="#{cc.attrs.onclick_boton_borrar_datatable}" 
+                                                          icon="pi pi-trash">
+                                            <f:setPropertyActionListener rendered="#{cc.attrs.rendered_property_boton_borrar_datatable}"
+                                                target="#{cc.attrs.target_property_boton_borrar_datatable}" 
+                                                value="#{cc.attrs.value_property_boton_borrar_datatable}"/>
+                                        </p:commandButton>
+                                    </p:column>            
+     <p:column id="#{cc.attrs.id_columna_datatable}" rendered="#{cc.attrs.rendered_columna_datatable}"
+                                              filterBy="#{cc.attrs.filterby_columna_datatable}">
+                                        <f:facet name="header">#{cc.attrs.header_columna_datatable}</f:facet>
+                                        <h:outputText  id="#{cc.attrs.id_out_columna_datatable}"
+                                                       value="#{cc.attrs.value_out_columna_datatable}"/>
+                                    </p:column>
+
+
+     <p:column id="#{cc.attrs.id_columna2_datatable}" rendered="#{cc.attrs.rendered_columna2_datatable}" 
+                                              filterBy="#{cc.attrs.filterby_columna2_datatable}">
+                                        <f:facet name="header">#{cc.attrs.header_columna2_datatable}</f:facet>
+                                        <h:outputText  id="#{cc.attrs.id_out_columna2_datatable}"
+                                                       value="#{cc.attrs.value_out_columna2_datatable}"/>
+                                    </p:column>
+     
+     
+     <p:column id="#{cc.attrs.id_columna3_datatable}" rendered="#{cc.attrs.rendered_columna3_datatable}"
+                                              filterBy="#{cc.attrs.filterby_columna3_datatable}">
+                                        <f:facet name="header">#{cc.attrs.header_columna3_datatable}</f:facet>
+                                        <h:outputText  
+                                                       value="#{cc.attrs.value_out_columna3_datatable}"/>
+                                    </p:column>
+     
+     
+     <p:column id="#{cc.attrs.id_columna4_datatable}" rendered="#{cc.attrs.rendered_columna4_datatable}"
+                                              filterBy="#{cc.attrs.filterby_columna4_datatable}">
+                                        <f:facet name="header">#{cc.attrs.header_columna4_datatable}</f:facet>
+                                        <h:outputText  id="#{cc.attrs.id_out_columna4_datatable}"
+                                                       value="#{cc.attrs.value_out_columna4_datatable}"/>
+                                    </p:column>
+     
+     
+     <p:column id="#{cc.attrs.id_columna5_datatable}" rendered="#{cc.attrs.rendered_columna5_datatable}"
+                                              filterBy="#{cc.attrs.filterby_columna5_datatable}">
+                                        <f:facet name="header">#{cc.attrs.header_columna5_datatable}</f:facet>
+                                        <h:outputText  id="#{cc.attrs.id_out_columna5_datatable}"
+                                                       value="#{cc.attrs.value_out_columna5_datatable}"/>
+                                    </p:column>
+     
+     
+     <p:column id="#{cc.attrs.id_columna6_datatable}" rendered="#{cc.attrs.rendered_columna6_datatable}"
+                                              filterBy="#{cc.attrs.filterby_columna6_datatable}">
+                                        <f:facet name="header">#{cc.attrs.header_columna6_datatable}</f:facet>
+                                        <h:outputText  id="#{cc.attrs.id_out_columna6_datatable}"
+                                                       value="#{cc.attrs.value_out_columna6_datatable}"/>
+                                    </p:column>
+     
+     
+     <p:column id="#{cc.attrs.id_columna7_datatable}" rendered="#{cc.attrs.rendered_columna7_datatable}"
+                                              filterBy="#{cc.attrs.filterby_columna7_datatable}">
+                                        <f:facet name="header">#{cc.attrs.header_columna7_datatable}</f:facet>
+                                        <h:outputText  id="#{cc.attrs.id_out_columna7_datatable}"
+                                                       value="#{cc.attrs.value_out_columna7_datatable}"/>
+                                    </p:column>
+
+     
+    
+     <p:column style="text-align: center ; width: 5% ;" rendered="#{cc.attrs.render_boton_check_datatable}">                                                  
+                                        <p:commandButton        ajax="true" 
+                                                                title="#{cc.attrs.title_boton_check_datatable}"  
+                                                                onclick="#{cc.attrs.onclick_boton_check_datatable}" 
+                                                                 icon="pi pi-check"
+                                                                 update="#{cc.attrs.update_boton_check_datatable}">
+                                            <f:setPropertyActionListener target="#{cc.attrs.target_property_boton_check_datatable}" 
+                                                                         value="#{cc.attrs.value_property_boton_check_datatable}"/>
+                                        </p:commandButton>
+                                        </p:column>         
+     
+                                </p:dataTable>
+
+    </composite:implementation>
+</ui:composition>

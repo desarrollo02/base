@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+                        <div class="Fs12 Fright leaden Wid100">
+                                <div class="Fs14  leaden Wid100"><u class="Fs16  leaden Wid70">Resumen de Contratos </u><br/><br/>
+                                          <p:outputLabel rendered="#{!chartView.componentes.esContratoVencido and !chartView.componentes.esAbierto and !chartView.componentes.esCerrado}">
+                                                        <u class="leaden Wid70"><b>Total Contratos:</b></u>
+                                                        </p:outputLabel>
+
+                                    
+                                    <p:outputLabel rendered="#{chartView.componentes.esContratoVencido or chartView.componentes.esAbierto or chartView.componentes.esCerrado}">
+                                                        Total Contratos:
+                                                        </p:outputLabel>
+                                                            
+                                          
+                                          <span class="red">
+                                   
+                                                               <p:commandLink  update="form">
+
+                                                                #{chartView.obtienteCantidadContratosCompCat(chartView.verResumenComponente?chartView.getComponenteUsuarioSucursal():null,null)}
+                                                                <f:setPropertyActionListener target="#{chartView.verGrafico}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.verDetalleComponente}" value="true"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.seleccionoCategoria}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.seleccionoComponente}" value="#{chartView.verResumenComponente}"/>
+                                                                
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esContratoVencido}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esAbierto}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esCerrado}" value="false"/>
+                                                            </p:commandLink>
+                                                        </span>.
+                                                        <p:outputLabel rendered="#{chartView.componentes.esAbierto}">
+                                                        <u class="leaden Wid70"><b>Abiertos:</b></u>
+                                                        </p:outputLabel>
+                                                        <p:outputLabel rendered="#{(!chartView.componentes.esContratoVencido  or !chartView.componentes.esCerrado) and !chartView.componentes.esAbierto}">
+                                                        Abiertos:
+                                                        </p:outputLabel>
+                                                        <span class="red">
+                                                        
+                                                              <p:commandLink  update="form">
+
+                                                                #{chartView.obtienteCantidadContratosAbiertosCompCat(chartView.verResumenComponente?chartView.getComponenteUsuarioSucursal():null,null)}
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.seleccionoCategoria}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.seleccionoComponente}" value="#{chartView.verResumenComponente}"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esContratoVencido}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esAbierto}" value="true"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esCerrado}" value="false"/>
+                                                            </p:commandLink>
+                                                        </span>.  <p:outputLabel rendered="#{chartView.componentes.esCerrado}">
+                                                            <u class="leaden Wid70"><b>Cerrados:</b></u>
+                                                        </p:outputLabel>
+                                                        <p:outputLabel rendered="#{(!chartView.componentes.esContratoVencido  or !chartView.componentes.esAbierto) and !chartView.componentes.esCerrado}">
+                                                        Cerrados:
+                                                        </p:outputLabel><span class="red">
+                                 <p:commandLink  update="form">
+
+                                                                #{chartView.obtienteCantidadContratosCerradosCompCat(chartView.verResumenComponente?chartView.getComponenteUsuarioSucursal():null,null)}
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.seleccionoCategoria}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.seleccionoComponente}" value="#{chartView.verResumenComponente}"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esContratoVencido}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esAbierto}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esCerrado}" value="true"/>
+                                                            </p:commandLink>            
+                                    </span>.
+                                    <p:outputLabel rendered="#{chartView.componentes.esContratoVencido}">
+                                                            <u class="leaden Wid70"><b>Vencidos:</b></u>
+                                                        </p:outputLabel>
+                                    <p:outputLabel rendered="#{(!chartView.componentes.esCerrado  or !chartView.componentes.esAbierto) and !chartView.componentes.esContratoVencido}">
+                                                        Vencidos:
+                                                        </p:outputLabel>
+                                    <span class="red">
+                                   <p:commandLink  update="form">
+
+                                                                #{chartView.obtienteCantidadContratosVencidosCompCat(chartView.verResumenComponente?chartView.getComponenteUsuarioSucursal():null,null)}
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.seleccionoCategoria}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.seleccionoComponente}" value="#{chartView.verResumenComponente}"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esContratoVencido}" value="true"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esAbierto}" value="false"/>
+                                                                <f:setPropertyActionListener target="#{chartView.componentes.esCerrado}" value="false"/>
+                                                            </p:commandLink> 
+                                    </span>.
+                            <div class="Fs16 Fright" >
+<!--                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-briefcase hardblue"> Procesos Pendientes (#{loginControlador.cantidadProcesosPendientes})</i></a>-->
+                                <a href="../administracionBase/inicio.xhtml" class="Fright Fs16"><b class="icon-home-1 hardblue"> Inicio </b></a>
+                             </div>  
+                                </div>
+                              
+                                <p:separator styleClass="Wid100"></p:separator>
+                                <div class="EmptyBox10"></div>
+                                
+                                </div>
+                     
+ 
+    
+                            <h:panelGrid>
+                               
+                                <p:dataTable size="small"  reflow="true"   paginator="true" emptyMessage="No existen registros."  rows="15" lazy="true" id="grillaCronogramaPagoDetalleVista" rowsPerPageTemplate="5,10,15"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                                     var="fila" rowKey="fila.id"   value="#{utilControler.componentes.obtieneContratosComponentes()}" 
+                                     rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx">
+<f:facet name="{Exporters}">
+              
+    <h:outputText rendered="false"  styleClass="etiqueta" value="Obligado Total:"  />
+                            <p:inputNumber rendered="false" disabled="true"  styleClass="Container80 Fnone MarAuto Fs18"   value="#{utilControler.componentes.obligadoTotal}" thousandSeparator=".">
+                            </p:inputNumber>
+           
+                  <p:commandButton rendered="false"  title="Calcular" action="#{utilControler.componentes.calculaTotales()}"
+                                              ajax="true" update="form"  icon="ui-icon-calculator">
+
+                            </p:commandButton>
+                            <p:commandButton
+                ajax="false"
+                value="Imprimir XLS"
+                icon="ui-icon ui-icon-print"
+                action="#{utilControler.componentes.imprimirDetalleContrato()}">
+            </p:commandButton>
+                
+ 
+        </f:facet>
+
+                                  
+        <p:column style="width:3%">  
+            <p:rowToggler />  
+        </p:column>
+
+        <p:column filterBy="#{fila.nroContrato}" style="width: 10% ;" >
+            <f:facet name="header">Nro. Contrato</f:facet>
+            <h:outputText  value="#{fila.nroContrato}"/>
+        </p:column>
+
+        <p:column  filterBy="#{fila.cmwProveedores.codProveedor}" style="width: 7% ;" >
+            <f:facet name="header">
+                <h:outputText value="Cod. Proveedor" />
+            </f:facet>
+            <h:outputText value="#{fila.cmwProveedores.codProveedor}" />
+        </p:column>
+
+        <p:column  filterBy="#{fila.cmwProveedores.bswPersonas.nombre}"  style="width: 15% ;">
+            <f:facet name="header">Razon Social</f:facet>
+            <h:outputText value="#{fila.cmwProveedores.bswPersonas.nombre}"/>
+        </p:column>
+        <p:column  filterBy="#{fila.proveedorRef.bswPersonas.nombre}"  style="width: 10% ;" >
+            <f:facet name="header">Prov.Ref</f:facet>
+            <h:outputText value="#{fila.proveedorRef.bswPersonas.nombre}"/>
+        </p:column>
+
+        <p:column style="text-align: center ; width: 6% ;">
+            <f:facet name="header">
+                <h:outputText value="Fec.Inicio"/>
+            </f:facet>
+            <h:outputText value="#{fila.fechaInicio}">
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column style="text-align: center ; width: 6% ;">
+            <f:facet name="header">
+                <h:outputText value="Fec.Fin"/>
+            </f:facet>
+            <h:outputText value="#{fila.fechaFinalizacion}">
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </p:column>
+
+
+
+        <p:column style="text-align: right ; width: 6% ;" >
+            <f:facet name="header">Monto</f:facet>
+            <h:outputText  value="#{fila.bswMonedas.codMoneda ==tswCronogramaPagoControladorV2.monedaBase.codMoneda ? fila.monto :fila.montoMe}">
+                <f:convertNumber pattern="###,###.##" />
+            </h:outputText>
+        </p:column>
+
+        <p:column  style="text-align: right ; width: 6% ;">
+            <f:facet name="header">Pagado</f:facet>
+            <h:outputText  value="#{fila.bswMonedas.codMoneda ==tswCronogramaPagoControladorV2.monedaBase.codMoneda ? fila.pagado :fila.pagadoMe}">
+                <f:convertNumber pattern="###,###.##" />
+            </h:outputText>
+        </p:column>
+
+        <p:column style="text-align: right ; width: 6% ;">
+            <f:facet name="header">Saldo</f:facet>
+            <h:outputText  value="#{fila.bswMonedas.codMoneda ==tswCronogramaPagoControladorV2.monedaBase.codMoneda ? fila.saldo :fila.saldoMe}">
+                <f:convertNumber pattern="###,###.##" />
+            </h:outputText>
+        </p:column>
+        <p:column  filterBy="#{fila.bswMonedas.siglas}" style="text-align: center ; width: 5% ;"  >
+            <f:facet name="header">Moneda</f:facet>
+            <h:outputText  value="#{fila.bswMonedas.siglas}">
+            </h:outputText>
+        </p:column>
+        <p:column  filterBy="#{fila.estadoOrdenCompra}" style="text-align: center ; width: 5% ;"  >
+            <f:facet name="header">Estado</f:facet>
+            <h:outputText  value="#{fila.estadoOrdenCompra == 'A' ? 'Anulado' : fila.estadoOrdenCompra == 'F' ? 'Finalizado':'Activo'}">
+            </h:outputText>
+        </p:column>
+
+        <p:rowExpansion> 
+            <p:panel>
+
+                <p:dataTable size="small" reflow="true"  emptyMessage="No existen registros." 
+
+                             var="fila" 
+                             rowKey="#{fila.id}"
+                             value="#{fila.tswCronogramaCabActividadList}" 
+                             rowStyleClass="odd-row"
+                             rowIndexVar="rowIx">
+                    <p:column  style="width: 5%" headerText="A&ntilde;o">
+                        <f:facet name="header">
+                            <h:outputText value="A&ntilde;o" />
+                        </f:facet>
+                        <h:outputText value="Año: #{fila.prwPresDetCat.prwPresupuesto.anho}" />
+                    </p:column>
+
+                    <p:column headerText="Comp." style="text-align: center ; width: 10% ;">
+                        <f:facet name="header">
+                            <h:outputText value="Comp." />
+                        </f:facet>
+                        <h:outputText value="Comp.: #{fila.prwPresDetCat.bswComponentes.codigo}" />
+                    </p:column>
+
+                    <p:column style="text-align: center ; width: 20% ;">
+                        <f:facet name="header">
+                            <h:outputText value="Categoria" />
+                        </f:facet>
+                        <h:outputText value="Cat.: #{fila.prwPresDetCat.bswCategoria.descripcion}" />
+                    </p:column>
+
+                    <p:column style="text-align: center ; width: 10% ;">
+                        <f:facet name="header">Codigo</f:facet>
+                        <h:outputText  value="#{fila.prwPresDetCat.prwActividades.codigo}"/>
+                    </p:column>
+
+                    <p:column style="width: 50% ;">
+                        <f:facet name="header">Descripcion</f:facet>
+                        <h:outputText  value="#{fila.prwPresDetCat.prwActividades.descripcion}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center ; width: 10% ;">
+                        <h:outputText value="Monto: " />
+
+                        <h:outputText  value="#{fila.montoTotal}">
+                            <f:convertNumber pattern="###,###.##" />
+                        </h:outputText>
+
+                    </p:column>
+<p:column style="text-align: center ; width: 10% ;">
+                        <h:outputText value="Obligado: " />
+
+                        <h:outputText  value="#{fila.obligado}">
+                            <f:convertNumber pattern="###,###.##" />
+                        </h:outputText>
+
+                    </p:column>
+                    <p:column style="text-align: center ; width: 10% ;">
+                        <h:outputText value="Ejecutado: " />
+
+                        <h:outputText  value="#{fila.ejecutado}">
+                            <f:convertNumber pattern="###,###.##" />
+                        </h:outputText>
+                    </p:column>
+
+
+                </p:dataTable>
+            </p:panel>              
+        </p:rowExpansion>
+                        </p:dataTable>
+                            </h:panelGrid>
+                                
+                      
+</ui:composition>  

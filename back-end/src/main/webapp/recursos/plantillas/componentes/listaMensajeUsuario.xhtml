@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <p:dataTable size="small" reflow="true" id="grillaPingMensaje" emptyMessage="No existen registros." 
+                 paginator="true"
+                 rows="10"
+                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15"
+                 var="fila" 
+                 value="#{loginControlador.listaMensajesTodos}"
+                 rowStyleClass="#{fila.leido ? 'odd-row' : 'even-row'}"
+                 rowIndexVar="rowIx"
+                 widgetVar="grillaPingMensaje">
+        <p:column style="text-align: center ; width: 5% ;">                                                  
+            <p:commandButton  
+
+             
+                onclick="mensajeUsuario.close();"
+                ajax="true"  widgetVar="botonEditar"
+                title="Marcar como leido"  
+                update=":formCabPing" 
+                icon="pi pi-check">
+                <f:setPropertyActionListener 
+                    target="#{loginControlador.esLeerMensaje}" 
+                    value="true"/>
+                <f:setPropertyActionListener 
+                    target="#{loginControlador.mensajeLeido}" 
+                    value="#{fila}"/>
+                
+
+            </p:commandButton>
+
+
+        </p:column>            
+
+        <p:column style="text-align: center ; width: 5% ;">                                                  
+
+
+            <p:commandButton 
+                ajax="false"  
+                title="Eliminar Registro"     
+            
+          
+                  action="#{loginControlador.eliminarRegistro()}" 
+                icon="pi pi-trash">
+                <f:setPropertyActionListener 
+                    target="#{loginControlador.mensajeLeido}" 
+                    value="#{fila}"/>
+                <f:setPropertyActionListener 
+                    target="#{loginControlador.esLeerMensaje}" 
+                    value="false"/>
+            </p:commandButton>
+        </p:column>            
+        <p:column 
+                  filterBy="#{fila.mensaje}"
+                  style="width: 50%">
+            <f:facet name="header">Mensaje</f:facet>
+            <h:outputText  id="codBswModulosText"
+                           value="#{fila.mensaje}"/>
+        </p:column>
+
+
+        <p:column 
+
+            style="width: 5%">
+            <f:facet name="header">Leido?</f:facet>
+            <p:selectBooleanCheckbox disabled="true"  
+                                     value="#{fila.leido}"/>
+        </p:column>
+
+        <p:column 
+            filterBy="#{fila.usuarioOrigen.codUsuario}"
+            style="width: 15%">
+            <f:facet name="header">Para</f:facet>
+            <h:outputText 
+                value="#{fila.usuarioOrigen.codUsuario}"/>
+        </p:column>
+
+
+        <p:column 
+            filterBy="#{fila.usuarioId.bswPersonas.nombre}"
+            style="width: 15%">
+            <f:facet name="header">De</f:facet>
+            <h:outputText 
+                value="#{fila.usuarioId.bswPersonas.nombre}"/>
+        </p:column>
+
+    </p:dataTable>
+
+</ui:composition>

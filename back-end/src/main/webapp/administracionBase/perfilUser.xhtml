@@ -1,0 +1,160 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="breadcrumb">
+        <li>Perfil de Usuario</li>
+        <li></li>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" style="width: 100%" enctype="multipart/form-data" acceptcharset="UTF-8">
+            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}" widgetVar="growl"/>
+
+            <div class="ui-g ui-fluid">
+
+                <div class="ui-g-12 ui-lg-3">
+
+
+                    <div class="card card-w-title">
+                        <h3>Preferencias</h3>
+
+                        <p:megaMenu orientation="vertical" style="width:300px">
+                            <p:submenu label="TEMAS" icon="ui-icon-pencil">
+
+                                <p:column>
+                                    <p:submenu label="Color">
+                                        <p:menuitem id="theme1" value="Blue" style="background-color: #2c84d8;"
+                                                    actionListener="#{loginControlador.setComponentTheme('blue')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="theme2" value="Green" style="background-color: #34B56F;"
+                                                    actionListener="#{loginControlador.setComponentTheme('green')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="theme3" value="Orange" style="background-color: #FF810E;"
+                                                    actionListener="#{loginControlador.setComponentTheme('orange')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="theme4" value="Turquoise" style="background-color: #58AED3;"
+                                                    actionListener="#{loginControlador.setComponentTheme('turquoise')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="theme5" value="Avocado" style="background-color: #AEC523;"
+                                                    actionListener="#{loginControlador.setComponentTheme('avocado')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="theme6" value="Purple" style="background-color: #464DF2;"
+                                                    actionListener="#{loginControlador.setComponentTheme('purple')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="theme7" value="Red" style="background-color: #FF9B7B;"
+                                                    actionListener="#{loginControlador.setComponentTheme('red')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="theme8" value="Yellow" style="background-color: #FFB340;"
+                                                    actionListener="#{loginControlador.setComponentTheme('yellow')}"
+                                                    ajax="false"/>
+                                    </p:submenu>
+                                </p:column>
+
+                            </p:submenu>
+
+                            <p:submenu label="OPCIONES MENU" icon="ui-icon-menu">
+                                <p:column>
+                                    <p:submenu label="POSICION">
+                                        <p:menuitem id="menu_horizontal" value="Horizontal"
+                                                    action="#{loginControlador.setMenuMode('layout-horizontal')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="menu_sidebar" value="Sidebar"
+                                                    action="#{loginControlador.setMenuMode('layout-sidebar')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="menu_slim" value="Slim"
+                                                    action="#{loginControlador.setMenuMode('layout-slim')}"
+                                                    ajax="false"/>
+                                    </p:submenu>
+
+                                    <p:submenu label="ESQUEMA DE COLORES">
+                                        <p:menuitem id="sr_ltr" value="Claro"
+                                                    action="#{loginControlador.setDarkMode('light')}"
+                                                    ajax="false"
+                                                    update="config-form logolink"
+                                                    onclick="setTimeout(PrimeFaces.FreyaConfigurator.changeLayout('#{guestPreferences.componentTheme}', 'light'), 1000); PrimeFaces.FreyaConfigurator.beforeResourceChange();"/>
+                                        <p:menuitem id="sr_rtl" value="Oscuro"
+                                                    action="#{loginControlador.setDarkMode('dark')}" ajax="true"
+                                                    update="config-form logolink"
+                                                    onclick="setTimeout(PrimeFaces.FreyaConfigurator.changeLayout('#{guestPreferences.componentTheme}', 'dark'), 1000); PrimeFaces.FreyaConfigurator.beforeResourceChange();"/>
+                                    </p:submenu>
+
+                                </p:column>
+
+                                <p:column>
+                                    <p:submenu label="TONALIDAD">
+                                        <p:menuitem id="menu4" value="Menu Claro" icon="&#xE893;"
+                                                    action="#{loginControlador.setMenuTheme('light')}"
+                                                    ajax="false"/>
+                                        <p:menuitem id="menu5" value="Menu Oscuro" icon="&#xE892;"
+                                                    action="#{loginControlador.setMenuTheme('dark')}"
+                                                    ajax="false"/>
+                                    </p:submenu>
+                                </p:column>
+                            </p:submenu>
+                            <p:separator/>
+
+                            <p:menuitem style="font-weight: bolder"
+                                        value="Tema actual: #{loginControlador.componentTheme}"/>
+                            <p:separator/>
+
+                        </p:megaMenu>
+                        <br/>
+                        <p:commandButton value="Guardar preferencias" styleClass="p-mr-1 p-mb-2" style="width:300px"
+                                         action="#{bswCambioClave.guardarPrerencias()}" update="@widgetVar(growl)"/>
+
+                    </div>
+
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
+                        <h3>Datos Personales</h3>
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+
+                            <inpt:inputText valueOuput="#{i18n.label_codigo}"
+                                            value="#{bswCambioClave.userNombre}" size="15" maxlength="60"/>
+                            <inpt:password valueOuput="#{i18n.label_contraseñaActual} (*)"
+                                           value="#{bswCambioClave.claveVieja}" size="15" maxlength="60"/>
+
+                            <inpt:password valueOuput="#{i18n.label_contraseñaNueva} (*)"
+                                           value="#{bswCambioClave.claveNueva}" size="15" maxlength="60"/>
+
+                            <inpt:password valueOuput="#{i18n.label_contraseñaConfirmacion} (*)"
+                                           value="#{bswCambioClave.confirmacionClave}" size="15" maxlength="60"/>
+
+                        </p:panelGrid>
+                            <br/>
+                            <p:commandButton value="Actualizar Cambios" styleClass="p-mr-1 p-mb-2" style="width:300px"
+                                             action="#{bswCambioClave.cambiar()}" update="@widgetVar(growl)"/>
+
+                    </div>
+
+                </div>
+                <div class="ui-g-12 ui-lg-3">
+                    <div class="card card-w-title">
+                            <h3 style="left:5%">Imagen de perfil</h3>
+                            <p:graphicImage style="width: 100%" id="image"
+                                            name="images/tmp/#{bswCambioClave.usuarioLogueado.nombreImagen}"
+                                            library="freya-layout"/>
+
+
+                            <p:fileUpload label="Seleccionar" uploadLabel="Subir Imagen" skinSimple="false"
+                                          listener="#{bswCambioClave.handleFileUpload}"
+                                          mode="advanced" auto="true" dragDropSupport="true"
+                                          update="@widgetVar(growl) image" sizeLimit="1000000"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+
+                    </div>
+                </div>
+                `
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,377 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+    <body>
+
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+            <ui:define name="content">
+
+                <h:form id="form" prependId="false" rendered="#{consultaPermisosVentasControlador.puedeConsultarPersonasBase()}">
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <h:panelGrid>
+
+                        <h:panelGroup>
+                            <h:outputText id="BswPersonas" value="PERSONAS-BSPERFIS" styleClass="tituloTabla" />
+                            <p:toolbar>
+                                <p:toolbarGroup align="left">
+                                    <p:commandButton  ajax="true" id="botonAgregar2"
+                                                      value="#{i18n.boton_nuevo}"
+                                                      icon="ui-icon-document"    update=":form" 
+                                                      rendered="#{bswPersonasControlador.puedeInsertar and !bswPersonasControlador.esABMDetalle}"
+                                                      action="#{bswPersonasControlador.accionABMDetalle()}">
+                                        <f:setPropertyActionListener
+                                            target="#{bswPersonasControlador.esModificarDetalle}"
+                                            value="false" />
+                                    </p:commandButton> 
+
+                                    <p:commandButton  value="#{bswPersonasControlador.esModificarDetalle?'Modificar':'Agregar'}"
+                                                      action="#{bswPersonasControlador.abm()}"
+                                                      ajax="false"
+                                                      icon="ui-icon-disk"   title="Guarda el registro y permite agregar mas registros." 
+                                                      rendered="#{bswPersonasControlador.puedeInsertar and bswPersonasControlador.esABMDetalle 
+                                                                  and !bswPersonasControlador.esModificarDetalle}">
+                                        <f:setPropertyActionListener
+                                            target="#{bswPersonasControlador.guardar_y_Regresar}"
+                                            value="false" />
+                                    </p:commandButton>  
+                                    <p:commandButton  value="#{bswPersonasControlador.esModificarDetalle?'Modificar':'Agregar y volver a la lista'}" 
+                                                      title="Guarda el registro y regresa a la seccion de lista." 
+                                                      icon="ui-icon-disk"  ajax="false"  
+                                                      rendered="#{bswPersonasControlador.puedeInsertar and bswPersonasControlador.esABMDetalle}"
+                                                      action="#{bswPersonasControlador.abm()}">
+                                        <f:setPropertyActionListener
+                                            target="#{bswPersonasControlador.guardar_y_Regresar}"
+                                            value="true" />
+                                    </p:commandButton>  
+                                    <p:commandButton 
+                                        value="Limpiar Datos"   
+                                        rendered="#{bswPersonasControlador.esABMDetalle and !bswPersonasControlador.esModificarDetalle}"
+                                        update=":form:panelCargaPrincipal" ajax="true"
+                                        action="#{bswPersonasControlador.limpiarDatos}"/>
+                                    <p:commandButton icon="ui-icon ui-icon-close"
+                                                     value="Cancelar"   rendered="#{bswPersonasControlador.esABMDetalle}"
+                                                     update=":form"  ajax="true"
+                                                     action="#{bswPersonasControlador.cancelarAccionABM()}"/>
+
+                                    <p:commandButton type="push"
+                                                     title="Ayuda"
+                                                     icon="ui-icon-help"
+                                                     onclick="PF('dialogoAyuda').show();"/>
+                                    <p:commandButton type="push"
+                                                     title="Acerca de"
+                                                     icon="ui-icon-info"
+                                                     onclick="PF('dialogoAcercaDe').show();"/>
+                                    <p:commandButton type="push" value="Inicio" id="inicio_modulo"
+                                                     title="Ir a Inicio" immediate="true"
+                                                     icon="ui-icon-home" 
+                                                     action="inicio"/> 
+                                </p:toolbarGroup>
+                                <p:toolbarGroup align="right">                                     
+                                    <p:menuButton value="Mas Visitados">                                         
+                                        <p:menuitem value="Lista de Articulos" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}" 
+                                                    url="/faces/controlStock/StwArticulos.xhtml"/>                                         
+                                        <p:menuitem value="Compra" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}" 
+                                                    url="/faces/controlStock/StwEntSal.xhtml"/>                                         
+                                        <p:menuitem value="Venta" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" 
+                                                    url="/faces/ventas/VtwFacturaPymes.xhtml"/> 
+                                        <p:menuitem value="Mov.Caja-Cobro" url="/faces/cuentasCobrar/CcwMovCajas.xhtml" 
+                                                    rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}"/>                                         
+                                        <p:menuitem value="Envio entre sucursales"  rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  
+                                                    url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                     
+                                    </p:menuButton>                                 
+                                </p:toolbarGroup>                             
+                            </p:toolbar>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <p:ajaxStatus style="width:10%;position:fixed;right:5px;bottom:5px">
+                        <f:facet name="start">
+                            <h:graphicImage value="../recursos/img/486.gif" />
+                        </f:facet>
+
+                        <f:facet name="complete">
+                            <h:outputText value="" />
+                        </f:facet>
+                    </p:ajaxStatus>
+                    <h:panelGrid rendered="#{!bswPersonasControlador.esABMDetalle}" columns="1" >
+                        <ui:include   src="componentes/list/seccionDataTablePersona.xhtml" />
+                    </h:panelGrid>
+
+                    <p:panelGrid  rendered="#{bswPersonasControlador.esABMDetalle}" id="panelCargaPrincipal">
+                        <ui:include   src="componentes/form/seccionAddPersona.xhtml" />
+                    </p:panelGrid>
+
+
+                    <dlg:dialogCodDescripcion header="Lista - Sectores Economicos"	
+                                              widgetVar="dialogoSector"
+                                              idDataTable="grillaSector"
+                                              dataTableList="#{componentesVarios.lazyListSectoresEconomicos}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswSectoresEconAbm}"
+                                              selecionarUpdate=":form:panelGridAgregar"
+                                              lazy="true"/>
+
+                    <dlg:dialogCodDescripcion header="Lista - Profesiones"	
+                                              widgetVar="dialogoProfesiones"
+                                              idDataTable="grillaProfesion"
+                                              dataTableList="#{componentesVarios.lazyListProfeciones}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswProfesiones}"
+                                              selecionarUpdate=":form:panelGridAgregar"
+                                              lazy="true"/>
+
+
+
+                    <dlg:dialogCodDescripcion header="Lista - Nivel de Estudios"	
+                                              widgetVar="dialogoNivel"
+                                              idDataTable="grillaNivel"
+                                              dataTableList="#{componentesVarios.lazyListNivelEstudios}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswNivelEstudiosAbm}"
+                                              selecionarUpdate=":form:panelGridAgregar"
+                                              lazy="true"/>
+
+
+                    <dlg:dialogCodDescripcion header="Lista - Estado Civil"	
+                                              widgetVar="dialogoEstado"
+                                              idDataTable="grillaEstado"
+                                              dataTableList="#{componentesVarios.lazyListEstadosCiviles}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswEstadosCivilesAbm}"
+                                              selecionarUpdate=":form:panelGridAgregar"
+                                              lazy="true"/>
+
+
+                    <p:dialog header="Ayuda!!!" widgetVar="dialogoAyuda" modal="false" width="600">
+                        <c:forEach items="#{bswPersonasControlador.ayuda}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+                    <p:dialog header="Datos de la Pantalla!!!" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                        <c:forEach items="#{bswPersonasControlador.acercaDe}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+                    <p:dialog  header="Datos de Persona" widgetVar="dialogVerDireccion" modal="false" styleClass="etiqueta" width="890">
+                        <p:tabView id="tabView2">
+                            <p:tab title="Documentos">
+                                <p:dataTable size="small" reflow="true" id="grillaVerDocumento"
+                                             paginator="true"
+                                             rows="3" 
+                                             paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown} "
+                                             rowsPerPageTemplate="3"
+                                             var="fila" 
+                                             value="#{bswPersonasControlador.listaDocumentosDet}"
+                                             rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                             rowIndexVar="rowIx"
+                                             >
+
+                                    <p:column  headerText="Tipo" 
+                                               sortBy="#{fila.bswIdentificaciones.codIdent}" 
+                                               filterBy="#{fila.bswIdentificaciones.codIdent}" 
+                                               filterStyle="width: 100%">
+                                        <h:outputText value="#{fila.bswIdentificaciones.codIdent}"/>
+                                    </p:column>
+
+                                    <p:column  headerText="Numero"
+                                               sortBy="#{fila.numero}" 
+                                               filterBy="#{fila.numero}" 
+                                               filterStyle="width: 100%">
+                                        <h:outputText value="#{fila.numero}"/>
+                                    </p:column>  
+
+                                    <p:column  headerText="Fec Vencimiento"
+                                               sortBy="#{fila.fecVencimiento}" 
+                                               filterBy="#{fila.fecVencimiento}" 
+                                               filterStyle="width: 100%">
+                                        <h:outputText value="#{fila.fecVencimiento}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"  />
+                                        </h:outputText>   
+                                    </p:column>  
+                                </p:dataTable>  
+                            </p:tab>
+
+
+                            <p:tab title="Direcciones">
+                                <p:dataTable size="small" reflow="true" id="grillaVerDireccion"
+                                             paginator="true"
+                                             rows="5" 
+                                             paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown} "
+                                             rowsPerPageTemplate="5,10"
+                                             var="fila" 
+                                             value="#{bswPersonasControlador.listaDireccion}"
+                                             rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                             rowIndexVar="rowIx"
+                                             style="width: 100%">
+
+                                    <p:column style="width:3%">  
+                                        <p:rowToggler />  
+                                    </p:column>
+
+                                    <p:rowExpansion>  
+                                        <p:panel>  
+                                            <f:facet name="header">Mas Datos</f:facet>
+                                            <h:outputText  styleClass="etiqueta" value="Pais: " />
+                                            <h:outputText  value="#{fila.bswPaises.codPais} - #{fila.bswPaises.descripcion}"/>
+                                            <p:spacer width="15px"/>
+                                            <h:outputText  styleClass="etiqueta" value="Departamento: " />
+                                            <h:outputText  value="#{fila.bswProvincias.codProvincia} - #{fila.bswProvincias.descripcion}"/>
+                                            <p:spacer width="15px"/>
+                                            <h:outputText  styleClass="etiqueta" value="Ciudad: " />
+                                            <h:outputText  value="#{fila.bswCiudades.codCiudad} - #{fila.bswCiudades.descripcion}"/>
+                                            <p:spacer width="15px"/>
+                                            <h:outputText  styleClass="etiqueta" value="Barrio: " />
+                                            <h:outputText  value="#{fila.bswBarrios.codBarrio} - #{fila.bswBarrios.descripcion}"/>
+                                        </p:panel>
+                                    </p:rowExpansion>
+
+                                    <p:column style="width: 10%" headerText="Tipo" 
+                                              sortBy="#{fila.tipDireccion}" 
+                                              filterBy="#{fila.tipDireccion}" 
+                                              filterStyle="width: 100%">
+                                        <h:outputText value="#{(fila.tipDireccion!=null and fila.tipDireccion=='C')?'Casa':((fila.tipDireccion!=null and fila.tipDireccion=='T')?'Trabajo' : 'Otros')}"/>
+                                    </p:column>
+
+                                    <p:column style="width: 80%" headerText="Direccion" 
+                                              sortBy="#{fila.detalle}" 
+                                              filterBy="#{fila.detalle}" 
+                                              filterStyle="width: 100%">
+                                        <h:outputText value="#{fila.detalle}"/>
+                                    </p:column>  
+
+                                    <p:column style="width: 10%"
+                                              headerText="Defecto">
+                                        <h:selectBooleanCheckbox disabled="true" value="#{(fila.porDefecto!=null and fila.porDefecto=='S')?'true':'false'}"/>
+                                    </p:column>  
+                                </p:dataTable> 
+                            </p:tab>
+                            <p:tab title="Telefonos">
+                                <p:dataTable size="small" reflow="true" id="grillaVerTelefono"
+                                             paginator="true"
+                                             rows="3" 
+                                             paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown} "
+                                             rowsPerPageTemplate="5"
+                                             var="fila" 
+                                             value="#{bswPersonasControlador.listaTelefono}"
+                                             rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                             rowIndexVar="rowIx"
+                                             style="width: 100%">
+
+                                    <p:column style="width: 10%" headerText="Area" 
+                                              sortBy="#{fila.codigoArea}" 
+                                              filterBy="#{fila.codigoArea}" 
+                                              filterStyle="width: 100%">
+                                        <div align ="center">
+                                            <h:outputText value="#{fila.codigoArea}"/>
+                                        </div>
+                                    </p:column>
+
+                                    <p:column style="width: 10%" headerText="Nro Telefono"
+                                              sortBy="#{fila.numTelefono}" 
+                                              filterBy="#{fila.numTelefono}" 
+                                              filterStyle="width: 100%">
+                                        <div align ="center">
+                                            <h:outputText value="#{fila.numTelefono}"/>
+                                        </div>
+                                    </p:column>  
+
+                                    <p:column style="width: 10%" headerText="Tip Telefono"
+                                              sortBy="#{fila.tipTelefono}" 
+                                              filterBy="#{fila.tipTelefono}" 
+                                              filterStyle="width: 100%">
+                                        <div align ="center">
+                                            <h:outputText value="#{(fila.tipTelefono !=null and fila.tipTelefono=='L')?'Linea Directa':(fila.tipTelefono == 'C' ? 'Celular' : 'Fax')}"/>
+                                        </div>
+                                    </p:column>  
+
+                                    <p:column style="width: 10%" headerText="Ubicacion"
+                                              sortBy="#{fila.telUbicacion}" 
+                                              filterBy="#{fila.telUbicacion}" 
+                                              filterStyle="width: 100%">
+                                        <div align ="center">
+                                            <h:outputText value="#{(fila.telUbicacion !=null and fila.telUbicacion=='C')?'Casa':(fila.telUbicacion == 'T' ? 'Trabajo' : 'Otros')}"/>
+                                        </div>
+                                    </p:column>  
+
+                                    <p:column style="width: 10%" headerText="Interno"
+                                              sortBy="#{fila.interno}" 
+                                              filterBy="#{fila.interno}" 
+                                              filterStyle="width: 100%">
+                                        <div align ="center">
+                                            <h:outputText value="#{fila.interno}"/>
+                                        </div>
+                                    </p:column>  
+
+                                    <p:column style="width: 5%"
+                                              headerText="Defecto">
+                                        <div align ="center">
+                                            <h:selectBooleanCheckbox disabled="true" value="#{(fila.porDefecto!=null and fila.porDefecto=='S')?'true':'false'}"/>
+                                        </div>
+                                    </p:column>   
+
+                                    <p:column style="width: 45%" headerText="Nota"
+                                              sortBy="#{fila.nota}" 
+                                              filterBy="#{fila.nota}" 
+                                              filterStyle="width: 100%">
+                                        <h:outputText value="#{fila.nota}"/>
+                                    </p:column> 
+                                </p:dataTable> 
+                            </p:tab>
+                        </p:tabView>
+                    </p:dialog>    
+
+                    <dlg:dialogCodDescripcion header="Lista - Tipo Documentos"	
+                                              widgetVar="dialogoDocumento"
+                                              idDataTable="grillaDocumento"
+                                              dataTableList="#{componentesVarios.lazyListIdentificaciones}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswIdentificacionesAbm}"
+                                              selecionarUpdate=":form:tabView:ouptTipoDoc:descTipoDocumento, :form:tabView:ouptTipoDoc:codTipoDocumento, :form:growl"
+                                              lazy="true"/>
+
+
+
+                    <dlg:dialogCodDescripcion header="Lista - Barrios"	
+                                              widgetVar="dialogBarrio"
+                                              idDataTable="grillaBarrio"
+                                              dataTableList="#{componentesVarios.lazyListBarrio}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswBarriosABM}"
+                                              selecionarUpdate=":form:tabView:outpBarrio:descBarrio, :form:tabView:outpBarrio:codBarrio, :form:tabView:codPais, 
+                                              :form:tabView:codProvincia, :form:tabView:codCiudad,:form:growl"
+                                              lazy="true"/>
+
+                </h:form>
+
+                <dlg:deleteGenericABMDialog widget_var="avisoEliminarDoc"
+                                            delete_object="#{bswPersonasControlador.identidadPersonaABMGeneric.deleteObject}"
+                                            object_delete="#{bswPersonasControlador.identidadPersonaABMGeneric.objectDelete}"
+                                            aceptar_update_value=":form:tabView:grillaDocumento :form:growl"/>
+
+
+
+                <dlg:deleteGenericABMDialog widget_var="avisoEliminarTel"
+                                            delete_object="#{bswPersonasControlador.telefPersonaABMGeneric.deleteObject}"
+                                            object_delete="#{bswPersonasControlador.telefPersonaABMGeneric.objectDelete}"
+                                            aceptar_update_value=":form:tabView:grillaTelefono :form:growl"/>
+
+
+
+                <dlg:deleteGenericABMDialog widget_var="avisoEliminarDir"
+                                            delete_object="#{bswPersonasControlador.direcPersonABMGeneric.deleteObject}"
+                                            object_delete="#{bswPersonasControlador.direcPersonABMGeneric.objectDelete}"
+                                            aceptar_update_value=":form:tabView:grillaDireccion :form:tabView:panelDireccion :form:growl"/>
+
+
+                <dlg:deleteDialogPlantilla widget_var="avisoEliminar"
+                                           action="#{bswPersonasControlador.eliminarRegistro()}"
+                                           aceptar_update_value=":form:grilla, :form:growl"/>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

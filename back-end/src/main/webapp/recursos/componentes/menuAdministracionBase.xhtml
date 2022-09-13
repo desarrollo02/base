@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <ui:component>
+        <div id="menu_horizontal">
+             <h:form id="menubase">
+                 <p:menubar styleClass="menuTipoLetra">
+                        <p:submenu label="Administrativo">
+                            <p:menuitem value="Modulos" url="BswModulos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarModulosBase()}"/>
+                            <p:menuitem value="Parametros Generales" url="BswParametrosGenerales.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarParamGenBase()}"/>
+                            <p:menuitem value="Personas" url="BswPersonas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPersonasBase()}"/>
+                            <p:menuitem value="Formas" url="BswFormas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarFormasBase()}"/>
+                            <p:menuitem value="Grupos Usuarios" url="BswGrupoUsuarios.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarGrupoUserBase()}"/>
+                            <p:menuitem value="Usuarios" url="BswUsuarios.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarUserBase()}"/>
+                            <p:menuitem value="Identificaciones" url="BswIdentificaciones.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarIdentificacionBase()}"/>
+                            <p:menuitem value="Accesos Grupos" url="BswAccesosGrupos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarAccesoGrBase()}"/>
+                            <p:menuitem value="Opciones Permisos" url="BswPermisosOpciones.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarOpcionPerBase()}"/>
+                            <p:menuitem value="Opciones Param." url="BswOpcionesParametros.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarOpcionParamBase()}"/>
+                            <p:menuitem value="Mensajes Usuario" url="BswMensajeUsuario.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMsnUserBase()}"/>
+                            <p:menuitem value="Tipo de Dato" rendered="#{consultaPermisosVentasControlador.puedeConsultarTipoDato()}" url="BswTipoDato.xhtml" />
+                                
+                        </p:submenu>
+                        <p:submenu label="Parametros">
+                            <p:submenu label="Organización">
+                                <p:menuitem value="Institución" url="BswEmpresas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarEmpresaParamBase()}" />
+                                <p:menuitem value="Tipo Programa" rendered="#{consultaPermisosVentasControlador.puedeConsultarTipoProgramaBase()}" url="BswTipoPrograma.xhtml" />
+                                <p:menuitem value="Programas" rendered="#{consultaPermisosVentasControlador.puedeConsultarSucursalBase()}" url="BswSucursales.xhtml" />
+                                <p:menuitem value="Componentes" rendered="#{consultaPermisosVentasControlador.puedeConsultarComponentesBase()}" url="BswComponentes.xhtml" />
+                                <p:menuitem value="Categoria" rendered="#{consultaPermisosVentasControlador.puedeConsultarCategoriasBase()}" url="BswCategoria.xhtml" />
+                        </p:submenu>
+
+                     
+                      
+                            <p:menuitem value="Monedas" rendered="#{consultaPermisosVentasControlador.puedeConsultarMonedasBase()}" url="BswMonedas.xhtml"/>
+                        
+                         <p:submenu label="Ubicaciones">
+                             <p:menuitem value="Paises" rendered="#{consultaPermisosVentasControlador.puedeConsultarPaisBase()}" url="BswPaises.xhtml"/>
+                             <p:menuitem value="Departamentos" url="BswProvincias.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarDeptoBase()}" />
+                             <p:menuitem value="Ciudades" rendered="#{consultaPermisosVentasControlador.puedeConsultarCiudaddesBase()}" url="BswCiudades.xhtml"/>
+                             <p:menuitem value="Barrios" rendered="#{consultaPermisosVentasControlador.puedeConsultarBarrioBase()}" url="BswBarrios.xhtml"/>
+                         </p:submenu>
+                           <p:menuitem value="Nivel de Estudio" url="BswNivelEstudio.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarNivelEstudioBase()}" />
+                         
+                           <p:menuitem value="Sector Economico" rendered="#{consultaPermisosVentasControlador.puedeConsultarSectorBase()}" url="BswSectorEcon.xhtml" />
+                           <p:menuitem value="Zonas Geograficas" rendered="#{consultaPermisosVentasControlador.puedeConsultarZonasBase()}" url="BswZonasGeograficas.xhtml" />
+                      
+                    </p:submenu>
+
+
+                    <p:submenu label="Reportes">
+                             <p:menuitem value="Listados de Usuarios" url="reporteUsuarios.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptListaUsrBase()}"/>
+                             <p:menuitem value="Usuarios por grupo" url="reporteUsuarioGrupos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptUsrGrupoBase()}" />
+                             <p:menuitem value="Formas por Usuario" url="reporteFormasUsuario.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptFormasUserBase()}" />
+                            
+                           
+                         
+                        
+                    </p:submenu>
+
+
+                </p:menubar>
+            </h:form>
+        </div>
+       
+    </ui:component>
+</html>
+

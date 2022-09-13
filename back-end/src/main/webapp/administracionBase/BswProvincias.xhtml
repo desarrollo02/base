@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars"
+      xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+    <body>
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+            <ui:define name="content">
+                <h:form id="form" style="width: 100%" rendered="#{consultaPermisosVentasControlador.puedeConsultarDeptoBase()}">
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <h:panelGrid style="width: 100%">
+                        <h:panelGroup>
+                            <h:outputText id="BswModulos" value="DEPARTAMENTOS - BSPROVIN" styleClass="tituloTabla" />
+
+                            <tool:abmToolbar controlador="#{bswProvinciasControlador}"
+                                             guardarUpdate=":form, form:grilla"
+                                             cancelarUpdate=":form"/>
+                        </h:panelGroup>
+                        <p:panel rendered="#{!bswProvinciasControlador.esABMPanel}">
+                            <ui:include   src="componentes/list/seccionDataTableProvincia.xhtml" />
+                        </p:panel>
+                    </h:panelGrid>
+                    <p:panel rendered="#{bswProvinciasControlador.esABMPanel}" style="background-color: rgba(255, 0, 0, 0)">
+                        <ui:include   src="componentes/form/seccionAddProvincia.xhtml" />
+                    </p:panel>
+
+                    <dlg:dialogColumnsParam header="Listado de paises"	
+                            widgetVar="dialogoPaises"
+                            idDataTable="idPaises"
+                            dataTableList="#{utilControler.componentes.lazyListPais}"
+                            propertyActionListenerTarget="#{utilControler.componentes.bswPaisesABM}"
+                            selecionarUpdate="@widgetVar(inputPaises), @widgetVar(txtPaises),@widgetVar(growl)"
+                            lazy="true">
+        <p:column 
+            sortBy="#{fila.codPais}"
+            >
+            <f:facet name="header">#{i18n.label_codigo}</f:facet>
+            <h:outputText  
+                value="#{fila.codPais}">
+            </h:outputText>
+        </p:column>
+
+
+        <p:column 
+            sortBy="#{fila.descripcion}" 
+            filterBy="#{fila.descripcion}">
+            <f:facet name="header">descripcion</f:facet>
+            <h:outputText  
+                value="#{fila.descripcion}">
+
+            </h:outputText>
+        </p:column>
+        <p:column 
+            sortBy="#{fila.abreviatura}" 
+            filterBy="#{fila.abreviatura}">
+            <f:facet name="header">abreviatura</f:facet>
+            <h:outputText  
+                value="#{fila.abreviatura}">
+
+            </h:outputText>
+        </p:column>
+
+    </dlg:dialogColumnsParam> 
+                </h:form>
+
+                <dlg:deleteDialogPlantilla widget_var="avisoEliminar"
+                                           action="#{bswProvinciasControlador.eliminarRegistro()}"
+                                           aceptar_update_value=":form:grilla, :form:growl"/>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
+

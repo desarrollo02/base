@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dtbl="http://java.sun.com/jsf/composite/plantillas/dataTable"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <dtbl:dataTableABMGeneric widgetVar="grillaDocumento" lista="#{bswPersonasControlador.identidadPersonaABMGeneric.objectList}"
+                              update_boton_editar_datatable="@widgetVar(panelCargaDocumento)" 
+                              controlador="#{bswPersonasControlador.identidadPersonaABMGeneric}"
+                              action_property_boton_editar_datatable="#{bswPersonasControlador.editarIndentidad()}"
+                              widgetVarAvisoEliminar="avisoEliminarDoc"
+                              columns="../../../administracionBase/componentes/panelABMGeneric/columns/documentosColumns.xhtml"/>
+
+
+
+
+
+</ui:composition>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                          
+                            <p:column id="colUsuario" sortBy="#{fila.codUsuario}" filterBy="#{fila.codUsuario}"  >
+                                <f:facet name="header">#{i18n.column_usuario}</f:facet>
+                                <h:outputText id="codUsuario"
+                                              value="#{fila.codUsuario}"/>
+                            </p:column>
+
+                            <p:column id="colCodPersona" sortBy="#{fila.bswPersonas.codPersona}" filterBy="#{fila.bswPersonas.codPersona}">
+                                <f:facet name="header">#{i18n.column_cod_persona}</f:facet>
+                                <h:outputText id="codPersona" value="#{fila.bswPersonas.codPersona}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colNombre" sortBy="#{fila.bswPersonas.nombre}" filterBy="#{fila.bswPersonas.nombre}">
+                                <f:facet name="header">#{i18n.column_nombre}</f:facet>
+                                <h:outputText id="codNombre" value="#{fila.bswPersonas.nombre}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colDoc" sortBy="#{fila.documento}" filterBy="#{fila.documento}">
+                                <f:facet name="header">#{i18n.column_usuario}</f:facet>
+                                <h:outputText id="doc" value="#{fila.documento}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colSucursal" sortBy="#{fila.bswSucursales.codSucursal}" filterBy="#{fila.bswSucursales.codSucursal}">
+                                <f:facet name="header">#{i18n.column_sucursal}</f:facet>
+                                <h:outputText id="codSucursal" value="#{fila.bswSucursales.codSucursal}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colGrupo" sortBy="#{fila.bswGruposUsuarios.codGrupo}" filterBy="#{fila.bswGruposUsuarios.codGrupo}">
+                                <f:facet name="header">#{i18n.column_grupo_usuario}</f:facet>
+                                <h:outputText id="codGrupo" value="#{fila.bswGruposUsuarios.codGrupo}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colActivo" sortBy="#{fila.estado}" filterBy="#{fila.estado}">
+                                <f:facet name="header">#{i18n.column_activo}</f:facet>
+                                <h:outputText id="codActivo" value="#{fila.estado}">
+                                </h:outputText>
+                            </p:column>
+
+
+</ui:composition>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars"
+      xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+    <body>
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+            <ui:define name="content">
+                <h:form id="form" style="width: 100%" rendered="#{consultaPermisosVentasControlador.puedeConsultarBarrioBase()}">
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <h:panelGrid style="width: 100%">
+                        <h:panelGroup>
+                            <h:outputText id="BswModulos" value="BARRIOS - BSBARRIO" styleClass="tituloTabla" />
+
+                            <tool:abmToolbar controlador="#{bswBarriosControlador}"
+                                             guardarUpdate=":form, form:grilla"
+                                             cancelarUpdate=":form"/>
+                        </h:panelGroup>
+                        <p:panel rendered="#{!bswBarriosControlador.esABMPanel}">
+                            <ui:include   src="componentes/list/seccionDataTableBarrio.xhtml" />
+                        </p:panel>
+                    </h:panelGrid>
+                    <p:panel rendered="#{bswBarriosControlador.esABMPanel}">
+                        <ui:include   src="componentes/form/seccionAddBarrio.xhtml" />
+                    </p:panel>
+                    <dlg:dialogCodDescripcion header="Lista de Paises del Sistema"	
+                                              widgetVar="dialogoPais"
+                                              idDataTable="grillaPais"
+                                              dataTableList="#{componentesVarios.lazyListPais}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswPaisesABM}"
+                                              selecionarUpdate=":form:ouptTP_1:inputCodPais, :form:ouptTP_1:txtCodPais, :form:growl"
+                                              lazy="true"/>
+                    <dlg:dialogCodDescripcion header="Lista de Ciudades del Sistema"	
+                                              widgetVar="dialogoCiudad"
+                                              idDataTable="grillaCiudad"
+                                              dataTableList="#{componentesVarios.lazyListCiudad}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswCiudadesABM}"
+                                              selecionarUpdate=":form:ouptTP_2:inputCodCiudad, :form:ouptTP_2:txtCodCiudad, :form:growl"
+                                              lazy="true"/>
+                    <dlg:dialogCodDescripcion header="Lista de Provincia del Sistema"	
+                                              widgetVar="dialogoProvincia"
+                                              idDataTable="grillaProvincia"
+                                              dataTableList="#{componentesVarios.lazyListProvincia}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswProvinciasABM}"
+                                              selecionarUpdate=":form:ouptTP:inputCodProvincia, :form:ouptTP:txtCodProvincia, :form:growl"
+                                              lazy="true"/>  
+                </h:form>
+
+                <dlg:deleteDialogPlantilla widget_var="avisoEliminar"
+                                           action="#{bswBarriosControlador.eliminarRegistro()}"
+                                           aceptar_update_value=":form:grilla, :form:growl"/>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+            <ui:define name="content">
+                <h:form id="form" style="width: 100%" rendered="#{consultaPermisosVentasControlador.puedeConsultarOpcionParamBase()}">
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <h:panelGrid>
+                            <h:panelGroup>
+                                <h:outputText id="BswModulos" value="Opciones de Permiso" styleClass="tituloTabla" />
+                                    <p:toolbar>
+                                        <p:toolbarGroup align="left">
+                                            <p:commandButton type="push"
+                                                             value="Nuevo"
+                                                             icon="ui-icon-document"
+                                                             rendered="#{bswOpcionesParametrosControlador.puedeInsertar}"
+                                                             onclick="PF('dialogoAgregar').show();" update=":form:botonAgregar"
+                                                             action="#{bswOpcionesParametrosControlador.nuevoRegistro()}">
+                                            </p:commandButton>  
+
+                                            <p:commandButton type="push"
+                                                             title="Ayuda"
+                                                             icon="ui-icon-help"
+                                                             onclick="PF('dialogoAyuda').show();"/>
+                                            <p:commandButton type="push"
+                                                             title="Acerca de"
+                                                             icon="ui-icon-info"
+                                                             onclick="PF('dialogoAcercaDe').show();"/>
+                                             <p:commandButton type="push" value="Inicio" id="inicio_modulo"
+                                                     title="Ir a Inicio" immediate="true"
+                                                     icon="ui-icon-home" 
+                                                     action="inicio"/> 
+
+                                
+                                        </p:toolbarGroup>
+                                     <p:toolbarGroup align="right">                                     <p:menuButton value="Mas Visitados">                                         <p:menuitem value="Lista de Articulos" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}" url="/faces/controlStock/StwArticulos.xhtml"/>                                         <p:menuitem value="Compra" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}" url="/faces/controlStock/StwEntSal.xhtml"/>                                         <p:menuitem value="Venta" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="/faces/ventas/VtwFacturaPymes.xhtml"/> <p:menuitem value="Mov.Caja-Cobro" url="/faces/cuentasCobrar/CcwMovCajas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}"/>                                         <p:menuitem value="Envio entre sucursales"  rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                     </p:menuButton>                                 </p:toolbarGroup>                             </p:toolbar>
+                            </h:panelGroup>
+                        
+                         <p:ajaxStatus  style="width:16px;height:10px;">
+                            <f:facet name="start">
+                                <h:graphicImage value="../recursos/img/ajaxloadingbar.gif" />
+                            </f:facet>
+
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+                        
+                        <p:dataTable size="small" reflow="true" id="grilla"
+                                     paginator="true"
+                                    rows="10"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    rowsPerPageTemplate="5,10,15"
+                                    var="fila" 
+                                    rendered="#{bswOpcionesParametrosControlador.puedeConsultar}"
+                                    value="#{bswOpcionesParametrosControlador.lazyListParametro}"
+                                    lazy="true"
+                                    rowKey="fila.id"
+                                    rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                    rowIndexVar="rowIx"
+                                    style="width: 100%"
+                                    emptyMessage="No se encontraron Registros.">
+                                
+                                        <p:column style="text-align: center ; width: 10% ;">                                                  
+                                            <p:commandButton type="push"
+                                                            id="botonEditar"
+                                                            ajax="true"  
+                                                            widgetVar="botonEditar"
+                                                            title="Editar Registro"	
+                                                            onclick="PF('dialogoAgregar').show();"
+                                                            update=":form:panelGridModificar:,:form:botonAgregar" 
+                                                            icon="ui-icon-pencil"
+                                                            rendered="#{bswOpcionesParametrosControlador.puedeActualizar}"
+                                                            action="#{bswOpcionesParametrosControlador.modificarRegistro}">
+                                                <f:setPropertyActionListener target="#{bswOpcionesParametrosControlador.opcionesParametro}" value="#{fila}"/>
+                                            </p:commandButton>
+                                            
+                                            <p:commandButton  id="botonEliminar" 
+                                                                ajax="true" 
+                                                                title="Eliminar Registro"  
+                                                                onclick="PF('avisoEliminar').show()" 
+                                                                rendered="#{bswOpcionesParametrosControlador.puedeBorrar}"
+                                                                icon="pi pi-trash">
+                                                <f:setPropertyActionListener target="#{bswOpcionesParametrosControlador.opcionesParametro}" value="#{fila}"/>
+                                            </p:commandButton>
+                                        </p:column>            
+                                
+                                        <p:column sortBy="#{fila.parametro}"
+                                                  filterBy="#{fila.parametro}" >
+                                                <f:facet name="header">Parametro</f:facet>
+                                                <h:outputText  value="#{fila.parametro}"/>
+                                        </p:column>
+                                
+                                        <p:column
+                                                  filterBy="#{fila.bswFormas.titulo}"
+                                                 >
+                                                <f:facet name="header">Pantalla</f:facet>
+                                                <h:outputText value="#{fila.bswFormas.titulo}"/>
+                                        </p:column>
+                            </p:dataTable>
+                    </h:panelGrid>
+                    
+                    <p:dialog header="ABM OPCIONES PARAMETROS" id="dialogoAgregar"
+                        widgetVar="dialogoAgregar"
+                        width="710"
+                        closable="false"
+                        styleClass="outputpanel"
+                        height="235"
+                        modal="false">
+
+                        <p:outputPanel id="panelModificar" layout="inline" styleClass="bgpanelgridGray">
+                            <p:panelGrid styleClass="bgpanelgridGray" style="width: 100%" id="panelGridModificar" columns="2" columnClasses="label,label">
+                                
+                                <h:outputText styleClass="etiqueta" value="(*) Forma "/>
+                                <h:panelGroup>
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18" id="codForma" style="text-transform: uppercase" onkeyup="return cUpper(this);" 
+                                                 value="#{bswOpcionesParametrosControlador.codForma}" 
+                                                 valueChangeListener="#{bswOpcionesParametrosControlador.formaChangeListener}" size="8" maxlength="8">
+                                            <p:ajax event="blur" update=":form:grillaForma  :form:descForma, :form:growl" />        
+                                    </p:inputText >
+                                    
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"   id="descForma"
+                                                  value="#{bswOpcionesParametrosControlador.forma.descripcion}"
+                                                  style="text-transform: uppercase"
+                                                  size="35"
+                                                  onkeyup="cUpper(this)"
+                                                  disabled="true"/>
+                                    <p:commandButton type="push"
+                                                            id="botonBuscarForma"
+                                                            ajax="true"  
+                                                            widgetVar="botonBuscarForma"
+                                                            title="Lista Pantallas del Sistema"	
+                                                            onclick="PF('dialogoForma').show();"
+                                                            update=":form:growl, :form:grillaForma"
+                                                            icon="pi pi-search">
+                                            </p:commandButton>
+                                </h:panelGroup>
+                                
+                                <h:outputText styleClass="etiqueta" value="(*)Parametro: "/>
+                                <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"   id="panelGrigInputCodParametro"
+                                              value="#{bswOpcionesParametrosControlador.parametro}"
+                                              size="25" maxlength="25"
+                                              style="text-transform: uppercase"
+                                              onkeyup="cUpper(this)"/>
+                                
+                            </p:panelGrid>
+
+                            <h:panelGroup>
+                                <p:commandButton icon="ui-icon-disk" id="botonAgregar"
+                                                 value="#{bswOpcionesParametrosControlador.estaModificando?'Modificar':'Agregar'}"
+                                                 action="#{bswOpcionesParametrosControlador.guardarRegistro()}"
+                                                style="position: absolute; left: 140px; width: 100px"
+                                                rendered="#{bswOpcionesParametrosControlador.puedeActualizar}"
+                                                onclick="PF('dialogoAgregar').hide();"
+                                                update="panelGridModificar :form:grilla, :form:growl" />
+
+                               <p:commandButton icon="ui-icon ui-icon-close"
+                                                value="Salir"
+                                                style="position: absolute; left: 250px; width: 100px"
+                                                onclick="PF('dialogoAgregar').hide();"
+                                                update=":form:dialogoAgregar panelGridModificar"
+                                                action="#{bswOpcionesParametrosControlador.cancelar()}"/>
+
+                            </h:panelGroup>
+                        </p:outputPanel>
+                       </p:dialog>
+                
+                    <p:dialog header="Lista de Pantallas del Sistema" id="dialogoForma"
+                        widgetVar="dialogoForma"
+                        width="710"
+                        closable="true"
+                        styleClass="outputpanel"
+                        height="500"
+                        modal="false"
+                        closeOnEscape="true">
+
+                                <p:dataTable size="small" reflow="true" id="grillaForma"
+                                        paginator="true"
+                                        rows="10"
+                                        paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown} "
+                                        rowsPerPageTemplate="10"
+                                        var="fila" 
+                                        value="#{bswOpcionesParametrosControlador.lazyListForma}"
+                                        rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                        rowIndexVar="rowIx"
+                                        lazy="true"
+                                        rowKey="fila.id"
+                                        style="width: 100%">
+                                        <p:column style="text-align: center ; width: 5% ;">                                                  
+                                            <p:commandButton        ajax="true" 
+                                                                    title="Selecionar Forma"  
+                                                                    onclick="PF('dialogoForma').hide()" 
+                                                                    icon="pi pi-check"
+                                                                    update=":form:grilla :form:codForma :form:descForma, :form:growl ">
+                                                    <f:setPropertyActionListener target="#{bswOpcionesParametrosControlador.forma}" value="#{fila}"/>
+                                            </p:commandButton>
+                                        </p:column>  
+                                        <p:column sortBy="#{fila.nomForma}"
+                                                  filterBy="#{fila.nomForma}"
+                                                  filterStyle="width: 100%"
+                                                  style="width: 30%">
+                                                <f:facet name="header">Nombre Forma</f:facet>
+                                                <h:outputText value="#{fila.nomForma}"/>
+                                        </p:column>
+                                    
+                                        <p:column sortBy="#{fila.descripcion}"
+                                                  filterBy="#{fila.descripcion}"
+                                                  filterStyle="width: 100%"
+                                                  style="width: 40%">
+                                                <f:facet name="header">Descripcion</f:facet>
+                                                <h:outputText value="#{fila.descripcion}"/>
+                                        </p:column>  
+                                      
+                                        <p:column sortBy="#{fila.bswModulos.descripcion}"
+                                                  filterBy="#{fila.bswModulos.descripcion}"
+                                                  filterStyle="width: 100%"
+                                                  style="width: 30%">
+                                                <f:facet name="header">Modulo</f:facet>
+                                                <h:outputText value="#{fila.bswModulos.descripcion}"/>
+                                        </p:column> 
+                                    
+                                </p:dataTable>                               
+                    </p:dialog>
+                    
+                   
+                    <p:dialog header="Ayuda" widgetVar="dialogoAyuda" modal="false" width="600">
+                        <c:forEach items="#{bswOpcionesParametrosControlador.ayuda}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+                    <p:dialog header="Datos de la Pantalla" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                        <c:forEach items="#{bswOpcionesParametrosControlador.acercaDe}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+
+                   
+            </h:form>
+                 <p:confirmDialog appendTo="@(body)" 
+ 				hideEffect="clip" 
+ 				message="Esta seguro que desea eliminar el registro?"
+                                header="Aviso" 
+                                severity="alert" 
+                                widgetVar="avisoEliminar">
+                        <p:commandButton 	value="Aceptar" 
+                        					onclick="PF('avisoEliminar').hide()" 
+                        					ajax="true"  
+                                                                action="#{bswOpcionesParametrosControlador.eliminarRegistro()}"
+                        					update=":form:grilla, :form:growl"
+                        					title="Eliminar Registro">
+                        </p:commandButton>
+                        <p:commandButton 	value="Cancelar" 
+                        					onclick="PF('avisoEliminar').hide()"  
+                        					type="button"
+                        					title="Cancelar Accion">
+                        </p:commandButton>
+ </p:confirmDialog>
+
+
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

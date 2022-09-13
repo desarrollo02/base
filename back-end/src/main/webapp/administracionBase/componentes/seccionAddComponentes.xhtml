@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" >
+
+
+    <h:outputText value="Agregar/Modificar Componentes" styleClass="tituloTabla"/>
+
+    <p:panelGrid 
+        columns="6"  columnClasses="label, label,label, label,label, label,label, label, label" >
+        <h:outputText styleClass="etiqueta" value="(*)Codigo: " />  
+        <p:inputText  styleClass="Container80 Fnone MarAuto Fs18" id="focus" value="#{bswComponentesControlador.actual.codigo}" size="20" maxlength="5" onkeyup="cUpper(this)"   style="text-transform: uppercase"/>
+        <h:outputText styleClass="etiqueta" value="(*)Descripcion: " />  
+        <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"   value="#{bswComponentesControlador.actual.descripcion}" size="80" maxlength="80" onkeyup="cUpper(this)"   style="text-transform: uppercase"/>
+    </p:panelGrid>
+
+    <p:confirmDialog appendTo="@(body)" 
+        hideEffect="clip" 
+        message="Esta seguro que desea eliminar el registro?"
+        header="Aviso" 
+        severity="alert" 
+        widgetVar="avisoEliminarPago">
+        <p:commandButton  value="Aceptar" 
+                          onclick="PF('avisoEliminarPago').hide()" 
+                          ajax="true"  
+                          update=":form:growl"
+                          title="Eliminar Registro">
+        </p:commandButton>
+        <p:commandButton  value="Cancelar" 
+                          onclick="PF('avisoEliminarPago').hide()"  
+                          type="button"
+                          title="Cancelar Accion">
+        </p:commandButton>
+    </p:confirmDialog>    
+</ui:composition>

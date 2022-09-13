@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+
+    <h:outputText value="Agregar/Modificar Ciudad" styleClass="tituloTabla"/>
+
+    <p:panelGrid  id="panelGridModificar"   columns="2" >
+        <h:outputText id="panelGrigTextModificarCod"
+                      styleClass="etiqueta"
+                      value="Código(*): "/>
+        <p:inputText   id="panelGrigInputModificarCod"
+                       value="#{bswCiudadesControlador.actual.codCiudad}"
+                       size="10" maxlength="5"
+                       style="text-transform: uppercase"
+                       onkeyup="cUpper(this)"/>
+        <h:outputText id="panelGrigTextModificarDesc"
+                      styleClass="etiqueta"
+                      value="Descripcion: "/>
+        <p:inputText   id="panelGrigInputModificarDesc"
+                       value="#{bswCiudadesControlador.actual.descripcion}"
+                       size="35" maxlength="80"
+                       style="text-transform: uppercase"
+                       onkeyup="cUpper(this)"/>
+
+
+        <oupt:codigoDescripcionOuput  
+            id="ouptTP_1" valueOuput="Pais (*)"
+            codigoId="inputCodPais"
+            valueCodigo="#{componentesVarios.bswPaisesABM.codPais}"
+            changeListener="#{componentesVarios.paisesChangeListener}"
+            dialogWidgetVar="dialogoPais"
+            btnTitle="Lista de Paises"
+            blurUpdate="@widgetVar(txtCodPais), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswPaisesABM}"                         
+            valueDescripcion="#{utilControler.componentes.bswPaisesABM.descripcion}"
+            descripcionId="txtCodPais"/>
+
+        <oupt:codigoDescripcionOuput  
+            id="ouptTP" valueOuput="Departamento (*)"
+            codigoId="inputCodProvincia"
+            valueCodigo="#{utilControler.componentes.bswProvinciasABM.codProvincia}"
+            changeListener="#{utilControler.componentes.provinciaChangeListener}"
+            dialogWidgetVar="dialogoProvincia"
+            btnTitle="Provincia"
+            blurUpdate="@widgetVar(txtCodProvincia), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswProvinciasABM}"                         
+            valueDescripcion="#{bswCiudadesControlador.componentes.bswProvinciasABM.descripcion}"
+            descripcionId="txtCodProvincia"/>
+
+
+    </p:panelGrid>
+</ui:composition>

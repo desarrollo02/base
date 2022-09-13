@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+
+    <composite:interface>
+        <composite:attribute name="controlador"/>
+
+        <composite:attribute name="esCabeceraDetalle" default="false"/>
+        <composite:attribute name="cantColumn" default="1"/>
+        <composite:attribute name="guardarUpdate" default="@form"/>
+        <composite:attribute name="cancelarUpdate" default="@form"/>
+
+        <composite:attribute name="guardaryAgregar" default="false"/>
+        <composite:attribute name="limpiarDatosUpdate" default="@widgetVar(panelCarga)"/>
+        <composite:attribute name="nombreForma"/>
+        <composite:attribute name="dataTable"/>
+        <composite:attribute name="abmForm"/>
+        <composite:attribute name="abmFormCabeceraDetalle"/>
+
+        <composite:attribute name="dlgForm"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <h:form id="form"  style="width: 100%" rendered="#{cc.attrs.controlador.puedeConsultar}" enctype="multipart/form-data" acceptcharset="UTF-8" >
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title"><p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  widgetVar="growl"/>
+
+                        <h:panelGroup>
+
+                            <tool:abmToolbar controlador="#{cc.attrs.controlador}"
+                                             guardarUpdate="#{cc.attrs.guardarUpdate}"
+                                             cancelarUpdate="#{cc.attrs.cancelarUpdate}"
+                                             nombreForma="#{cc.attrs.nombreForma}"
+                                             guardaryAgregar="#{cc.attrs.guardaryAgregar}"
+                                             updateLimpiarDatos="#{cc.attrs.limpiarDatosUpdate}"/>
+                        </h:panelGroup>
+
+                        <p:outputPanel rendered="#{!cc.attrs.controlador.esABMPanel}">
+                            <ui:include   src="#{cc.attrs.dataTable}" />
+                        </p:outputPanel>
+
+
+                        <p:panel  rendered="#{cc.attrs.controlador.esABMPanel}" id="panelCarga" widgetVar="panelCarga">
+                            <p:focus context="panelCarga"/>
+                            <p:panelGrid layout="grid"  columns="#{cc.attrs.cantColumn}" rendered="#{!cc.attrs.esCabeceraDetalle}"  style="border: 0;">
+
+                                <ui:include  src="#{cc.attrs.abmForm}" />
+                            </p:panelGrid> 
+                            <ui:include rendered="#{cc.attrs.esCabeceraDetalle}"  src="#{cc.attrs.abmFormCabeceraDetalle}" />
+
+                        </p:panel>
+                        <ui:include   src="#{cc.attrs.dlgForm}" />
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+        <dlg:deleteDialogPlantilla widget_var="avisoEliminar"
+                                   action="#{cc.attrs.controlador.eliminarRegistro()}"
+                                   aceptar_update_value="@widgetVar(grilla), @widgetVar(growl)"/>
+
+    </composite:implementation>
+</ui:composition>

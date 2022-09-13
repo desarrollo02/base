@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:form="http://java.sun.com/jsf/composite/plantillas/form"
+                xmlns:bread="http://java.sun.com/jsf/composite/plantillas/breadcrumb"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs"
+                template="/WEB-INF/template.xhtml">
+
+
+
+    <ui:define name="breadcrumb">
+        <bread:breadcrumb nombreModulo="#{i18n.administracion_base}"/> 
+    </ui:define>
+    <ui:define name="content">
+
+        <form:formPrincipalColores id="fp" cantColumn="4"
+                            controlador="#{bswEmpresasControlador}" 
+                            nombreForma="#{i18n.forma_empresas}"
+                            dataTable="../../../administracionBase/componentes/list/seccionDataTableEmpresas.xhtml"
+                            abmForm="../../../administracionBase/componentes/form/seccionAddEmpresa.xhtml"
+                            dlgForm="../../../administracionBase/componentes/dlg/dlgFormEmpresa.xhtml"/>
+        <dlg:deleteGenericABMDialog widget_var="avisoEliminarContacto"
+                                            delete_object="#{bswEmpresasControlador.contactosABMGeneric.deleteObject}"
+                                            object_delete="#{bswEmpresasControlador.contactosABMGeneric.objectDelete}"
+                                            aceptar_update_value="@widgetVar(grillaContactos), @widgetVar(growl)"/>
+
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,375 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="form" rendered="#{consultaPermisosVentasControlador.puedeConsultarAccesoGrBase()}">
+                    <p:growl id="growl" showDetail="false" />
+                    <h:panelGrid id="pg">
+                        <h:panelGroup>
+                            <h:outputText id="BswAccesosGrupos"
+                                          value="Accesos Grupos de las Formas"
+                                          styleClass="tituloTabla" />
+                            <p:toolbar>
+                                <p:toolbarGroup align="left">
+                                    <p:commandButton type="push"
+                                                     value="Nuevo"
+                                                     icon="ui-icon-document"
+                                                     onclick="PF('dialogoAgregar').show();"
+                                                     update=":form:botonAgregar" 
+                                                     rendered="#{bswAccesosGruposControlador.puedeInsertar}"> 
+                                        <f:setPropertyActionListener target="#{bswAccesosGruposControlador.esModificarDetalle}" value="false"/>
+
+                                    </p:commandButton>
+
+                                    <p:commandButton type="push"
+                                                     title="Ayuda"
+                                                     icon="ui-icon-help"
+                                                     onclick="PF('dialogoAyuda').show();"/>
+                                    <p:commandButton type="push"
+                                                     title="Acerca de"
+                                                     icon="ui-icon-info"
+                                                     onclick="PF('dialogoAcercaDe').show();"/>
+                                    <p:commandButton type="push" value="Inicio" id="inicio_modulo"
+                                                     title="Ir a Inicio" immediate="true"
+                                                     icon="ui-icon-home" 
+                                                     action="inicio"/> 
+
+
+                                </p:toolbarGroup>
+
+
+                                <p:toolbarGroup align="right">                                     <p:menuButton value="Mas Visitados">                                         <p:menuitem value="Lista de Articulos" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}" url="/faces/controlStock/StwArticulos.xhtml"/>                                         <p:menuitem value="Compra" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}" url="/faces/controlStock/StwEntSal.xhtml"/>                                         <p:menuitem value="Venta" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="/faces/ventas/VtwFacturaPymes.xhtml"/> <p:menuitem value="Mov.Caja-Cobro" url="/faces/cuentasCobrar/CcwMovCajas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}"/>                                         <p:menuitem value="Envio entre sucursales"  rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                     </p:menuButton>                                 </p:toolbarGroup>                             </p:toolbar>
+                        </h:panelGroup>
+
+                        <p:dataTable size="small" reflow="true" id="grilla"  paginator="true"  rows="15"  lazy="true"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,15,20"
+                                     var="acceso" rowKey="acceso.id"  value="#{bswAccesosGruposControlador.lazyListAccesos}" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx">
+                            <p:column style="text-align: center ; width: 15% ;">                                                  
+                                <p:commandButton  rendered="#{bswAccesosGruposControlador.puedeActualizar}"
+
+                                                  type="push"
+                                                  id="botonEditar"
+                                                  ajax="true"  widgetVar="botonEditar"
+                                                  title="Editar Registro"	
+                                                  onclick="PF('dialogoAgregar').show();"
+                                                  update=":form:panelAgregar:,:form:botonAgregar" 
+                                                  icon="ui-icon-pencil">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswAccesosGruposControlador.detalleAEditar}" 
+                                        value="#{acceso}"/>
+                                    <f:setPropertyActionListener target="#{bswAccesosGruposControlador.esModificarDetalle}" value="true"/>
+                                </p:commandButton>
+                                <p:commandButton  rendered="#{bswAccesosGruposControlador.puedeBorrar}"
+                                                  id="botonEliminar" 
+                                                  ajax="true" 
+                                                  title="Eliminar Registro"  
+                                                  onclick="PF('avisoEliminar').show()" 
+                                                  icon="pi pi-trash">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswAccesosGruposControlador.detalleAEliminar}" 
+                                        value="#{acceso}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <p:column id="colCodGrupo" sortBy="#{acceso.bswGruposUsuarios.codGrupo}" filterBy="#{acceso.bswGruposUsuarios.codGrupo}">
+                                <f:facet name="header">Cod. Grupo</f:facet>
+                                <h:outputText id="codGrupo" value="#{acceso.bswGruposUsuarios.codGrupo}"/>
+                            </p:column>
+
+                            <p:column id="colModulo" sortBy="#{acceso.bswModulos.codModulo}" filterBy="#{acceso.bswModulos.codModulo}">
+                                <f:facet name="header">Cod. Modulo</f:facet>
+                                <h:outputText id="codModulo" value="#{acceso.bswModulos.codModulo}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colForma" sortBy="#{acceso.bswFormas.nomForma}" filterBy="#{acceso.bswFormas.nomForma}">
+                                <f:facet name="header">Forma</f:facet>
+                                <h:outputText id="codForma" value="#{acceso.bswFormas.nomForma}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colDescripcion" sortBy="#{acceso.bswFormas.descripcion}" filterBy="#{acceso.bswFormas.descripcion}" >
+                                <f:facet name="header">Descripcion</f:facet>
+                                <h:outputText id="codSucursal" value="#{acceso.bswFormas.descripcion}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">Insertar</f:facet>
+                                <p:selectBooleanCheckbox disabled="true" value="#{(acceso.puedeInsertar!=null and acceso.puedeInsertar=='S')?'true':'false'}"/>
+
+
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Actualizar</f:facet>
+                                <p:selectBooleanCheckbox disabled="true" value="#{(acceso.puedeActualizar!=null and acceso.puedeActualizar=='S')?'true':'false'}"/>
+
+
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Consultar</f:facet>
+                                <p:selectBooleanCheckbox disabled="true" value="#{(acceso.puedeConsultar!=null and acceso.puedeConsultar=='S')?'true':'false'}"/>
+
+
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Borrar</f:facet>
+                                <p:selectBooleanCheckbox disabled="true" value="#{(acceso.puedeBorrar!=null and acceso.puedeBorrar=='S')?'true':'false'}"/>
+
+
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:panelGrid>
+
+
+
+
+
+
+
+
+
+                    <p:dialog header="ABM Accesos Grupos"
+                              widgetVar="dialogoAgregar"
+                              width="690"
+                              styleClass="outputpanel"
+                              height="370"
+                              closable="false"
+                              closeOnEscape="false"
+                              modal="false">
+
+                        <p:outputPanel id="panelAgregar"
+                                       layout="inline">
+                            <p:panelGrid id="panelGridAgregar"
+                                         columns="2" styleClass="bgpanelgridGray" columnClasses="label, label" >
+                                <h:outputText id="labelGrupoEdit"  styleClass="etiqueta"  value="Grupo(*): " />
+                                <h:panelGroup>  
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="inputGrupoEdit" value="#{bswAccesosGruposControlador.gruposUsuariosABM.codGrupo}" style="width: 70px" valueChangeListener="#{bswAccesosGruposControlador.grupoUsuarioesChangeListener}" >
+                                        <p:ajax event="change" update="inputGrupoDescEdit :form:growl" />
+                                    </p:inputText>    
+                                    <p:spacer width="5"/>
+                                    <p:commandButton ajax="true" 
+                                                     onclick="PF('dialogGrupoUsuarios').show()"
+                                                     title="Buscar Grupo de Usuarios" icon="pi pi-search">
+
+                                    </p:commandButton>
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="inputGrupoDescEdit" value="#{bswAccesosGruposControlador.gruposUsuariosABM.descripcion}" disabled="true" size="30"/>
+
+                                </h:panelGroup>     
+
+
+                                <h:outputText value="Modulo(*)"   styleClass="etiqueta" />
+                                <h:panelGroup>
+
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18" id="txtCodModulo" style="text-transform: uppercase" onkeyup="return cUpper(this);" value="#{bswAccesosGruposControlador.modulosABM.codModulo}" valueChangeListener="#{bswAccesosGruposControlador.modulosChangeListener}" size="7">
+                                        <p:ajax event="change" update="inputCodigo5 :form:growl" />
+                                    </p:inputText>    
+                                    <p:spacer width="5"/>
+                                    <p:commandButton ajax="true" 
+                                                     onclick="PF('dialogoModulos').show()"
+                                                     title="Buscar Modulos" icon="pi pi-search">
+
+                                    </p:commandButton>
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="inputCodigo5" value="#{bswAccesosGruposControlador.modulosABM.descripcion}" disabled="true" size="30" />
+                                </h:panelGroup>
+
+
+
+                                <h:outputText   styleClass="etiqueta"  value="Formulario(*): " />
+                                <h:panelGroup>
+
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18" id="nomForm" style="text-transform: uppercase" onkeyup="return cUpper(this);" value="#{bswAccesosGruposControlador.formasABM.nomForma}" valueChangeListener="#{bswAccesosGruposControlador.formasChangeListener}" size="7">
+                                        <p:ajax event="change" update="descForm :form:growl" />
+                                    </p:inputText>    
+                                    <p:spacer width="5"/>
+                                    <p:commandButton ajax="true" 
+                                                     onclick="PF('dialogoForma').show()"
+                                                     title="Buscar Formularios" icon="pi pi-search">
+
+                                    </p:commandButton>
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="descForm" value="#{bswAccesosGruposControlador.formasABM.titulo}" disabled="true" size="30" />
+
+                                </h:panelGroup>   
+                                <h:outputText id="labelActivoEdit"  styleClass="etiqueta"  value="Puede Insertar: " />
+                                <p:selectBooleanCheckbox  value="#{bswAccesosGruposControlador.puedeInsertarABM}" id="pi" />
+                                <h:outputText id="labelMenuEdit"  styleClass="etiqueta"  value="Puede Borrar: " />
+                                <p:selectBooleanCheckbox  value="#{bswAccesosGruposControlador.puedeEliminarABM}" id="pb" />
+                                <h:outputText id="labelUpdateEdit"  styleClass="etiqueta"  value="Puede Actualizar: " />
+                                <p:selectBooleanCheckbox  value="#{bswAccesosGruposControlador.puedeModificarABM}" id="pa"  />
+                                <h:outputText id="labelConsultarEdit"  styleClass="etiqueta"  value="Puede Consultar: " />
+                                <p:selectBooleanCheckbox  value="#{bswAccesosGruposControlador.puedeConsultarABM}" id="pc" />
+
+                            </p:panelGrid>
+
+                            <h:panelGroup>
+                                <p:commandButton icon="ui-icon-disk" id="botonAgregar" type="push"
+                                                 value="#{bswAccesosGruposControlador.esModificarDetalle?'Modificar':'Agregar'}"
+                                                 action="#{bswAccesosGruposControlador.abm()}" ajax="false"
+                                                 style="position: absolute; left: 140px; width: 100px"
+                                                 rendered="#{bswAccesosGruposControlador.puedeActualizar}"/>
+
+                                <p:commandButton icon="ui-icon ui-icon-close"
+                                                 value="Salir"
+                                                 style="position: absolute; left: 250px; width: 100px"
+                                                 onclick="PF('dialogoAgregar').hide();"
+                                                 update=":form:panelAgregar"
+                                                 action="#{bswAccesosGruposControlador.limpiarDatos()}"/>
+
+                            </h:panelGroup>
+                        </p:outputPanel>
+                    </p:dialog>
+
+                    
+                    <p:dialog header="Ayuda!!!" widgetVar="dialogoAyuda" modal="false" width="600">
+                        <c:forEach items="#{bswAccesosGruposControlador.ayuda}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+                    <p:dialog header="Datos de la Pantalla!!!" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                        <c:forEach items="#{bswAccesosGruposControlador.acercaDe}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+                    <!--    lista de grupos usuarios-->
+                    <p:dialog header="Lista - Grupos Usuarios" widgetVar="dialogGrupoUsuarios"  styleClass="etiqueta"  width="500">
+                        <p:dataTable size="small" reflow="true" var="gusuarios" value="#{bswAccesosGruposControlador.grupoUsuarioesList}"  paginator="true" rows="10"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="10,15">
+                            <p:column>
+                                <p:commandButton  type="push" 
+                                                  ajax="true"  widgetVar="botonSeleccionar"
+                                                  title="Seleccionar Registro"	
+                                                  onclick="PF('dialogGrupoUsuarios').hide();"
+                                                  update=":form:inputGrupoDescEdit, :form:inputGrupoEdit" 
+                                                  icon="pi pi-check">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswAccesosGruposControlador.grupoUsuarioListaSeleccionado}" 
+                                        value="#{gusuarios}"/>
+                                </p:commandButton>  
+                            </p:column>
+                            <p:column filterBy="#{gusuarios.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion" />
+                                </f:facet>
+                                <h:outputText value="#{gusuarios.descripcion}" />
+                            </p:column>
+                            <p:column filterBy="#{gusuarios.codGrupo}">
+                                <f:facet name="header">
+                                    <h:outputText value="Cod. Grupo" />
+                                </f:facet>
+                                <h:outputText value="#{gusuarios.codGrupo}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <!--fin lista grupos usuarios-->
+                    <!--    lista de Formas-->
+                    <p:dialog header="Lista - Formas" widgetVar="dialogoForma"  styleClass="etiqueta"  width="500">
+                        <p:dataTable size="small" reflow="true" id="grilla2"  paginator="true" rows="15"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" lazy="true" rowsPerPageTemplate="10,15,20"
+                                     var="forma"  value="#{bswFormasControlador.lazyListDetalleFormas}" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx" rowKey="forma.id">
+                            <p:column>
+                                <p:commandButton  type="push" 
+                                                  ajax="true"  widgetVar="botonSeleccionar"
+                                                  title="Seleccionar Registro"	
+                                                  onclick="PF('dialogoForma').hide();"
+                                                  update=":form:descForm, :form:nomForm" 
+                                                  icon="pi pi-check">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswAccesosGruposControlador.formasListaSeleccionado}" 
+                                        value="#{forma}"/>
+                                </p:commandButton>  
+                            </p:column>
+
+                            <p:column filterBy="#{forma.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion" />
+                                </f:facet>
+                                <h:outputText value="#{forma.descripcion}" />
+                            </p:column>
+                            <p:column filterBy="#{forma.nomForma}">
+                                <f:facet name="header">
+                                    <h:outputText value="Cod. Forma" />
+                                </f:facet>
+                                <h:outputText value="#{forma.nomForma}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <!--fin lista sucursales-->
+
+                    <p:dialog header="Lista - Modulos" widgetVar="dialogoModulos" styleClass="etiqueta" width="500" closable="true" closeOnEscape="true">
+                        <p:dataTable size="small" reflow="true" var="modulos" value="#{bswAccesosGruposControlador.modulosList}"  paginator="true" rows="10"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="10,15">
+                            <p:column> 
+                                <p:commandButton  type="push" 
+                                                  ajax="true"  widgetVar="botonSeleccionar"
+                                                  title="Seleccionar Registro"	
+                                                  onclick="PF('dialogoModulos').hide();"
+                                                  update=":form:panelGridAgregar" 
+                                                  icon="pi pi-check">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswAccesosGruposControlador.modulosListaSeleccionado}" 
+                                        value="#{modulos}"/>
+                                </p:commandButton>  
+                            </p:column>
+                            <p:column filterBy="#{modulos.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion" />
+                                </f:facet>
+                                <h:outputText value="#{modulos.descripcion}" />
+                            </p:column>
+                            <p:column filterBy="#{modulos.codModulo}">
+                                <f:facet name="header">
+                                    <h:outputText value="Cod. Modulo" />
+                                </f:facet>
+                                <h:outputText value="#{modulos.codModulo}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+
+
+                </h:form>
+                 <p:confirmDialog appendTo="@(body)" 
+                        hideEffect="clip" 
+                        message="Esta seguro que desea eliminar el registro?"
+                        header="Aviso" 
+                        severity="alert" 
+                        widgetVar="avisoEliminar">
+                        <p:commandButton 	value="Aceptar" 
+                                          onclick="PF('avisoEliminar').hide()" 
+                                          ajax="true"  
+                                          action="#{bswAccesosGruposControlador.eliminarRegistro()}"
+                                          update=":form:grilla, :form:growl"
+                                          title="Eliminar Registro">
+                        </p:commandButton>
+                        <p:commandButton 	value="Cancelar" 
+                                          onclick="PF('avisoEliminar').hide()"  
+                                          type="button"
+                                          title="Cancelar Accion">
+                        </p:commandButton>
+                    </p:confirmDialog>
+
+
+
+
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

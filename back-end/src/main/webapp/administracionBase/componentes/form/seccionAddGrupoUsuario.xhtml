@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" 
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+
+
+    <p:panelGrid layout="grid"  columns="1" >
+        <h:panelGroup>
+        <inpt:inputText valueOuput="#{i18n.label_codigo} (*)" value="#{bswGrupoUsuarioControlador.actual.codGrupo}" size="10" maxlength="4"/>
+
+        <inpt:inputText valueOuput="#{i18n.label_descripcion} (*)" value="#{bswGrupoUsuarioControlador.actual.descripcion}" size="50" maxlength="60"/>
+
+</h:panelGroup>
+   
+    <p:commandButton icon="ui-icon-save" 
+                     id="botonGuardar" 
+                     value="Guardar y Agregar Permisos"   
+                     rendered="#{!bswGrupoUsuarioControlador.esModificarDetalle}" 
+                     update="form" 
+                     ajax="true"
+                     action="#{bswGrupoUsuarioControlador.grabar}">
+        <f:setPropertyActionListener
+            target="#{bswGrupoUsuarioControlador.esAgregarPermisos}"
+            value="true" />
+
+    </p:commandButton> 
+        <p:separator/>
+        <p:dataTable size="small" var="modulo" widgetVar="moduloslista" value="#{bswGrupoUsuarioControlador.componentes.listaBswModulos}" rowExpandMode="single">
+            <f:facet name="header">
+                Expandir filas para ver permisos
+            </f:facet>
+            <f:attribute name="modulo" value="#{modulo}" />
+            <p:ajax event="rowToggle" listener="#{bswGrupoUsuarioControlador.onModuloRowToggle}"/>
+            <p:column style="width:5%">
+                <p:rowToggler />
+            </p:column>
+            <p:column headerText="Modulo">
+                <h:outputText value="#{modulo.descripcion}" />
+            </p:column>
+           
+            <p:rowExpansion>
+                <p:dataTable size="small" var="tipoForma" value="#{bswGrupoUsuarioControlador.componentes.bswTipoFormaList}" rowExpandMode="single" >
+                    <f:attribute name="tipoForma" value="#{tipoForma}" />
+                    <p:ajax event="rowToggle" listener="#{bswGrupoUsuarioControlador.onTipoFormaRowToggle}"/>
+                    <p:column style="width:5%">
+                        <p:rowToggler />
+                    </p:column>
+                    <p:column headerText="Tipo Forma">
+                        <h:outputText value="#{tipoForma.descripcion}" />
+                    </p:column>
+                    <p:rowExpansion >
+
+                        <p:dataTable size="small" var="forma" value="#{bswGrupoUsuarioControlador.formaList}">
+                            <p:column headerText="Forma">
+                                <h:outputText value="#{forma.descripcion}" />
+                            </p:column>
+                            
+
+                            <p:column headerText=" Insertar">
+                                <p:selectBooleanCheckbox   value="#{forma.puedeInsertarABM}">
+                                    <f:attribute name="modulo" value="#{modulo}" />
+                                    <f:attribute name="tipoForma" value="#{tipoForma}" />
+                                    <f:attribute name="forma" value="#{forma}" />
+                                    <p:ajax event="change" listener="#{bswGrupoUsuarioControlador.onPermisoChangeEvent(modulo, tipoForma, forma)}"/>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+
+                            <p:column headerText=" Borrar">
+                                <p:selectBooleanCheckbox   value="#{forma.puedeEliminarABM}" >
+                                    <f:attribute name="modulo" value="#{modulo}" />
+                                    <f:attribute name="tipoForma" value="#{tipoForma}" />
+                                    <f:attribute name="forma" value="#{forma}" />
+                                    <p:ajax event="change" listener="#{bswGrupoUsuarioControlador.onPermisoChangeEvent(modulo, tipoForma, forma)}"/>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+                            <p:column headerText=" Actualizar" >
+                                <p:selectBooleanCheckbox   value="#{forma.puedeModificarABM}">
+                                    <f:attribute name="modulo" value="#{modulo}" />
+                                    <f:attribute name="tipoForma" value="#{tipoForma}" />
+                                    <f:attribute name="forma" value="#{forma}" />
+                                    <p:ajax event="change" listener="#{bswGrupoUsuarioControlador.onPermisoChangeEvent(modulo, tipoForma, forma)}"/>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+                            <p:column headerText=" Consultar">
+                                <p:selectBooleanCheckbox  value="#{forma.puedeConsultarABM}" >
+                                    <f:attribute name="modulo" value="#{modulo}" />
+                                    <f:attribute name="tipoForma" value="#{tipoForma}" />
+                                    <f:attribute name="forma" value="#{forma}" />
+                                    <p:ajax event="change" listener="#{bswGrupoUsuarioControlador.onPermisoChangeEvent(modulo, tipoForma, forma)}"/>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+                        </p:dataTable>
+
+
+                    </p:rowExpansion>
+                </p:dataTable>
+            </p:rowExpansion>
+        </p:dataTable>
+
+    </p:panelGrid>
+
+
+</ui:composition>

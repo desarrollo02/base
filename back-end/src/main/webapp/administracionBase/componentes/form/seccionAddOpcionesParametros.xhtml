@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+    <oupt:codigoDescripcionOuput  
+              id="ouptTP_3" valueOuput="#{i18n.label_formulario} (*)"
+            codigoId="inputCodFormulario"
+            valueCodigo="#{utilControler.componentes.bswFormasABM.forma}"
+            changeListener="#{utilControler.componentes.moduloChangeListener}"
+            dialogWidgetVar="dialogoFormulario"
+            btnTitle="#{i18n.lista_formas}"
+            blurUpdate="@widgetVar(txtCodFormulario), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswFormasABM}"                         
+            valueDescripcion="#{utilControler.componentes.bswFormasABM.titulo}"
+            descripcionId="txtCodFormulario"/>
+       
+    <inpt:inputText valueOuput="#{i18n.label_parametro} (*)" value="#{bswOpcionesParametrosControlador.actual.parametro}" size="50" maxlength="60"/>
+
+   
+   
+   
+
+</ui:composition>

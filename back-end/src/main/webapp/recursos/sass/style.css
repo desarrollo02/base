@@ -1,0 +1,18 @@
+/* Error: Duplicate argument.
+ *    ,
+ * 96 | @mixin shadowRGBA($h, $v, $b, $s, $r, $g, $b, $a) {
+ *    |                                           ^^
+ *    '
+ *   src/main/webapp/recursos/sass/_mixins.scss 96:43  @import
+ *   src/main/webapp/recursos/sass/style.scss 6:9      root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Duplicate argument.\a    \2577 \a 96 \2502  @mixin shadowRGBA($h, $v, $b, $s, $r, $g, $b, $a) {\a    \2502                                            ^^\a    \2575 \a   src/main/webapp/recursos/sass/_mixins.scss 96:43  @import\a   src/main/webapp/recursos/sass/style.scss 6:9      root stylesheet";
+}

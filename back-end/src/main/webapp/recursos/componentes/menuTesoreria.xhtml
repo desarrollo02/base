@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:root="http://java.sun.com/jsf/composite/root"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:f="http://java.sun.com/jsf/core"  xmlns:p="http://primefaces.org/ui">
+    <div id="menu_horizontal">
+        <h:form id="menuconta">
+            <p:menubar styleClass="menuTipoLetra">
+                <p:submenu label="Definiciones">
+                    <p:menuitem value="Centro de Costos"   url="../contabilidad/CowCentroCostos.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarCentroCosto()}"/>
+                    <p:menuitem value="Grupo de Cuentas"   url="../contabilidad/CowGrupoCuentas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarGrupoCuentas()}"/>
+                    <p:menuitem value="Cuentas Proveedor"  url="../contabilidad/CowCuentasProveedor.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarCuentasProveedor()}"/>
+                    <p:menuitem value="Plan de Cuentas"    url="../contabilidad/CowPlanCuentas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPlanCuentas()}"/>
+                    <p:menuitem value="Plan de Cuentas SET"    url="../contabilidad/CowPlanCuentasSET.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPlanCuentasSET()}"/>
+                    <p:menuitem value="Ejericios Fiscales" url="../contabilidad/CowEjercicios.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarEjerciciosFiscales()}"/>
+                    <p:menuitem value="Config.Flujo Efectivo"   url="../contabilidad/CowFlujoEfectivoConfig.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarConfigFlujoEfectivo()}"/>
+                    <p:menuitem value="Tipo de Bien"   url="../contabilidad/CowTipoBien.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarBienesUso()}"/>
+                    <p:menuitem value="Bienes de Uso"   url="../contabilidad/CowBienesUso.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarBienesUso()}"/>
+                    <p:menuitem value="Revalúo"   url="../contabilidad/CowRevaluo.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRevaluo()}"/>
+
+                </p:submenu>
+                <p:submenu label="Movimientos">
+                    <p:menuitem value="Plantilla de Asientos" url="../contabilidad/CowPlantillaAsiento.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPlantillaAsiento()}"/>
+                    <p:menuitem value="Asientos Contables" url="../contabilidad/CowAsientosContables.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarPlantillaAsiento()}"/>
+                </p:submenu>
+                <p:submenu label="Generador">
+                    <p:menuitem value="Tablas Gestionadas"   url="../contabilidad/CowGeneradorTablas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarGeneradorTablas()}"/>
+                    <p:menuitem value="Plantillas"   url="../contabilidad/CowGeneradorPlantillas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarGeneradorPlantillas()}"/>
+                    <p:menuitem value="Reporte Dinamico" url="../contabilidad/CowRptDinamico.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptLibroMayor()}"/>
+                    
+                </p:submenu>
+
+                <p:submenu label="Reportes">
+                    <p:menuitem value="Libro Mayor" url="../contabilidad/CowRptLibroMayor.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptLibroMayor()}"/>
+                    <p:menuitem value="Balance General Analítico" url="../contabilidad/CowRptBalanceGralAnalitico.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptBalanceGralAnalitico()}"/>
+                    <p:menuitem value="Balance Impositivo" url="../contabilidad/CowRptBalanceImpositivo.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptBalanceImpositivo()}"/>
+                    <p:menuitem value="Balance General" url="../contabilidad/CowRptBalanceGeneral.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptBalanceGeneral()}"/>
+                    <p:menuitem value="Balance Comparativo" url="../contabilidad/CowRptBalanceCorporativo.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptBalanceCorporativo()}"/>
+                    <p:menuitem value="Asientos Diarios" url="../contabilidad/CowRptResumenAsiento.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptResumenAsiento()}"/>
+                    <p:menuitem value="Extracto Banco Interno" url="../contabilidad/CowRptExtractoBancoInterno.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptExtractoBancoInterno()}"/>
+                    <p:menuitem value="Revaluo" url="../contabilidad/CowRptRevaluo.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptRevaluo()}"/>
+
+                    <p:submenu label="Informes USAID">
+                        <p:menuitem value="Resumen por Categoria" url="../contabilidad/CowRptResumenCategoriaUSAID.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptResumenCategoriaUSAID()}"/>
+
+                    </p:submenu>
+                </p:submenu>
+
+            </p:menubar>
+        </h:form>
+    </div>
+
+</ui:component>
+
+
+

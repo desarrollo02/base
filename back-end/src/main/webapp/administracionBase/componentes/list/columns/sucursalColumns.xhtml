@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <p:column  headerText="Empresa"  filterBy="#{fila.bswEmpresas.descripcion}">
+        <h:outputText  value="#{fila.bswEmpresas.descripcion}"/>
+    </p:column>
+   
+    <p:column  headerText="Cod.Suc"   filterBy="#{fila.codSucursal}">
+        <h:outputText  value="#{fila.codSucursal}"/>
+    </p:column>
+
+  
+
+    <p:column  headerText="Sucursal"   filterBy="#{fila.descripcion}">
+        <h:outputText  value="#{fila.descripcion}"/>
+    </p:column>
+
+  
+    <p:column  headerText="Dirección"   filterBy="#{fila.direccion}">
+        <h:outputText  value="#{fila.direccion}"/>
+    </p:column>
+    <p:column  headerText="Telefono"   filterBy="#{fila.telefono}">
+        <h:outputText  value="#{fila.telefono}"/>
+    </p:column>
+
+    
+       <p:column  headerText="Email"   filterBy="#{fila.email}">
+                                <h:outputText  value="#{fila.email}"/>
+                            </p:column>
+
+    
+       <p:column  headerText="Email"   filterBy="#{fila.email}">
+                                <h:outputText  value="#{fila.email}"/>
+                            </p:column>
+
+    
+       <p:column  headerText="Email"   filterBy="#{fila.email}">
+                                <h:outputText  value="#{fila.email}"/>
+                            </p:column>
+
+
+
+</ui:composition>

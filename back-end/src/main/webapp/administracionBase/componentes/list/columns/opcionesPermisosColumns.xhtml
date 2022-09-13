@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                    
+    
+    
+    <p:column headerText="#{i18n.label_cod_usuario}" filterBy="#{fila.bswUsuarios.codUsuario}">
+                                            <div align="center">
+                                            <h:outputText value="#{fila.bswUsuarios.codUsuario}"/>
+                                            </div>
+                                        </p:column>
+                            
+    <p:column headerText="#{i18n.label_persona}" filterBy="#{fila.bswUsuarios.bswPersonas.nombre}">
+                                            <h:outputText value="#{fila.bswUsuarios.bswPersonas.nombre}"/>
+                                        </p:column>
+                            
+                            
+                            
+    <p:column headerText="#{i18n.label_parametro}" filterBy="#{fila.bswOpcionesParametros.parametro}">
+                                            <h:outputText value="#{fila.bswOpcionesParametros.parametro}" />
+                                        </p:column>
+                            
+    <p:column headerText="#{i18n.label_formulario}" filterBy="#{fila.bswOpcionesParametros.bswFormas.descripcion}">
+                                            <h:outputText value="#{fila.bswOpcionesParametros.bswFormas.descripcion}" />
+                                        </p:column>
+
+    <p:column headerText="#{i18n.label_permiso}?">     
+                                            <div align="center">
+                                            <p:selectBooleanCheckbox disabled="true" value="#{(fila.permiso!=null and fila.permiso=='S')?'true':'false'}"/>
+                                            </div>
+                                        </p:column>
+
+
+</ui:composition>

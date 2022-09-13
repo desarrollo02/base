@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="breadcrumb">
+        <li><p:link outcome="/empty">TABLERO GERENCIAL</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">  <div class="ui-g"><div class="ui-g-12"><div class="card">
+                    <p:tabView orientation="right">
+             <p:tab title="INGRESOS VS EGRESOS">
+      
+            
+                
+                   
+                <iframe width="1024" height="1060" src="https://app.powerbi.com/view?r=eyJrIjoiZTQ1NzI2YWUtZmI0Yi00NGQxLTgyNjItZDZkMzZjNjQxMGEzIiwidCI6ImQyNWU2ZWZlLTRhN2EtNDExMC1iYjZmLTE5ZjkwNGE5MWQyYyJ9&amp;pageName=ReportSection1f482dcdc0d60d23dccd" frameborder="0" allowFullScreen="true"></iframe>      
+        </p:tab>
+               <p:tab title="MOVIMIENTOS">
+      
+             <iframe  width="1304"  height="600"  src="https://app.powerbi.com/view?r=eyJrIjoiNzIyMTEzMGQtZDIzNC00NTI0LWFmYzgtYTU4OTExNTc4MzJiIiwidCI6ImQyNWU2ZWZlLTRhN2EtNDExMC1iYjZmLTE5ZjkwNGE5MWQyYyJ9&amp;pageName=ReportSection22c562acd5ad00192822" frameborder="0" allowFullScreen="true"></iframe>
+         </p:tab>
+           <p:tab title="CONTRATOS">
+               <iframe  width="1304"  height="600"  src="https://app.powerbi.com/view?r=eyJrIjoiYmM3MThjM2EtMmRkYy00MjY3LTgzYjMtZWQyYmYxMGViMTZlIiwidCI6ImQyNWU2ZWZlLTRhN2EtNDExMC1iYjZmLTE5ZjkwNGE5MWQyYyJ9" frameborder="0" allowFullScreen="true"></iframe>
+           </p:tab>  <p:tab title="FLUJO DE CAJA">
+               <iframe width="1304"  height="600"  src="https://app.powerbi.com/view?r=eyJrIjoiNjQxOTljZjItYjA0Yi00YzExLTgzYzMtODY5MDBmZmFiODI3IiwidCI6ImQyNWU2ZWZlLTRhN2EtNDExMC1iYjZmLTE5ZjkwNGE5MWQyYyJ9" frameborder="0" allowFullScreen="true"></iframe>
+           </p:tab>
+         </p:tabView></div> </div> </div>
+    </ui:define>
+
+</ui:composition>

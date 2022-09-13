@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones">
+
+
+    <p:dataTable size="small"        
+        paginator="true"
+        emptyMessage="No existen registros."
+        rows="10"
+        id="grilla"
+        rowsPerPageTemplate="5,10,15"
+        paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown} "
+        var="fila" 
+        rowKey="fila.id"
+        value="#{bswBarriosControlador.listaTodosActualLazy}"
+        rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+        rowIndexVar="rowIx"
+        lazy="true"
+        widgetVar="grilla" reflow="true">
+
+        <p:column style="text-align: center ; width: 10% ;">                                                  
+            <btn:btnEdit controlador="#{bswBarriosControlador}"
+                         update=":form"/>
+            <btn:btnDelete controlador="#{bswBarriosControlador}"/>
+        </p:column>            
+
+        <p:column id="descBswModulosColumna" sortBy="#{fila.codBarrio}"
+                  filterBy="#{fila.codBarrio}" 
+                  style="width: 20%">
+            <f:facet name="header">Codigo</f:facet>
+            <h:outputText  id="descBswModulosText" value="#{fila.codBarrio}"/>
+        </p:column>
+
+        <p:column sortBy="#{fila.descripcion}"
+                  filterBy="#{fila.descripcion}"
+                  style="width: 30%">
+            <f:facet name="header">Descripcion</f:facet>
+            <h:outputText  id="colTxtParametro" value="#{fila.descripcion}"/>
+        </p:column>
+        <p:column filterBy="#{fila.bswCiudades.descripcion}">
+            <f:facet name="header">Ciudades</f:facet>
+            <h:outputText value="#{fila.bswCiudades.descripcion}"/>
+        </p:column>
+        <p:column filterBy="#{fila.bswProvincias.descripcion}">
+            <f:facet name="header">Departamento</f:facet>
+            <h:outputText id="colTxtValor" value="#{fila.bswProvincias.descripcion}"/>
+        </p:column>
+        <p:column id="colValor"
+                  filterBy="#{fila.bswPaises.descripcion}">
+            <f:facet name="header">Pais</f:facet>
+            <h:outputText value="#{fila.bswPaises.descripcion}"/>
+        </p:column>
+    </p:dataTable>
+</ui:composition>

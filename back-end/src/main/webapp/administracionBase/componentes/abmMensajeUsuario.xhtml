@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+       
+                     
+         <h:panelGrid id="panelGridABM"  columns="2" styleClass="bgpanelgridGray" columnClasses="label,label">
+                                            <h:outputText id="panelGrigTextModificarCod"
+                                                        styleClass="etiqueta"
+                                                        value="(*)Mensaje: "/>
+                                            <p:inputTextarea  styleClass="Container80 Fnone MarAuto Fs18"  autoResize="true" maxlength="100" cols="30" rows="2" value="#{bswMensajesUsuariosControlador.actual.mensaje}" />
+
+                                            <h:outputText styleClass="etiqueta" value="(*)Para: "/>
+                                <h:panelGroup>
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"  id="codUsuario"
+                                                 value="#{objetoComunes.usuario.codUsuario}" 
+                                                 valueChangeListener="#{objetoComunes.usuarioChangeListener}" size="8" maxlength="18">
+                                            <p:ajax event="change" update=":form:descUsuario :form:growl" />        
+                                    </p:inputText >
+                                    
+                                    <p:inputText  styleClass="Container80 Fnone MarAuto Fs18"   id="descUsuario"
+                                                  value="#{objetoComunes.usuario.bswPersonas.nombre}"
+                                                  style="text-transform: uppercase"
+                                                  size="35"
+                                                  onkeyup="cUpper(this)"
+                                                  disabled="true"/>
+                                    <p:commandButton type="push"
+                                                            id="botonBuscarUsuario"
+                                                            ajax="true"  actionListener="#{objetoComunes.obtieneLazyUsuarios()}"
+                                                            widgetVar="botonBuscarUsuario"
+                                                            title="Lista de Usuarios del Sistema"	
+                                                            onclick="PF('dialogoUsuario').show();"
+                                                            update=":form:grillaUsuario"
+                                                            icon="pi pi-search">
+                                    </p:commandButton>
+                                </h:panelGroup>
+                            
+                            
+                        </h:panelGrid>
+                      
+                               
+    
+    
+    
+    
+          <p:dialog header="Lista de Usuarios" id="dialogoUsuario"
+                        widgetVar="dialogoUsuario"
+                        width="710"
+                        closable="true"
+                        styleClass="outputpanel"
+                        height="500"
+                        modal="false"
+                        closeOnEscape="true">
+
+                                <p:dataTable size="small" reflow="true" id="grillaUsuario"
+                                        paginator="true"
+                                        rows="10" 
+                                        paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown} "
+                                        rowsPerPageTemplate="10"
+                                        var="fila" 
+                                        value="#{objetoComunes.lazyListUsuario}"
+                                        rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                        rowIndexVar="rowIx"
+                                        lazy="true"
+                                        rowKey="fila.id"
+                                        style="width: 100%">
+                                        <p:column style="text-align: center ; width: 5% ;">                                                  
+                                            <p:commandButton        ajax="true"   process="@this"
+                                                                    title="Selecionar Usuario"  
+                                                                    onclick="PF('dialogoUsuario').hide()" 
+                                                                    icon="pi pi-check"
+                                                                    update=":form:grilla, :form:codUsuario, :form:descUsuario">
+                                                    <f:setPropertyActionListener target="#{objetoComunes.usuario}" value="#{fila}"/>
+                                            </p:commandButton>
+                                        </p:column>  
+                                        <p:column sortBy="#{fila.codUsuario}"
+                                                  filterBy="#{fila.codUsuario}"
+                                                  filterStyle="width: 100%"
+                                                  style="width: 30%">
+                                                <f:facet name="header">Codigo</f:facet>
+                                                <h:outputText value="#{fila.codUsuario}"/>
+                                        </p:column>
+                                    
+                                        <p:column sortBy="#{fila.bswPersonas.nombre}"
+                                                  filterBy="#{fila.bswPersonas.nombre}"
+                                                  filterStyle="width: 100%"
+                                                  style="width: 70%">
+                                                <f:facet name="header">Nombre Usuario</f:facet>
+                                                <h:outputText value="#{fila.bswPersonas.nombre}"/>
+                                        </p:column>  
+                                </p:dataTable>                               
+                    </p:dialog>
+</ui:composition>

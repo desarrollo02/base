@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <p:tabView id="tab"  rendered="#{bswMonedasControlador.esABMPanel}" dynamic="true" cache="true">
+        <p:tab title="DATOS DE MONEDA" class="card gdb_yelowgreen">  
+            <div class="ui-g dashboard">
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="ui-g-12 ui-lg-3">
+                        <div class="gdb">
+                            <p:panel   class="card card_gdb gdb_orange">
+                                <oupt:codigoDescripcionOuput id="ouptPais" codigoId="codPais"  valueOuput="Pais" rendered="false"
+                                                             valueCodigo="#{componentesVarios.bswPaisesABM.codPais}"
+                                                             changeListener="#{componentesVarios.paisesChangeListener}"
+                                                             blurUpdate="@widgetVar(codPais), @widgetVar(descPais)"
+                                                             dialogWidgetVar="dialogoPais" object="#{componentesVarios.bswPaisesABM}"
+                                                             btnTitle="Lista de Paises del Sistema" 
+                                                             valueDescripcion="#{componentesVarios.bswPaisesABM.descripcion}"
+                                                             descripcionId="descPais"/>
+
+                                <inpt:inputText valueOuput="#{i18n.label_codigo}" value="#{bswMonedasControlador.actual.codMoneda}" size="10" maxlength="4"/>
+
+                                <inpt:inputText valueOuput="#{i18n.label_descripcion}"  value="#{bswMonedasControlador.actual.descripcion}" size="50" maxlength="60"/>
+                                <inpt:selectBooleanChecBox valueOuput="#{i18n.label_es_moneda_principal}" 
+                                                           value="#{bswMonedasControlador.actual.esGuaranies}" size="35" maxlength="200"/>
+
+                                <inpt:inputText valueOuput="#{i18n.label_abreviatura}" value="#{bswMonedasControlador.actual.siglas}" size="10" maxlength="4"/>
+
+                                <inpt:inputTextNumber valueOuput="Decimales(*)" value="#{bswMonedasControlador.actual.decimales}" size="10" maxlength="4"/>
+
+
+
+
+                                <inpt:inputTextNumber valueOuput="Tipo Cambio(*)" value="#{bswMonedasControlador.actual.tipoCambio}" size="10" maxlength="4"/>
+
+
+
+
+                                <inpt:calendar valueOuput="Fecha Tipo Cambio:" value="#{bswMonedasControlador.actual.fecTipoCambio}" />
+                                <inpt:inputText rendered="false" valueOuput="Decimales" value="#{bswMonedasControlador.actual.decimales}" size="10" maxlength="4"/>
+                            </p:panel>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p:tab> 
+        <p:tab title="HISTORIAL TIPO DE CAMBIO" class="card gdb_yelowgreen">
+            <div class="ui-g dashboard">
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="ui-g-12 ui-lg-12">
+                        <div class="gdb">
+                            <p:panel   class="card card_gdb gdb_orange" > 
+                                <p:dataTable size="small" reflow="true"     paginator="true" 
+                                             emptyMessage="No existen registros."  rows="10"  
+                                             id="grillaHistorial" widgetVar="grillaHistorial"
+                                             rowsPerPageTemplate="5,10,15"
+                                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             var="fila" rowKey="fila.id"   
+                                             value="#{bswMonedasControlador.bswTiposCambioABMGeneric.objectList}" 
+                                             rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                             rowIndexVar="rowIx" >
+
+                                    <p:column style="text-align: center ; width: 8% ;">
+
+                                        <f:facet name="header">
+                                            <p:commandButton  ajax="true" 
+                                                              icon="pi pi-plus"
+                                                              update="@widgetVar(grillaHistorial)"
+                                                              action="#{bswMonedasControlador.agregarbswTiposCambio()}">
+
+                                                <p:focus context="grillaHistorial"/>
+                                            </p:commandButton> 
+                                              <p:commandButton  ajax="true" 
+                                                              icon="ui-icon-sync"
+                                                              update="@widgetVar(grillaHistorial) @widgetVar(growl)"
+                                                              action="#{bswMonedasControlador.obtieneTipoCambioBCP()}">
+
+                                            </p:commandButton> 
+                                        </f:facet>
+
+                                        <p:commandButton  
+                                            ajax="true" 
+                                            title="Eliminar Registro"  
+                                            onclick="PF('avisoEliminarHistorial').show()" 
+                                            icon="pi pi-trash">
+                                            <f:setPropertyActionListener target="#{bswMonedasControlador.bswTiposCambioABMGeneric.objectDelete}" 
+                                                                         value="#{fila}"/>
+                                        </p:commandButton>
+                                    </p:column> 
+                                    <p:column headerText="Valor Venta">
+                                        <p:inputNumber  thousandSeparator="." decimalSeparator=","
+                                                        value="#{fila.valVenta}"  />
+                                    </p:column>
+
+                                    <p:column headerText="Valor Compra">
+                                        <p:inputNumber  thousandSeparator="." decimalSeparator=","
+                                                        value="#{fila.valCompra}"  />
+                                    </p:column>
+                                    <p:column headerText="Fecha">
+                                        <p:calendar styleClass="" size="11"   value="#{fila.fecTipoCambio}" mode="popup"  navigator="true" pattern="dd/MM/yyyy"  />
+                                    </p:column>
+
+
+                                </p:dataTable>
+                            </p:panel>
+                        </div></div></div></div>
+        </p:tab>
+    </p:tabView>
+</ui:composition>

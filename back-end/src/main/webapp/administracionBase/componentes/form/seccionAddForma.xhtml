@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" 
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+
+  
+<oupt:outputText value="#{i18n.abm_panel}" />
+<p:panelGrid layout="grid" columns="1">
+
+        <h:outputText value="Modulo"  />
+        <p:selectOneMenu id="modulos" value="#{bswFormasControlador.componentes.bswModulosABM}" 
+                         title="Elija un Tipo de Forma" converter="omnifaces.SelectItemsConverter" >
+            <f:selectItem  itemLabel="Seleccionar" noSelectionOption="true"/>
+            <f:selectItems  value="#{bswModulosControlador.listaTodosActual}" var="t" itemLabel="#{t.codigo} - #{t.descripcion}" itemValue="#{t}" />
+        </p:selectOneMenu>
+        <inpt:inputText valueOuput="#{i18n.label_orden}" 
+                         value="#{bswFormasControlador.actual.orden}" 
+                         size="35" maxlength="80"/>
+         <inpt:inputText valueOuput="#{i18n.label_link}" 
+                         value="#{bswFormasControlador.actual.link}" 
+                         size="35" maxlength="80"/>
+     <inpt:inputText valueOuput="#{i18n.label_nom_forma}" 
+                         value="#{bswFormasControlador.actual.nomForma}" 
+                         size="35" maxlength="80"/>
+     
+      <inpt:inputText valueOuput="#{i18n.label_titulo_forma}" 
+                      value="#{bswFormasControlador.actual.titulo}" 
+                         size="35" maxlength="80"/>
+            <inpt:inputText valueOuput="#{i18n.label_descripcion}" 
+                         value="#{bswFormasControlador.actual.descripcion}" 
+                         size="35" maxlength="80"/>
+      
+       
+
+        <h:outputText value="Tipo"  />
+        <p:selectOneMenu id="tipoList2" value="#{bswFormasControlador.actual.bswTipoForma}" 
+                         title="Elija un Tipo de Forma" converter="omnifaces.SelectItemsConverter" >
+            <f:selectItem  itemLabel="Seleccionar" noSelectionOption="true"/>
+            <f:selectItems  value="#{bswFormasControlador.componentes.bswTipoFormaList}" var="t" itemLabel="#{t.codigo} - #{t.descripcion}" itemValue="#{t}" />
+        </p:selectOneMenu>
+    </p:panelGrid>
+
+
+
+</ui:composition>

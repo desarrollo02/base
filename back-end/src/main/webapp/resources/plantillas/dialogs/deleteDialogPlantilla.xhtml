@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+
+    <composite:interface>
+        <composite:attribute name="widget_var"/>
+        <composite:attribute name="aceptar_update_value"/>
+        <composite:attribute name="action" method-signature="void listener()"/>
+
+    </composite:interface>
+
+    <composite:implementation>
+        <p:confirmDialog appendTo="@(body)"
+                         showEffect="fade" width="300"
+                         hideEffect="clip"
+                         message="Esta seguro que desea eliminar el registro?"
+                         header="Confirmar"
+                         severity="warn"
+                         widgetVar="#{cc.attrs.widget_var}">
+            <h:form>
+                <p:commandButton value="Aceptar"
+                                 icon="pi pi-check"
+                                 process="@this"
+                                 oncomplete="PF('#{cc.attrs.widget_var}').hide()"
+                                 update="#{cc.attrs.aceptar_update_value}"
+                                 action="#{cc.attrs.action}"
+                                 title="Eliminar Registro">
+                </p:commandButton>
+                <p:commandButton value="Cancelar"
+                                 icon="pi pi-times"
+                                 styleClass="ui-button-secondary"
+                                 onclick="PF('#{cc.attrs.widget_var}').hide()"
+                                 type="button"
+                                 title="Cancelar Accion">
+                </p:commandButton>
+            </h:form>
+        </p:confirmDialog>
+    </composite:implementation>
+</ui:composition>

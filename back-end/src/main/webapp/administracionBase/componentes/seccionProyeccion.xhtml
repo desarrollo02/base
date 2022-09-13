@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <p:panel>
+        
+                     
+                            <h:outputText styleClass="etiqueta" value="Disponibilidades a considerar: " />
+                            <p:inputNumber disabled="true"   styleClass="Container80 Fnone MarAuto Fs18"   value="#{prwPresCategoriaComponenteControlador.saldo}"
+                                                          thousandSeparator="."/>
+                                +
+                                        <p:inputNumber   styleClass="Container80 Fnone MarAuto Fs18"   value="#{prwPresCategoriaComponenteControlador.saldoDisponible}"
+                                                          thousandSeparator=".">
+            </p:inputNumber>
+<br/>
+                            <h:outputText styleClass="etiqueta" value="Meses anteriores a considerar: " />  
+           <p:inputNumber   styleClass="Container80 Fnone MarAuto Fs18"   value="#{prwPresCategoriaComponenteControlador.duracionMesesAConsiderar}"
+                                                          thousandSeparator=".">
+            </p:inputNumber>
+<br/>                            
+                                <h:outputText styleClass="etiqueta" value="Gastos mensuales a considerar: " />
+                                <p:inputNumber    styleClass="Container80 Fnone MarAuto Fs18"   value="#{prwPresCategoriaComponenteControlador.gastoMensualAConsiderar}"
+                                                          thousandSeparator="."/>
+<br/>                            
+                            <p:commandButton  title="Calcular Proyeccion" value="Calcular Proyeccion" action="#{prwPresCategoriaComponenteControlador.calcularProyeccion(prwPresCategoriaComponenteControlador.saldo)}"
+                                              ajax="true" update="form:subTab:duracion"  icon="ui-icon-calculator">
+
+                            </p:commandButton>
+<br/>
+<p:separator/>
+<h:outputText styleClass="etiqueta" value="Total disponibilidades consideradas: " />
+                            <p:inputNumber disabled="true"   styleClass="Container80 Fnone MarAuto Fs18"   value="#{prwPresCategoriaComponenteControlador.saldoTotalAConsiderar}"
+                                                          thousandSeparator="."/>
+<br/>                            
+                            
+                            <h:outputText styleClass="etiqueta" value="Gastos contemplados desde: " />
+                                                                <p:calendar  value="#{prwPresCategoriaComponenteControlador.fechaInicial}" 
+                                                                             pattern="dd/MM/yyyy" disabled="true" size="8"></p:calendar>
+<br/>
+                            <h:outputText styleClass="etiqueta" value="Ritmo de gasto mensual: " />
+                            <p:inputNumber disabled="true"   styleClass="Container80 Fnone MarAuto Fs18"   value="#{prwPresCategoriaComponenteControlador.ritmoDeGastoMensual}"
+                                                          thousandSeparator="."/>
+<br/>                    
+                    <h:outputText styleClass="etiqueta" value="Duraci&oacute;n de saldo disponible (en Meses): " />  
+           
+                    <p:inputNumber  id="duracion" disabled="true" styleClass="Container80 Fnone MarAuto Fs18"   value="#{prwPresCategoriaComponenteControlador.duracionMesesSaldoDisponible}" 
+                                 
+                                                          thousandSeparator=".">
+            </p:inputNumber>
+                        
+    </p:panel>      
+
+</ui:composition>

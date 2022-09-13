@@ -1,0 +1,100 @@
+
+=======
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:gdb="http://java.sun.com/jsf/composite/plantillas/componentes"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <composite:interface>
+        <composite:attribute name="permiso_consulta" default="true"/> 
+        <composite:attribute name="link" default="inicio"/>
+        <composite:attribute name="id_form"  default="form"/>
+        <composite:attribute name="id_titulo" default="titulo"/>
+        <composite:attribute name="nombre_modulo" required="true"/>
+        <composite:attribute name="nombre_forma" required="true"/>
+        <composite:attribute name="itmes_ayuda" required="true"/>
+        <composite:attribute name="items_acerca_de" required="true"/>
+        <!--        <composite:attribute name="include_toolbar" required="true"/>-->
+        <composite:attribute name="include_panel_principal" required="true"/>
+
+        <composite:attribute name="life_growl" default="#{loginControlador.tiempoEsperaMensaje}"/>
+
+        <!--BOTON CONFIRM DIALOG-->
+        <composite:attribute name="rendered_confirm" default="false" required="true"/>
+        <composite:attribute name="message" default="Esta seguro que desea eliminar el registro?"/>
+        <composite:attribute name="widgetvar" default="avisoEliminar"/>     
+        <composite:attribute name="value_ok" default="Aceptar"/>     
+        <composite:attribute name="onclick" default="PF('avisoEliminar').hide()"/>     
+        <composite:attribute name="action" required="true" method-signature="void listener()"/>    
+        <composite:attribute name="update" default="form"/>
+        <composite:attribute name="title" default="Eliminar Registro"/>     
+        <composite:attribute name="value_noOk" default="Cancelar"/>
+        <composite:attribute name="onclickNoOK" default="PF('avisoEliminar').hide()"/>
+        <composite:attribute name="titleNoOK" default="Cancelar Accion"/>
+        <!--BOTON FIN CONFIRM DIALOG-->
+
+
+    </composite:interface>
+
+    <composite:implementation>
+
+
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h:form id="#{cc.attrs.id_form}" rendered="#{cc.attrs.permiso_consulta}" prependId="false">
+
+                        <h:outputText id="#{cc.attrs.id_titulo}"
+                                      value="#{cc.attrs.nombre_forma}"
+                                      styleClass="tituloTabla" />
+                        <p:growl id="growl" showDetail="false" life="#{cc.attrs.life_growl}"  />
+
+
+                        <ui:include   src="#{cc.attrs.include_panel_principal}" />
+
+                        <p:dialog header="Ayuda" widgetVar="dialogoAyuda" modal="false" width="600">
+                            <c:forEach items="#{cc.attrs.itmes_ayuda}" var="fila">
+                                <h:outputText value="#{fila}"/><br></br>
+                            </c:forEach>
+                        </p:dialog>
+
+                        <p:dialog header="Datos de la Pantalla" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                            <c:forEach items="#{cc.attrs.items_acerca_de}" var="fila">
+                                <h:outputText value="#{fila}"/><br></br>
+                            </c:forEach>
+                        </p:dialog>
+
+                    </h:form>
+
+
+                    <gdb:p_confirm_dialog rendered_confirm="#{cc.attrs.rendered_confirm}"
+                                          message="#{cc.attrs.message}"
+                                          widgetvar="#{cc.attrs.widgetvar}"     
+                                          value_ok="#{cc.attrs.value_ok}"     
+                                          onclick="#{cc.attrs.onclick}"     
+                                          action="#{cc.attrs.action}"     
+                                          update="#{cc.attrs.update}"
+                                          title="#{cc.attrs.title}"     
+                                          value_noOk="#{cc.attrs.value_noOk}"
+                                          onclickNoOK="#{cc.attrs.onclickNoOK}"
+                                          titleNoOK="#{cc.attrs.titleNoOK}"/>                            
+
+                </div>
+            </div>
+        </div>
+
+
+    </composite:implementation>
+
+</ui:composition>

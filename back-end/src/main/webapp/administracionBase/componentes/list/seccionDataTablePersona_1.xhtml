@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:btn="http://java.sun.com/jsf/composite/plantillas/botones"
+                xmlns:dtbl="http://java.sun.com/jsf/composite/plantillas/dataTable">
+    <dtbl:dataTableGeneric id="grillaComp" 
+                           rowTogglerRendered="true"
+                           controlador="#{bswPersonasControlador}"
+                           lazyList="#{bswPersonasControlador.componentes.lazyListDetallePersonas}">
+
+        <p:column id="colper1" 
+                  sortBy="#{fila.codPersona}" 
+                  filterBy="#{fila.codPersona}">
+            <f:facet name="header">Cod. Persona</f:facet>
+            <h:outputText id="codper1" value="#{fila.codPersona}"/>
+        </p:column>
+
+        <p:column id="colper2" 
+                  sortBy="#{fila.nombre}" 
+                  filterBy="#{fila.nombre}" >
+            <f:facet name="header">Nombre</f:facet>
+            <h:outputText id="codper2"
+                          value="#{fila.nombre}"/>
+        </p:column>
+        
+    </dtbl:dataTableGeneric>    
+
+</ui:composition>

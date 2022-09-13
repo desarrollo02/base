@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:form="http://java.sun.com/jsf/composite/plantillas/form"
+                xmlns:bread="http://java.sun.com/jsf/composite/plantillas/breadcrumb"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml">
+
+
+
+    <ui:define name="breadcrumb">
+        <bread:breadcrumb nombreModulo="#{i18n.administracion_base}"/> 
+    </ui:define>
+    <ui:define name="content">
+
+        <form:formPrincipal id="fp"
+                            controlador="#{stwRutaControlador}" 
+                            nombreForma="#{i18n.label_ruta}"
+                            dataTable="../../../administracionBase/componentes/list/seccionDataTableRuta.xhtml"
+                            abmForm="../../../administracionBase/componentes/form/seccionAddRuta.xhtml"
+                            dlgForm="../../../administracionBase/componentes/dlg/dlgFormRuta.xhtml"/>
+
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,209 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+
+    <composite:interface>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="icon_boton_opcional" default="ui-icon pi pi-check"/>
+        <composite:attribute name="titulo_boton_opcional" default="BO"/>
+        <composite:attribute name="onclick_boton_opcional" />
+        <composite:attribute name="styleclass_boton_opcional" default="red-btn"/>
+        <composite:attribute name="render_boton_opcional" default="false"/>
+        <composite:attribute name="render_toolbarGroup" default="true"/>
+        <composite:attribute name="update_boton_opcional" />
+        <composite:attribute name="ajax_boton_opcional" default="true"/>
+        <composite:attribute name="action_boton_opcional" default="#{utilControler.dummy()}" method-signature="void listener()"/>
+        <composite:attribute name="icon_boton_guardar" default="pi pi-save"/>
+        <composite:attribute name="styleclass_boton_guardar" />
+        <composite:attribute name="guardarUpdate"/>
+        <composite:attribute name="nombreForma"/>
+        <composite:attribute name="cancelarUpdate"/>
+        <composite:attribute name="actionInicio"/>
+        <composite:attribute name="guardaryAgregar" default="false"/>
+        <composite:attribute name="esDialogoNew" default="false"/>
+        <composite:attribute name="tituloBotonGuardar" default="Guardar"/>
+        <composite:attribute name="onClickInicio"/>
+        <composite:attribute name="ajax" default="true"/>
+        <composite:attribute name="updateLimpiarDatos"/>
+        <composite:attribute name="actionGrabar" default="#{cc.attrs.controlador.grabar}" method-signature="void listener()"/>
+        <composite:attribute name="mostrarBotonNuevo" default="true"/>
+        <composite:attribute name="mostrarBotonGuardar" default="true"/>
+        <composite:attribute name="mostrarBotonLimpiar" default="true"/>
+        <composite:attribute name="esconderDialogo" />
+        <composite:attribute name="mostrarAnular" default="false"/>
+        <composite:attribute name="widgetVarParam" default="@widgetVar(grilla)"/>
+        <composite:attribute name="targetReport" default="#{cc.attrs.widgetVarParam}"/>
+
+    </composite:interface>
+
+    <composite:implementation>
+        <p:toolbar id="tb" >
+
+            <p:toolbarGroup align="left">
+                <h4 class="tituloTabla">
+                    #{cc.attrs.nombreForma}
+                </h4>
+            </p:toolbarGroup>   
+
+
+            <p:toolbarGroup align="right" rendered="#{cc.attrs.render_toolbarGroup}">
+                <p:splitButton value="Descargar" icon="pi pi-download" styleClass="ui-button-secondary p-mr-2"
+                               rendered="#{!cc.attrs.controlador.esABMPanel and !cc.attrs.esDialogoNew and cc.attrs.mostrarBotonNuevo and cc.attrs.controlador.puedeInsertar}"
+                >
+                    <p:menuitem value="XLS" icon="pi pi-cloud-download" onclick="$('[id$=downloadXLS]').click();" />
+                    <p:menuitem value="PDF" icon="pi pi-cloud-download" onclick="$('[id$=downloadPDF]').click();" />
+                    <p:menuitem value="CSV" icon="pi pi-cloud-download" onclick="$('[id$=downloadCSV]').click();" />
+
+                </p:splitButton>
+
+                <p:commandButton icon="pi pi-minus"
+                                 value="Limpiar" ajax="false"
+                                 rendered="#{(!cc.attrs.controlador.noMostrarBotonesABM and cc.attrs.controlador.esABMPanel and !cc.attrs.controlador.esModificarDetalle and cc.attrs.mostrarBotonLimpiar) or (cc.attrs.mostrarBotonLimpiar and cc.attrs.render_boton_opcional)}"
+                                 update="#{cc.attrs.updateLimpiarDatos}"
+                                 action="#{cc.attrs.controlador.limpiar}"
+                                 styleClass="ui-button-help p-mr-2"
+                                 />
+
+                <p:commandButton icon="pi pi-times"
+                                 styleClass="ui-button-secondary p-mr-2"
+                                 value="Cancelar"   
+                                 rendered="#{!cc.attrs.controlador.noMostrarBotonesABM and  cc.attrs.controlador.esABMPanel}" 
+                                 update="#{cc.attrs.cancelarUpdate}"  
+                                 ajax="false"  
+                                 id="botonCancelar"
+                                 action="#{cc.attrs.controlador.cancelarAccionABM()}"
+                                >
+                    <f:setPropertyActionListener
+                        target="#{cc.attrs.controlador.mantenerABMPanel}"
+                        value="false" />
+                </p:commandButton>
+
+                <p:commandButton type="push" rendered="false"
+                                 title="Ayuda"
+                                 icon="pi pi-help"
+                                 onclick="PF('dialogoAyuda').show();"/>
+                <p:commandButton type="push" rendered="false"
+                                 title="Acerca de"
+                                 icon="ui-icon-info"
+                                 onclick="PF('dialogoAcercaDe').show();"/>
+                <!--                <p:commandButton type="push" value="Inicio"
+                                                 title="Ir a Inicio" immediate="true"
+                                                 icon="ui-icon-home" id="inicio_modulo"
+                                                 action="inicioAdministracionBase.xhtml"/>                                  -->
+
+                <p:commandButton  ajax="false" id="botonNuevo"
+                                  value="Nuevo"
+                                  icon="pi pi-plus"
+                                  update="#{cc.attrs.guardarUpdate}"
+                                  styleClass="ui-button-text-icon-primary" style="margin-right: .5rem"
+                                  rendered="#{!cc.attrs.controlador.esABMPanel and !cc.attrs.esDialogoNew and cc.attrs.mostrarBotonNuevo and cc.attrs.controlador.puedeInsertar}"
+                                  action="#{cc.attrs.controlador.accionABMDetalle()}">
+                    <f:setPropertyActionListener
+                        target="#{cc.attrs.controlador.esModificarDetalle}"
+                        value="false" />
+                </p:commandButton>
+
+                <p:commandButton icon="#{cc.attrs.icon_boton_opcional}" 
+                                 id="botonOpcional"  styleClass="#{cc.attrs.styleclass_boton_opcional}"
+                                 value="#{cc.attrs.titulo_boton_opcional}"   rendered="#{cc.attrs.render_boton_opcional}" 
+                                 update="#{cc.attrs.update_boton_opcional}" 
+                                 ajax="#{cc.attrs.ajax_boton_opcional}"
+                                 onclick="#{cc.attrs.onclick_boton_opcional}"
+                                 action="#{cc.attrs.action_boton_opcional}">
+
+                </p:commandButton>     
+                <p:commandButton icon="pi pi-check"
+                                 id="botonGuardarVolver" 
+                                 styleClass="#{cc.attrs.styleclass_boton_guardar}"
+                                 value="#{cc.attrs.tituloBotonGuardar}"
+                                 rendered="#{(!cc.attrs.controlador.noMostrarBotonesABM and  cc.attrs.controlador.esABMPanel) and  ((cc.attrs.controlador.puedeInsertar and !cc.attrs.controlador.esModificarDetalle) or (cc.attrs.controlador.puedeActualizar and cc.attrs.controlador.esModificarDetalle)) and cc.attrs.mostrarBotonGuardar}" 
+                                 update="#{cc.attrs.guardarUpdate}" 
+                                 ajax="#{cc.attrs.ajax}"
+                                 action="#{cc.attrs.actionGrabar}">
+                    <f:setPropertyActionListener
+                        target="#{cc.attrs.controlador.mantenerABMPanel}"
+                        value="false" />
+                    <!--                    <f:setPropertyActionListener
+                                            target="#{cc.attrs.controlador.esABMPanel}"
+                                            value="false" />-->
+
+                </p:commandButton>     
+
+                <p:commandButton icon="pi pi-save"
+                                 id="botonGuardarVolverDialogoNEW" 
+                                 value="Guardar"   rendered="#{(cc.attrs.esDialogoNew) and cc.attrs.controlador.puedeInsertar}"
+                                 update="#{cc.attrs.guardarUpdate}" 
+                                 ajax="true" 
+                                 action="#{cc.attrs.controlador.grabar}"
+                                 onclick="#{cc.attrs.esconderDialogo}">
+                    <f:setPropertyActionListener
+                        target="#{cc.attrs.controlador.esDialogoNewObject}"
+                        value="true" />
+
+                </p:commandButton>     
+                <p:commandButton icon="pi pi-save"
+                                 id="botonGuardar" 
+                                 value="Guardar y Agregar Nuevo"   rendered="#{cc.attrs.guardaryAgregar and !cc.attrs.controlador.esModificarDetalle and cc.attrs.controlador.esABMPanel and cc.attrs.controlador.puedeInsertar}" 
+                                 update="#{cc.attrs.guardarUpdate}" 
+                                 ajax="true"
+                                 action="#{cc.attrs.controlador.grabar}">
+                    <f:setPropertyActionListener
+                        target="#{cc.attrs.controlador.mantenerABMPanel}"
+                        value="true" />
+
+                </p:commandButton> 
+                <p:commandButton 
+                    id="botonAnular" 
+                    styleClass="#{cc.attrs.styleclass_boton_guardar}"
+                    rendered="#{(!cc.attrs.controlador.noMostrarBotonesABM and  cc.attrs.controlador.esABMPanel) and (cc.attrs.controlador.puedeInsertar or true) and cc.attrs.mostrarBotonGuardar  and cc.attrs.mostrarAnular}" 
+                    value="Anular"
+                    title="Anular este registro"
+                    icon="pi pi-cancel"
+                    ajax="true"
+                    onclick="PF('avisoAnular').show()">
+                </p:commandButton>
+
+            </p:toolbarGroup>
+
+
+            <!--            <p:toolbarGroup align="right">
+                            <p:menuButton value="Mas Visitados">                                        
+                                <p:menuitem value="Lista de Articulos" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}" 
+                                            url="/faces/controlStock/StwArticulos.xhtml"/>                                         
+                                <p:menuitem value="Compra" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}" 
+                                            url="/faces/controlStock/StwEntSal.xhtml"/>                                         
+                                <p:menuitem value="Venta" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" 
+                                            url="/faces/ventas/VtwFacturaPymes.xhtml"/> <p:menuitem value="Mov.Caja-Cobro" 
+                                            url="/faces/cuentasCobrar/CcwMovCajas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}"/>        
+                                <p:menuitem value="Envio entre sucursales"  rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  
+                                            url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                    
+                            </p:menuButton>                                 
+                        </p:toolbarGroup>                             -->
+        </p:toolbar>
+
+        <p:dialog header="Ayuda" widgetVar="dialogoAyuda" modal="false" width="600">
+            <c:forEach items="#{cc.attrs.controlador.ayuda}" var="fila">
+                <h:outputText value="#{fila}"/><br></br>
+            </c:forEach>
+        </p:dialog>
+
+        <p:dialog header="Datos de la Pantalla" widgetVar="dialogoAcercaDe" modal="false" width="400">
+            <c:forEach items="#{cc.attrs.controlador.acercaDe}" var="fila">
+                <h:outputText value="#{fila}"/><br></br>
+            </c:forEach>
+        </p:dialog>
+
+        <p:ajaxStatus rendered="false" style="width:16px;height:10px;">
+            <f:facet name="start">
+                <h:graphicImage value="../../recursos/img/ajaxloading.gif" />
+            </f:facet>
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus>
+    </composite:implementation>
+</ui:composition>

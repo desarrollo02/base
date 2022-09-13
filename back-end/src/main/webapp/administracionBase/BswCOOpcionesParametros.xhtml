@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:form="http://java.sun.com/jsf/composite/plantillas/form"
+                xmlns:bread="http://java.sun.com/jsf/composite/plantillas/breadcrumb"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml">
+
+
+
+    <ui:define name="breadcrumb">
+        <bread:breadcrumb nombreModulo="#{i18n.administracion_base}"/> 
+    </ui:define>
+    <ui:define name="content">
+
+        <form:formPrincipal id="fp"
+                            controlador="#{bswOpcionesParametrosControlador}" 
+                            nombreForma="#{i18n.forma_opciones_parametros}"
+                            dataTable="../../../administracionBase/componentes/list/seccionDataTableOpcionesParametros.xhtml"
+                            abmForm="../../../administracionBase/componentes/form/seccionAddOpcionesParametros.xhtml"
+                            dlgForm="../../../administracionBase/componentes/dlg/dlgFormOpcionesParametros.xhtml"/>
+
+
+    </ui:define>
+</ui:composition>

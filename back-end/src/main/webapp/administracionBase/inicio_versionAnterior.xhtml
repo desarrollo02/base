@@ -1,0 +1,216 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                
+      xmlns:gdb="http://java.sun.com/jsf/composite/plantillas/datatables"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#dae8ef','#27aae1'];
+                this.cfg.grid = {
+                    background: '#f3f5f7',
+                    borderColor: '#e5ebf0',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                       textColor: '#9fadb5' 
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+            
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef','#27aae1','#33ccff','#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #9fadb5;
+            }
+        </style>
+    </ui:define>
+    
+    <ui:define name="content">
+        <!-- SECTION 1 -->
+        
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="EmptyBox25"></div>
+                
+                   <div class="Container25 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height: 260px;">
+                            <i class="icon-user-2 Fs50 Fleft Wid25 hardblue TexAlCenter"></i>
+                             <div class="Fs24 Fright MarTop10 leaden Wid70"><span class="hardblue">#{loginControlador.username}</span>, Bienvenido!</div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <div class="Fs16 Fright" >
+<!--                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-briefcase hardblue"> Procesos Pendientes (#{loginControlador.cantidadProcesosPendientes})</i></a>-->
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-bell-alt hardblue"> Nuevos Mensajes (#{loginControlador.cantidadMensajeUsuario})</i></a>
+                             </div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <i class="icon-key softgray MarRight10 Fs14 Fright"> #{loginControlador.sucursal.descripcion}</i>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            
+                        </p:panel>
+                    </div>
+                </div>
+            
+              
+                <p:outputPanel rendered="#{consultaPermisosVentasControlador.puedeConsultarPresupuesto()}">
+                 <div class="Container75 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height: 400px;" >
+                            <div class="Fs24 MarTop10  Wid100 TexAlCenter"><i class="icon-chart-bar"></i> Ejecución de Presupuesto</div>
+                            <p:chart type="bar" rendered="false" model="#{graficaChartsControlador.presupuestoMensualBar}"  responsive="true"/>
+                            <p:chart type="line" rendered="true" model="#{graficaChartsControlador.multiAxisModel}" responsive="true"/>
+                            <p:chart type="bar" rendered="false" model="#{chartView.barModel}"  responsive="true"/>
+                            <p:menubar rendered="false">
+  <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+ 
+    </p:menubar>
+                        </p:panel>
+                    </div>
+                </div>
+                    </p:outputPanel>
+                
+                
+                <div class="Container75 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height:350px;" rendered="#{consultaPermisosVentasControlador.puedeConsultarAceptacionesPendientes()}">
+                            <div class="Container50 Responsive Fs20">
+                                <i class="icon-doc-text"></i> Lista de Aceptaciones Pendientes
+                            </div>
+                          
+                            <div class="EmptyBox10"></div>
+                            <div class="Container100">
+                                <h:form id="form2" >
+                                                    <p:dataTable size="small" reflow="true"  paginator="true" emptyMessage="No existen registros."  rows="5" lazy="true" id="grillaCronogramaPagoDetalleVista" rowsPerPageTemplate="5,10,15"
+                                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         var="fila" rowKey="fila.id"   value="#{tswCronogramaPagoDetCoordinadorControlador.componentes.obtieneListaCronogramaPagoDetTotalAprobadosTesoreria()}" 
+                                         rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                         rowIndexVar="rowIx">
+                                                        <p:column style="width: 5%">
+                               
+                                    <p:commandButton 
+                                        rendered="#{fila.aprobadoAsistente}"
+                                        ajax="false"  
+                                        title="Imprimir Docx"
+                                        icon="ui-icon ui-icon-print"
+                                        action="#{tswCronogramaPagoDetCoordinadorControlador.imprimirReporte}">
+                                        <f:setPropertyActionListener target="#{tswCronogramaPagoDetCoordinadorControlador.actual}" value="#{fila}"/>
+                                    </p:commandButton>
+
+                                </p:column>
+
+                                <p:column filterBy="#{fila.tswCronogramaPagoCab.nroContrato}"  style="width: 8%" filterStyle="width: 70%">
+                                    <f:facet name="header">Nro. Contrato</f:facet>
+                                    <h:outputText  value="#{fila.tswCronogramaPagoCab.nroContrato}"/>
+                                </p:column>
+
+
+
+                                <p:column style="width: 25%" filterBy="#{fila.tswCronogramaPagoCab.cmwProveedores.bswPersonas.nombre}"   filterStyle="width: 70%">
+                                    <f:facet name="header">Razon Social</f:facet>
+                                    <h:outputText value="#{fila.tswCronogramaPagoCab.cmwProveedores.bswPersonas.nombre}"/>
+                                </p:column>
+
+                                <p:column style="width: 5%" filterBy="#{fila.nroPago}" sortBy="#{fila.nroPago}"  filterStyle="width: 70%">
+                                    <f:facet name="header">
+                                        <h:outputText value="Nro. Pago" />
+                                    </f:facet>
+                                    <h:outputText value="#{fila.nroPago}" />
+                                </p:column>
+
+                                <p:column style="width: 15%"  filterStyle="width: 70%">
+                                    <f:facet name="header">
+                                        <h:outputText value="Fecha Aceptacion"/>
+                                    </f:facet>
+                               
+                                           <p:calendar  size="15"   value="#{fila.fecAprobacionCoordinador}"  pattern="dd/MM/yyyy HH:MM:ss"  />
+
+                                </p:column>
+                                <p:column style="width: 7%">
+                                    <f:facet name="header">
+                                        <h:outputText value="Monto"/>
+                                    </f:facet>
+                                    <h:outputText value="#{fila.monto}">
+                                        <f:convertNumber pattern="###,###.##" />
+                                    </h:outputText>
+                                </p:column>
+                               
+                               
+                              
+                                <p:column style="width: 5%">
+                                    <f:facet name="header">
+                                        <h:outputText value="Producto aprobado coordi."/>
+                                    </f:facet>
+                                    <h:outputText value="#{fila.aprobadoCoordinador ? 'SI' : 'NO' }"/>
+                                </p:column>
+
+                            </p:dataTable>
+                                   
+                                </h:form>
+                            </div>
+                        </p:panel>
+                    </div>
+                </div>
+                
+                <div class="#{consultaPermisosVentasControlador.puedeConsultarPresupuesto() or consultaPermisosVentasControlador.puedeConsultarAceptacionesPendientes()?'Container100 Responsive':'Container75 Responsive'}">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height:500px;" rendered="#{consultaPermisosVentasControlador.puedeConsultarModuloProcesos()}">
+                            <div class="Container50 Responsive Fs20">
+                                <i class="icon-doc-text"></i> Lista de Procesos de Pagos
+                            </div>
+                          
+                            <div class="EmptyBox10"></div>
+                            <div class="Container100">
+                                <h:form id="form" >
+                                   
+                                   
+                                </h:form>
+                            </div>
+                        </p:panel>
+                    </div>
+                </div>
+                
+                 
+                
+                
+            
+              
+                
+                <div class="EmptyBox10"></div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            </div>
+        </div>
+        <!-- SECTION 1 -->
+        
+    </ui:define>
+
+
+</ui:composition>

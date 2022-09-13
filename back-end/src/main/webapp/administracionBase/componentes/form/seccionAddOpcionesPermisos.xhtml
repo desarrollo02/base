@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs"
+                xmlns:inpt="http://java.sun.com/jsf/composite/plantillas/inputs">
+
+    <oupt:codigoDescripcionOuput  
+              id="ouptTP_1" valueOuput="#{i18n.label_usuario} (*)"
+            codigoId="inputCodUsuario"
+            valueCodigo="#{utilControler.componentes.usuariosABM}"
+            changeListener="#{utilControler.componentes.usuarioChangeListener(event)}"
+            dialogWidgetVar="dialogoUsuario"
+            btnTitle="#{i18n.lista_opciones_permisos}"
+            blurUpdate="@widgetVar(txtCodUsuario), @widgetVar(growl)"
+            object="#{utilControler.componentes.usuariosABM}"                         
+            valueDescripcion="#{utilControler.componentes.usuariosABM.codUsuario}"
+            descripcionId="txtCodUsuario"/>
+    
+    
+    
+    <oupt:codigoDescripcionOuput  
+        id="ouptTP_2" valueOuput="#{i18n.label_parametro} (*)"
+            codigoId="inputCodParametro"
+            valueCodigo="#{utilControler.componentes.bswOpcionesParametrosABM.parametro}"
+            changeListener="#{utilControler.componentes.parametroOpcionesChangeListener}"
+            dialogWidgetVar="dialogoParametro"
+            btnTitle="#{i18n.lista_opciones_permisos}"
+            blurUpdate="@widgetVar(txtCodParametro), @widgetVar(growl)"
+            object="#{utilControler.componentes.bswOpcionesParametrosABM}"                         
+            valueDescripcion="#{utilControler.componentes.bswOpcionesParametrosABM.parametro}"
+            descripcionId="txtCodParametro"/>
+       
+   
+    <inpt:selectBooleanChecBox valueOuput="#{i18n.label_permiso}" value="#{bswPermisosOpcionesControlador.actual.poseePermiso}" />
+
+   
+   
+   
+
+</ui:composition>

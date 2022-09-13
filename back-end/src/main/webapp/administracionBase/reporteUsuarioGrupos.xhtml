@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <script type="text/javascript">
+        function cUpper(cObj){
+            cObj.value=cObj.value.toUpperCase();
+        }
+        </script>
+</head>
+
+    <body>
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="form" rendered="#{consultaPermisosVentasControlador.puedeConsultarRptUsrGrupoBase()}">
+                            <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                <p:panelGrid>
+                    <h:panelGroup>
+                            <h:outputText id="reporteUsuarioGrupo"
+                            value="Permisos por Grupo"
+                            styleClass="tituloTabla" />
+                             <p:toolbar>
+                                <p:toolbarGroup align="left">
+                                     <p:commandButton
+                                        ajax="false"
+                                        value="Imprimir PDF"
+                                           id="ImpresionPDF"
+                                        icon="ui-icon ui-icon-print"
+                                        
+                                        action="#{reporteUsuariosGrupoControlador.imprimirReporte}">
+                                        <f:setPropertyActionListener
+                                            target="#{reporteUsuariosGrupoControlador.formato}" value="PDF" />
+                                    </p:commandButton>
+
+                                    <p:commandButton
+                                        ajax="false"
+                                        value="Imprimir XLS"
+                                        id="ImpresionExel"
+                                        icon="ui-icon ui-icon-print"
+                                        
+                                        action="#{reporteUsuariosGrupoControlador.imprimirReporte}">
+                                        <f:setPropertyActionListener
+                                            target="#{reporteUsuariosGrupoControlador.formato}" value="XLS"/>
+                                    </p:commandButton>
+
+                                    <p:commandButton
+                                        ajax="true"
+                                        value="Limpiar"
+                                        update=":form:inputGrupoDescEdit, :form:inputGrupoEdit"
+                                        actionListener="#{reporteUsuariosGrupoControlador.limpiarCampos}"/>
+                            
+                                    <p:commandButton type="push"
+                                                     title="Ayuda"
+                                                     icon="ui-icon-help"
+                                                     onclick="PF('dialogoAyuda').show();"/>
+                                    <p:commandButton type="push"
+                                                     title="Acerca de"
+                                                     icon="ui-icon-info"
+                                                     onclick="PF('dialogoAcercaDe').show();"/>
+                                    <p:commandButton type="push"
+                                                     title="Ir a Inicio"
+                                                     icon="ui-icon-home"  id="inicio_modulo"
+                                                     onclick="inicioAdministracionBase"
+                                                     action="inicioAdministracionBase.xhtml"/>
+                                </p:toolbarGroup>
+
+                                <p:toolbarGroup align="right">
+                                    <p:menuButton value="Navigate">
+                                            <p:menuitem value="Home"/>
+                                            <p:menuitem value="ShowCase"/>
+                                            <p:menuitem value="TouchFaces"/>
+                                    </p:menuButton>
+                                </p:toolbarGroup>
+
+                             <p:toolbarGroup align="right">                                     <p:menuButton value="Mas Visitados">                                         <p:menuitem value="Lista de Articulos" rendered="#{consultaPermisosVentasControlador.puedeConsultarArticulosStock()}" url="/faces/controlStock/StwArticulos.xhtml"/>                                         <p:menuitem value="Compra" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovEntSalStock()}" url="/faces/controlStock/StwEntSal.xhtml"/>                                         <p:menuitem value="Venta" rendered="#{consultaPermisosVentasControlador.puedeConsultarFacturaVentas()}" url="/faces/ventas/VtwFacturaPymes.xhtml"/> <p:menuitem value="Mov.Caja-Cobro" url="/faces/cuentasCobrar/CcwMovCajas.xhtml" rendered="#{consultaPermisosVentasControlador.puedeConsultarMovCajas()}"/>                                         <p:menuitem value="Envio entre sucursales"  rendered="#{consultaPermisosVentasControlador.puedeConsultarNotEnvioStock()}"  url="/faces/controlStock/StwNotasEnvio.xhtml"/>                                     </p:menuButton>                                 </p:toolbarGroup>                             </p:toolbar>
+                    </h:panelGroup>
+                  </p:panelGrid>
+
+
+              <p:panelGrid id="panelGridAgregar"
+                                 columns="2" styleClass="bgpanelgridGray" columnClasses="label, label" style="width: 60%">
+                     <p:panelGrid id="usuarioGrupoPanelGridReporte" columns="2"  columnClasses="label, label">
+                  <h:outputText id="labelGrupoEdit"  styleClass="etiqueta"  value="Cod. Grupo: " />
+                               <h:panelGroup>  
+                                   <p:inputText  id="inputGrupoEdit" value="#{reporteUsuariosGrupoControlador.gruposUsuariosABM.codGrupo}" style="width: 70px" valueChangeListener="#{reporteUsuariosGrupoControlador.grupoUsuarioesChangeListener}" >
+                                    <p:ajax event="change" update="inputGrupoDescEdit :form:growl" />
+                                                </p:inputText>    
+                                                <p:spacer width="5"/>
+                                            	<p:commandButton ajax="true" 
+									onclick="PF('dialogGrupoUsuarios').show()"
+									title="Buscar Grupo de Usuarios" icon="pi pi-search">
+									
+								</p:commandButton>
+                                               
+                               <p:inputText  id="inputGrupoDescEdit" value="#{reporteUsuariosGrupoControlador.gruposUsuariosABM.descripcion}" style="width: 270px" disabled="true"/>
+                            </h:panelGroup>  
+                 </p:panelGrid>
+              </p:panelGrid>
+                            
+                            
+                   <p:dialog header="Lista - Grupos Usuarios" widgetVar="dialogGrupoUsuarios"  styleClass="etiqueta"  width="500">
+                        <p:dataTable size="small" reflow="true" var="gusuarios" value="#{reporteUsuariosGrupoControlador.grupoUsuarioesList}"  paginator="true" rows="10"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="10,15">
+                             <p:column>
+                             <p:commandButton  type="push" 
+                                                        ajax="true"  widgetVar="botonSeleccionar"
+                                    			title="Seleccionar Registro"	
+					                         	onclick="PF('dialogGrupoUsuarios').hide();"
+					                         	update=":form:inputGrupoDescEdit, :form:inputGrupoEdit" 
+                                                                        icon="pi pi-check">
+                                        <f:setPropertyActionListener 
+                                            target="#{reporteUsuariosGrupoControlador.grupoUsuarioListaSeleccionado}" 
+                                        		value="#{gusuarios}"/>
+                                    </p:commandButton>  
+                            </p:column>
+                            <p:column filterBy="#{gusuarios.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion" />
+                                </f:facet>
+                                <h:outputText value="#{gusuarios.descripcion}" />
+                            </p:column>
+                            <p:column filterBy="#{gusuarios.codGrupo}">
+                                <f:facet name="header">
+                                    <h:outputText value="Cod. Grupo" />
+                                </f:facet>
+                                <h:outputText value="#{gusuarios.codGrupo}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                <p:dialog header="Ayuda!!!" widgetVar="dialogoAyuda" modal="false" width="600">
+                    <c:forEach items="#{reporteUsuariosGrupoControlador.ayuda}" var="fila">
+                        <h:outputText value="#{fila}"/><br></br>
+                    </c:forEach>
+             </p:dialog>
+
+                <p:dialog header="Datos de la Pantalla!!!" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                    <c:forEach items="#{reporteUsuariosGrupoControlador.acercaDe}" var="fila">
+                        <h:outputText value="#{fila}"/><br></br>
+                    </c:forEach>
+                </p:dialog>
+          </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

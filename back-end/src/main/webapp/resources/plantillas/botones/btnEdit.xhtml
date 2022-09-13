@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="controlador"/>
+        <composite:attribute name="update"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <p:commandButton  rendered="#{cc.attrs.controlador.puedeActualizar}"
+                          type="push"
+                          id="botonEditar"
+                          ajax="true"  widgetVar="botonEditar"
+                          title="Editar Registro"	 
+                          action="#{cc.attrs.controlador.cargaDatosParaEditar()}"
+                          update="#{cc.attrs.update}" 
+                          icon="pi pi-pencil"
+                          styleClass="edit-button rounded-button ui-button-success" process="@this">
+            <f:setPropertyActionListener 
+                target="#{cc.attrs.controlador.actualViejo}" 
+                value="#{fila}"/>
+            <f:setPropertyActionListener target="#{cc.attrs.controlador.esModificarDetalle}" value="true"/>
+            
+        </p:commandButton>
+
+    </composite:implementation>
+</ui:composition>

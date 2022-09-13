@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="form" rendered="#{consultaPermisosVentasControlador.puedeConsultarCategoriasBase()}">
+
+
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <p:panelGrid style="width: 100%">
+
+
+                        <h:panelGroup>
+                            <h:outputText id="BswModulos" value="Categoría" styleClass="tituloTabla" />
+                            <p:toolbar>
+                                <p:toolbarGroup align="left">
+                                    <p:commandButton  ajax="true" id="botonNuevo"
+                                                      value="Nuevo" oncomplete="document.getElementById('form:focus').focus()"
+                                                      icon="ui-icon-document"    update=":form" 
+                                                      rendered="#{!bswCategoriaControlador_old.esABMPanel}"
+                                                      action="#{bswCategoriaControlador_old.accionABMDetalle()}">
+                                        <f:setPropertyActionListener
+                                            target="#{bswCategoriaControlador_old.esModificarDetalle}"
+                                            value="false" />
+                                    </p:commandButton> 
+                                    <p:commandButton icon="ui-icon ui-icon-disk" id="botonGuardar"
+                                                     value="Guardar"   rendered="#{bswCategoriaControlador_old.esABMPanel}" 
+                                                     update=":form"  ajax="true"
+                                                     action="#{bswCategoriaControlador_old.grabar}"/>
+                                    <p:commandButton icon="ui-icon ui-icon-close" onclick="grilla.clearFilters()"
+                                                     value="Cancelar"   rendered="#{bswCategoriaControlador_old.esABMPanel}" 
+                                                     update=":form"  ajax="true"  immediate="true"
+                                                     action="#{bswCategoriaControlador_old.cancelarAccionABM()}"/>
+
+
+                                    <p:commandButton ajax="false" rendered="#{!bswCategoriaControlador_old.esABMPanel}"   icon="ui-icon-refresh">
+
+                                    </p:commandButton>
+                                    <p:commandButton type="push"
+                                                     title="Ayuda"
+                                                     icon="ui-icon-help"
+                                                     onclick="PF('dialogoAyuda').show();"/>
+                                    <p:commandButton type="push"
+                                                     title="Acerca de"
+                                                     icon="ui-icon-info"
+                                                     onclick="PF('dialogoAcercaDe').show();"/>
+                                    <p:commandButton type="push" value="Inicio"
+                                                     title="Ir a Inicio" immediate="true"
+                                                     icon="ui-icon-home" id="inicio_modulo"
+
+                                                     action="inicioAdministracionBase.xhtml"/>                                 
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </h:panelGroup>
+                        <p:ajaxStatus style="width:10%;position:fixed;right:5px;bottom:5px">
+                            <f:facet name="start">
+                                <h:graphicImage value="../resources/img/486.gif" />
+                            </f:facet>
+
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+
+                    </p:panelGrid>
+
+                    <p:panel rendered="#{!bswCategoriaControlador_old.esABMPanel}" >
+                        <p:dataTable size="small" reflow="true" style="width: 50%"    paginator="true" emptyMessage="No existen registros."  rows="10"  id="grilla" rowsPerPageTemplate="5,10,15"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     var="fila" rowKey="fila.id"   value="#{bswCategoriaControlador_old.listaTodosActual}" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx" widgetVar="grilla" >
+
+                            <p:column style="text-align: center ; width: 1% ;">                                                  
+                                <p:commandButton type="push"
+                                                 id="botonEditar"
+                                                 ajax="true"  oncomplete="document.getElementById('form:focus').focus()"
+                                                 widgetVar="botonEditar"
+                                                 title="Editar Registro"
+                                                 update=":form" 
+                                                 icon="ui-icon-pencil"
+                                                 action="#{bswCategoriaControlador_old.cargaDatosParaEditar()}">
+                                    <f:setPropertyActionListener target="#{bswCategoriaControlador_old.actualViejo}" value="#{fila}"/>
+                                    <f:setPropertyActionListener target="#{bswCategoriaControlador_old.esModificarDetalle}" value="true"/>
+                                </p:commandButton>
+
+                            </p:column>
+
+                            <p:column style="text-align: center ; width: 1% ;">                                                  
+
+                                <p:commandButton
+                                    id="botonEliminar" 
+                                    ajax="true" 
+                                    title="Eliminar Registro"  
+                                    onclick="PF('avisoEliminar').show()" 
+                                    icon="pi pi-trash">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswCategoriaControlador_old.detalleAeliminar}" 
+                                        value="#{fila}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                            <p:column 
+
+                                filterBy="#{fila.codigo}"   
+                                style="width: 15%;" >
+                                <f:facet name="header">Codigo</f:facet>
+                                <h:outputText  value="#{fila.codigo}"/>
+                            </p:column>
+
+                            <p:column 
+                                filterBy="#{fila.descripcion}"   
+                                style="width: 15%;" >
+                                <f:facet name="header">Descripcion</f:facet>
+                                <h:outputText  value="#{fila.descripcion}"/>
+                            </p:column>
+                            
+                             <p:column 
+                                filterBy="#{fila.bswComponentes.descripcion}"   
+                                style="width: 15%;" >
+                                <f:facet name="header">Componente</f:facet>
+                                <h:outputText  value="#{fila.bswComponentes.descripcion}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:panel>
+                    <p:panel rendered="#{bswCategoriaControlador_old.esABMPanel}" style="background-color: rgba(255, 0, 0, 0)">
+                        <ui:include   src="componentes/seccionAddCategorias.xhtml" />
+                    </p:panel>
+
+
+                    <p:confirmDialog appendTo="@(body)" 
+                        hideEffect="clip" 
+                        message="Esta seguro que desea eliminar el registro?"
+                        header="Aviso" 
+                        severity="alert" 
+                        widgetVar="avisoEliminar">
+                        <p:commandButton 	value="Aceptar" 
+                                          onclick="PF('avisoEliminar').hide()" 
+                                          ajax="true"  
+                                          action="#{bswCategoriaControlador_old.eliminarRegistro()}"
+                                          update=":form:grilla, :form:growl"
+                                          title="Eliminar Registro">
+                        </p:commandButton>
+                        <p:commandButton 	value="Cancelar" 
+                                          onclick="PF('avisoEliminar').hide()"  
+                                          type="button"
+                                          title="Cancelar Accion">
+                        </p:commandButton>
+                    </p:confirmDialog>
+
+                    <p:dialog header="Ayuda" widgetVar="dialogoAyuda" modal="false" width="600">
+                        <c:forEach items="#{bswCategoriaControlador_old.ayuda}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+
+                    <p:dialog header="Datos de la Pantalla" widgetVar="dialogoAcercaDe" modal="false" width="400">
+                        <c:forEach items="#{bswCategoriaControlador_old.acercaDe}" var="fila">
+                            <h:outputText value="#{fila}"/><br></br>
+                        </c:forEach>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

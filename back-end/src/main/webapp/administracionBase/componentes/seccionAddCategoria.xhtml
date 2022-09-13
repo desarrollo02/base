@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:oupt="http://java.sun.com/jsf/composite/plantillas/outputs">
+
+    <p:tabView id="tab"  rendered="#{bswCategoriaControlador.esABMPanel}" dynamic="true" cache="true">
+        <p:tab title="DATOS" class="card gdb_yelowgreen">   
+
+            <p:panel  rendered="#{bswCategoriaControlador.esAgregarSubMenu and bswCategoriaControlador.esABMPanel}">
+
+                <h:outputText rendered="#{bswCategoriaControlador.esAgregarSubMenu and bswCategoriaControlador.esABMPanel}"  styleClass="tituloTabla"  value="Descripcion Categoria Padre: #{bswCategoriaControlador.menuPadreSeleccionado.descripcion}" />
+                <h:outputText rendered="#{bswCategoriaControlador.esAgregarSubMenu and bswCategoriaControlador.esABMPanel}"  styleClass="tituloTabla"  value="Codigo Categoria Padre: #{bswCategoriaControlador.menuPadreSeleccionado.codigo}" />
+            </p:panel>
+
+
+
+            <h:panelGrid  id="panelGridModificar"   columns="2" >
+
+                <b> <label for="" class="mb-0">Código(*): </label></b>
+                <p:inputText   id="panelGrigInputModificarCod"
+                               value="#{bswCategoriaControlador.actual.codigo}"
+                               size="10" maxlength="10"
+                               style="text-transform: uppercase"
+                               onkeyup="cUpper(this)"/>
+                <b> <label for="" class="mb-0">Descripcion(*): </label></b>
+                <p:inputText   id="panelGrigInputModificarDesc"
+                               value="#{bswCategoriaControlador.actual.descripcion}"
+                               size="35" maxlength="80"
+                               style="text-transform: uppercase"
+                               onkeyup="cUpper(this)"/>
+
+                <h:outputText   rendered="#{!bswCategoriaControlador.esAgregarSubMenu and false}" styleClass="etiqueta"  value="(*)Componente" />
+
+                <b> <label for="" class="mb-0">Tipo(*): </label></b>
+                <p:selectOneMenu  value="#{bswCategoriaControlador.actual.tipoCategoria}"  filter="true" filterMatchMode="startsWith">
+                    <f:selectItem itemLabel="Seleccionar" itemValue="" />                        
+                    <f:selectItem    itemLabel="EGRESO" itemValue="G" />
+                    <f:selectItem    itemLabel="INGRESO" itemValue="I" />
+                </p:selectOneMenu>
+
+                <b> <label for="" class="mb-0">#{i18n.label_cuenta_contable} </label></b>
+                <p:selectOneMenu dynamic="true" filter="true"  filterMatchMode="contains" style="width: 100%" value="#{bswCategoriaControlador.componentes.cowPlanCuenta}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="Seleccionar" />
+                    <f:selectItems  value="#{cowPlanCuentasControlador.listaTodosActual}" var="t" itemLabel="#{t.codigo} - #{t.descripcion}" itemValue="#{t}" />
+
+                    <p:column style="width:10%">
+                        <h:outputText value="#{t.codigo}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{t.descripcion}" />
+                    </p:column>
+                </p:selectOneMenu>
+                <b> <label for="" class="mb-0">Categorias(*): </label></b>
+                <p:selectOneMenu filter="true"  style="width: 80%" value="#{utilControler.componentes.categoriaABM}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}" itemLabel="SELECCIONAR UNA OPCION" />
+                    <f:selectItems value="#{utilControler.componentes.obtieneBswCategoria()}" var="product" itemLabel="#{product.codigo} - #{product.descripcion}" itemValue="#{product}" />
+                </p:selectOneMenu>
+
+                <b> <label for="" class="mb-0">PresDetCat: </label></b>
+                <p:selectBooleanCheckbox  value="#{bswCategoriaControlador.actual.presDetCat}" /> 
+                <b> <label for="" class="mb-0">Ultimo Nivel: </label></b>
+                <p:selectBooleanCheckbox  value="#{bswCategoriaControlador.actual.ultimoNivel}" />  <br /><br />
+                <br/>
+            </h:panelGrid>
+        </p:tab></p:tabView>
+</ui:composition>

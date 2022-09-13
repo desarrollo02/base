@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:gdb="http://java.sun.com/jsf/composite/plantillas/datatables"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+        <ui:composition template="/recursos/plantillas/formContabilidadPlantilla.xhtml">
+
+            <ui:define name="content">
+                <h:form acceptcharset="UTF-8" id="form" 
+                        rendered="#{consultaPermisosVentasControlador.puedeConsultarPASOSPROCESOS()}"
+                        enctype="multipart/form-data" >
+
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <h:panelGrid>
+                    <h:outputText value="Pasos de Proceso Contrato" styleClass="tituloTabla"/>
+                    <p:toolbar>
+                        <p:toolbarGroup align="left">
+                            <p:commandButton
+                                ajax="true"
+                                type="push"
+                                value="Nuevo"
+                                icon="ui-icon-document"
+                                rendered="#{!bswPasosPrcesoPagosControlador.esABMPanel}"
+                                update=":form"
+                                action="#{bswPasosPrcesoPagosControlador.accionABMDetalle()}">
+                                <f:setPropertyActionListener target="#{bswPasosPrcesoPagosControlador.esABMPanel}" 
+                                                             value="#{true}"/>
+                                <f:setPropertyActionListener target="#{bswPasosPrcesoPagosControlador.esModificarDetalle}" 
+                                                             value="#{false}"/>
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon ui-icon-disk" 
+                                             id="botonGuardar"
+                                             value="Guardar"   
+                                             rendered="#{bswPasosPrcesoPagosControlador.esABMPanel}" 
+                                             update=":form"  
+                                             ajax="true" 
+                                             action="#{bswPasosPrcesoPagosControlador.grabar()}" >
+                                <f:setPropertyActionListener target="#{bswPasosPrcesoPagosControlador.esABMPanel}" 
+                                                             value="#{false}"/>
+                            </p:commandButton>
+
+                            <p:commandButton icon="ui-icon ui-icon-close" 
+                                             onclick="grilla.clearFilters()"
+                                             value="Cancelar"   
+                                             rendered="#{bswPasosPrcesoPagosControlador.esABMPanel}" 
+                                             update=":form"  ajax="true"  immediate="true"
+                                             action="#{bswPasosPrcesoPagosControlador.cancelarAccionABM()}"/>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:panel rendered="#{!bswPasosPrcesoPagosControlador.esABMPanel}" >
+                        <p:dataTable size="small" reflow="true"  paginator="true" emptyMessage="No existen registros."  
+                                     rows="15" lazy="false" id="grillaPreguntas" rowsPerPageTemplate="5,10,15"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     var="fila" rowKey="fila.id"   
+                                     value="#{bswPasosPrcesoPagosControlador.listaTodosActual}" 
+                                     rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx">
+
+                            <p:column style="text-align: center ; width: 10% ;"> 
+                                <p:commandButton type="push"
+                                                 id="botonEditar"
+                                                 ajax="true"
+                                                 title="Editar"
+                                                 update=":form"
+                                                 action="#{bswPasosPrcesoPagosControlador.cargaDatosParaEditar()}"
+                                                 icon="ui-icon-pencil">
+                                    <f:setPropertyActionListener target="#{bswPasosPrcesoPagosControlador.actualViejo}" value="#{fila}"/>
+                                    <f:setPropertyActionListener target="#{bswPasosPrcesoPagosControlador.esModificarDetalle}" value="#{true}"/>
+                                </p:commandButton>
+                                
+                                <p:commandButton ajax="true" 
+                                                 title="Eliminar Registro"  
+                                                 icon="pi pi-trash"
+                                                 onclick="PF('avisoEliminarCabecera').show()"  
+                                                 >
+                                    <f:setPropertyActionListener target="#{bswPasosPrcesoPagosControlador.detalleAeliminar}" 
+                                                                 value="#{fila}"/>
+                                </p:commandButton>
+                               
+                            </p:column>
+
+                            <p:column  filterBy="#{fila.nroPaso}" sortBy="#{fila.nroPaso}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Nro.Paso" >
+                                    </h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{fila.nroPaso}" >
+                               </h:outputText>
+                            </p:column>
+                            <p:column  filterBy="#{fila.siguientePaso.nroPaso}" sortBy="#{fila.siguientePaso.nroPaso}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Siguiente" >
+                                    </h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{fila.siguientePaso.nroPaso}" >
+                                </h:outputText>
+                            </p:column>
+                            <p:column filterBy="#{fila.descripcionPaso}">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion Paso" />
+                                </f:facet>
+                                <h:outputText value="#{fila.descripcionPaso}" />
+                            </p:column>
+
+                            <p:column filterBy="#{fila.link}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Link" />
+                                </f:facet>
+                                <h:outputText value="#{fila.link}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:panel rendered="#{bswPasosPrcesoPagosControlador.esABMPanel}">
+                        <p:panelGrid id="panelCabecera" 
+                                     columns="2"
+                                     style="background-color: rgba(255, 0, 0, 0)">
+                            <p:outputLabel for="monto" styleClass="etiqueta" value="Nro. Paso"/>
+                            <h:panelGroup>
+                                <p:inputText  id="monto" styleClass="Container80 Fnone MarAuto Fs18"
+                                              value="#{bswPasosPrcesoPagosControlador.actual.nroPaso}">
+                                </p:inputText>
+                            </h:panelGroup>
+                            <p:outputLabel for="inputNombrePasos" styleClass="etiqueta" value="Siguiente Paso"/>
+                            <h:panelGroup>
+                                <p:commandButton type="push"
+                                                 value="Buscar"
+                                                 ajax="true" 
+                                                 widgetVar="botonBuscarIndicadores"	
+                                                 onclick="PF('dialogPasos').show();"
+                                                 update="form:grillaPasos"
+                                                 icon="pi pi-search">
+                                </p:commandButton>
+                                <p:inputText  id="inputNombrePasos" styleClass="Container80 Fnone MarAuto Fs18"
+                                              disabled="true"
+                                              value="#{bswPasosPrcesoPagosControlador.componentes.pasosComprasABM.nroPaso}">
+                                    <f:validateLength minimum="1" />
+                                </p:inputText>
+
+                            </h:panelGroup>
+                        <p:outputLabel for="descPaso" styleClass="etiqueta" value="Descripcion Paso"/>
+                            <h:panelGroup>
+                                <p:inputText  id="descPaso" styleClass="Container80 Fnone MarAuto Fs18"
+                                              value="#{bswPasosPrcesoPagosControlador.actual.descripcionPaso}">
+                                </p:inputText>
+                            </h:panelGroup>
+                        <p:outputLabel for="link" styleClass="etiqueta" value="Link"/>
+                            <h:panelGroup>
+                                <p:inputText  id="link" styleClass="Container80 Fnone MarAuto Fs18"
+                                              value="#{bswPasosPrcesoPagosControlador.actual.link}">
+                                </p:inputText>
+                            </h:panelGroup>
+                        <p:outputLabel for="guardarPued" styleClass="etiqueta" value="Puede Guardar"/>
+                            <h:panelGroup>
+                                <p:selectBooleanCheckbox  id="guardarPued" styleClass="Container80 Fnone MarAuto Fs18"
+                                                          value="#{bswPasosPrcesoPagosControlador.actual.puedeGuardar}">
+                                </p:selectBooleanCheckbox>
+                            </h:panelGroup>
+                        <p:outputLabel for="guardarAuto" styleClass="etiqueta" value="Puede Autoriar"/>
+                            <h:panelGroup>
+                                <p:selectBooleanCheckbox  id="guardarAuto" styleClass="Container80 Fnone MarAuto Fs18"
+                                                          value="#{bswPasosPrcesoPagosControlador.actual.puedeAutorizar}">
+                                </p:selectBooleanCheckbox>
+                            </h:panelGroup>
+                        
+                        <p:outputLabel for="guardarRecha" styleClass="etiqueta" value="Puede Rechazar"/>
+                            <h:panelGroup>
+                                <p:selectBooleanCheckbox  id="guardarRecha" styleClass="Container80 Fnone MarAuto Fs18"
+                                                          value="#{bswPasosPrcesoPagosControlador.actual.puedeRechazar}">
+                                </p:selectBooleanCheckbox>
+                            </h:panelGroup>
+                                 
+                        </p:panelGrid>
+                    </p:panel>
+
+                    <p:dialog header="Lista - Pasos" widgetVar="dialogPasos"  styleClass="etiqueta"  width="500">
+                        <p:dataTable size="small" reflow="true" var="moneda" id="grillaPasos" value="#{bswPasosPrcesoPagosControlador.componentes.listaPasosCompras}"  paginator="true" rows="10" lazy="false"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="10,15">
+                            <p:column> 
+                                <p:commandButton  type="push" 
+                                                  ajax="true"  
+                                                  title="Seleccionar Registro"	
+                                                  onclick="PF('dialogPasos').hide();"
+                                                  update=":form:inputNombrePasos" 
+                                                  icon="pi pi-check">
+                                    <f:setPropertyActionListener 
+                                        target="#{bswPasosPrcesoPagosControlador.componentes.pasosComprasListaSeleccionado}" 
+                                        value="#{moneda}"/>
+                                </p:commandButton>  
+                            </p:column>
+
+                            <p:column filterBy="#{moneda.nroPaso}">
+                                <f:facet name="header">
+                                    <h:outputText value="Nro.Paso" />
+                                </f:facet>
+                                <h:outputText value="#{moneda.nroPaso}" />
+                            </p:column>
+                            <p:column filterBy="#{moneda.descripcionPaso}">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion" />
+                                </f:facet>
+                                <h:outputText value="#{moneda.descripcionPaso}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+</h:panelGrid>
+
+                </h:form>
+
+                <p:confirmDialog appendTo="@(body)" 
+                                 hideEffect="clip" 
+                                 message="Esta seguro que desea eliminar el registro?"
+                                 header="Aviso" 
+                                 severity="alert" 
+                                 widgetVar="avisoEliminarCabecera">
+                    <p:commandButton    value="Aceptar" update=":form :form:growl"
+                                        onclick="PF('avisoEliminarCabecera').hide()" 
+                                        ajax="true"  
+                                        action="#{bswPasosPrcesoPagosControlador.eliminarRegistro()}"
+                                        title="Eliminar Cabecera">
+                    </p:commandButton>
+                    <p:commandButton 	value="Cancelar" 
+                                      onclick="PF('avisoEliminarCabecera').hide()"  
+                                      type="button"
+                                      title="Cancelar Accion">
+                    </p:commandButton>
+                </p:confirmDialog>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

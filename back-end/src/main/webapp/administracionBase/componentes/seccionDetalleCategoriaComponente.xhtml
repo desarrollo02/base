@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Fs16  leaden Wid100"><u class="Fs16  leaden Wid70">Resumen de Ejecucion Presupuestaria </u><br/><br/>
+        <div class="leaden Wid100 Responsive"> 
+            Prev.Actual + Saldo A.A.: 
+            <b class="leaden Wid70">
+                <spam class="hardblue">
+                    <h:outputText rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="Gs. "/>
+                    <h:outputText rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="$ "/>
+                    <p:outputLabel value="#{prwPresCategoriaComponenteControlador.obtieneMontoPrevisto(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM) + prwPresCategoriaComponenteControlador.obtieneMontoDisponible(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}">  <f:convertNumber pattern="###,###" /> </p:outputLabel> 
+                </spam>
+            </b>
+
+            - Obligado: 
+            <b class="leaden Wid70">
+                <spam class="hardblue">
+                    <h:outputText rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="Gs. "/>
+                    <h:outputText rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="$ "/>
+                    <h:outputText rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="#{prwPresCategoriaComponenteControlador.obtieneMontoObligado(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}">
+                        <f:convertNumber pattern="###,###" />
+                    </h:outputText> 
+                    <h:outputText rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="#{prwPresCategoriaComponenteControlador.obtieneMontoObligadoME(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}">
+                        <f:convertNumber pattern="###,###" />
+                    </h:outputText> 
+                </spam>  
+            </b>
+
+            -  Ejecutado:      <b class="leaden Wid70">
+
+                <spam class="hardblue">            
+                    <h:outputText rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="Gs. "/>
+                    <h:outputText rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="$ "/>
+                    <h:outputText rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="#{prwPresCategoriaComponenteControlador.obtieneMontoEjecturado(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}">
+                        <f:convertNumber pattern="###,###" />
+                    </h:outputText> 
+                    <h:outputText rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="#{prwPresCategoriaComponenteControlador.obtieneMontoEjecturadoME(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}">
+                        <f:convertNumber pattern="###,###" />
+                    </h:outputText> 
+
+                </spam>    
+            </b>
+            - Saldo: <b class="leaden Wid70"> 
+                <spam class="hardblue"><h:outputText rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="Gs. "/>
+                    <h:outputText rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="$. "/>
+
+
+                    <h:outputText style="background-color: (#{prwPresCategoriaComponenteControlador.obtieneMontoPrevisto(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM) + prwPresCategoriaComponenteControlador.obtieneMontoDisponible(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM) -prwPresCategoriaComponenteControlador.obtieneMontoObligado(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)-prwPresCategoriaComponenteControlador.obtieneMontoEjecturado(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}>0?:red)" rendered="#{prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="#{prwPresCategoriaComponenteControlador.obtieneMontoPrevisto(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)+ prwPresCategoriaComponenteControlador.obtieneMontoDisponible(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)-prwPresCategoriaComponenteControlador.obtieneMontoObligado(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)-prwPresCategoriaComponenteControlador.obtieneMontoEjecturado(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}">
+                        <f:convertNumber pattern="###,###" />
+                    </h:outputText> 
+                    <h:outputText style="background-color: (#{prwPresCategoriaComponenteControlador.obtieneMontoPrevisto(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)-prwPresCategoriaComponenteControlador.obtieneMontoObligadoME(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)-prwPresCategoriaComponenteControlador.obtieneMontoEjecturadoME(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}>0?:red)" rendered="#{!prwPresCategoriaComponenteControlador.esPresupuestoGs}" value="#{prwPresCategoriaComponenteControlador.obtieneMontoPrevisto(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)+ prwPresCategoriaComponenteControlador.obtieneMontoDisponible(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)-prwPresCategoriaComponenteControlador.obtieneMontoObligadoME(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)-prwPresCategoriaComponenteControlador.obtieneMontoEjecturadoME(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM)}">
+                        <f:convertNumber pattern="###,###" />
+                    </h:outputText> 
+                </spam>
+            </b>
+            -         Ejec.Pres.:
+            <b class="leaden Wid70"><spam class="hardblue">
+                    <p:outputLabel value="#{chartView.obtienePorcentajeEjecucionTotalComponente(prwPresCategoriaComponenteControlador.obtieneMontoEjecturadoME(prwPresCategoriaComponenteControlador.componentes.categoriaABM,  prwPresCategoriaComponenteControlador.componentes.componentesABM), prwPresCategoriaComponenteControlador.obtieneMontoObligadoME(prwPresCategoriaComponenteControlador.componentes.categoriaABM,prwPresCategoriaComponenteControlador.componentes.componentesABM), prwPresCategoriaComponenteControlador.obtieneMontoPrevisto(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM), prwPresCategoriaComponenteControlador.obtieneMontoDisponible(prwPresCategoriaComponenteControlador.componentes.categoriaABM, prwPresCategoriaComponenteControlador.componentes.componentesABM))}">  
+
+
+                        <f:convertNumber pattern="###,###" />%</p:outputLabel>
+                </spam>
+            </b>
+            <div class="Fs16 Fright" >
+<!--                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-briefcase hardblue"> Procesos Pendientes (#{loginControlador.cantidadProcesosPendientes})</i></a>-->
+                <a href="../administracionBase/inicio.xhtml" class="Fright Fs16"><b class="icon-home-1 hardblue"> Inicio </b></a>
+            </div>
+        </div>
+        <div class="EmptyBox10"></div>
+    </div>                       
+    <p:separator styleClass="Wid100"></p:separator>
+
+    <h:panelGrid> 
+
+        <p:tabView dynamic="true" cache="true" id="subTab">
+            <p:tab title="Obligado Detalle" >
+                <ui:include   src="seccionDetalleObligado.xhtml" />
+            </p:tab>
+            <p:tab title="Ejecutado Detalle">
+                <ui:include   src="seccionDetalleEjecutado.xhtml" />
+            </p:tab>
+            <p:tab title="Proyeccion" rendered="false">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <ui:include   src="seccionProyeccion.xhtml" />
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Gr&aacute;ficos" rendered="false">
+                <h:panelGrid columns="2">
+                    <p:chart type="metergauge" model="#{chartView.meterGaugeModel1}" style="width:400px;height:300px" />
+                    <p:chart type="metergauge" model="#{chartView.meterGaugeModel1}" style="width:400px;height:300px" />
+                </h:panelGrid>
+            </p:tab>
+            
+        </p:tabView>
+    </h:panelGrid>    
+
+
+
+
+
+
+    <p:separator/>
+
+</ui:composition>

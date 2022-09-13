@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:tabView id="tab2" >
+        <p:tab  title="DATOS DEL EVENTO" class="card gdb_yelowgreen">
+
+            <div class="ui-g dashboard">
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="ui-g-12 ui-lg-2">
+                        <div class="gdb">
+                            <h:panelGrid  columns="1"  class="card card_gdb gdb_orange"> 
+
+
+  <b> <label for="" class="mb-0">Descripción (*)</label></b>
+                                <h:panelGroup>
+                                    <p:inputTextarea  cols="23"  value="#{grwReservaControlador.actual.observacion}"
+                                                      />
+                                </h:panelGroup>
+                               
+                                <b> <label for="" class="mb-0">Fecha Reserva</label></b>
+                                <p:calendar
+                                    id="popup"  
+
+                                    value="#{grwReservaControlador.actual.fechaReserva}"
+                                    pattern="dd/MM/yyyy"
+                                    >
+                                </p:calendar>
+
+
+                              
+                                <b> <label for="" class="mb-0">Estado de Reserva(*)</label></b>
+
+                                <p:selectOneMenu  value="#{grwReservaControlador.actual.idEstado}" converter="omnifaces.SelectItemsConverter" style="width: 148px;">
+                                  
+                                    <f:selectItems var="e" value="#{grwReservaControlador.listaEstadoReserva}" itemLabel="#{e.descripcion}" 
+                                                   itemValue="#{e}" />
+                                    <p:ajax event="change"  listener="#{grwReservaControlador.expiracionReserva()}"/>
+                                </p:selectOneMenu>
+                                <p:outputPanel id="expiratxt">
+
+                                    <p:outputLabel styleClass="etiqueta"  rendered="#{grwReservaControlador.actual.idEstado.codigo == 'C'}"  value="Reserva Expira el:"  />
+                                </p:outputPanel>
+                                <p:outputPanel id="expirain">
+                                    <p:calendar id="calendar" rendered="#{grwReservaControlador.actual.idEstado.codigo == 'C'}" value="#{grwReservaControlador.actual.fechaExpiracionReserva}" timeControlType="select" pages="1"
+                                                pattern="EEE dd/MM/yyyy HH:mm" locale="es" stepMinute="15" minHour="8"
+                                                >
+                                    </p:calendar> </p:outputPanel> <b> <label for="" class="mb-0">Cód. Reserva</label></b>
+                                <p:inputText disabled="true"  size="5"
+                                             value="#{grwReservaControlador.actual.id}"  />
+                            </h:panelGrid>
+                        </div></div> 
+
+                    <div class="ui-g-12 ui-lg-10">
+                        <div class="gdb card">
+                            <h:panelGrid  columns="2"  >
+                                <p:dataTable size="small" widgetVar="tblHabitacion" id="tblHabitacion" var="habitacion" rowIndexVar="ind" 
+                                             rowStyleClass="#{empty ind or ind mod 2 ne 0 ? 'even-row' : 'odd-row'}" paginator="true"
+                     rows="#{cc.attrs.cantRow}" 
+                     currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} registros"  
+                     emptyMessage="No existen registros."
+                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             value="#{grwReservaControlador.detalleReservaGenericABM.objectList}">
+                                    <p:column width="30">
+                                        <p:commandButton title="Eliminar"  style="width: 5%"
+                                                         icon="pi pi-trash"
+                                                         onclick="PF('avisoEliminarHabitacion').show()"
+                                                         disabled="#{grwReservaControlador.detalleReservaGenericABM.objectList.size() lt 2 and habitacion.id==null}"
+                                                         process="tblHabitacion">
+
+                                            <f:setPropertyActionListener target="#{grwReservaControlador.detalleReservaGenericABM.objectDelete}" 
+                                                                         value="#{habitacion}"/>             
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column headerText="Habitación" style="width: 15%" rendered="false">
+                                        <p:selectOneMenu value="#{habitacion.idHabitacion}" converter="omnifaces.SelectItemsConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="SOLO PASAR EL DÍA" />
+                                            <f:selectItems var="h" value="#{grwReservaControlador.listaHabitaciones}" itemLabel="#{h.codigo} - #{h.descripcion}"
+                                                           itemValue="#{h}"/>
+                                            <p:ajax event="change" update="tblHabitacion"  >
+                                                <f:setPropertyActionListener target="#{habitacion.idHabitacion.fechasOcupadas}" value="#{null}" />
+                                            </p:ajax>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column  headerText="Desde" style="width: 15%">
+                                        <p:calendar id="calendar" value="#{habitacion.fechaDesde}"  size="18"
+                                                    pattern="EEE dd/MM/yyyy HH:mm" locale="es" >
+                                        </p:calendar>
+
+                                    </p:column>
+                                    <p:column headerText="Hasta" style="width: 15%">
+                                        <p:calendar value="#{habitacion.fechaHasta}" size="18"  pattern="EEE dd/MM/yyyy HH:mm" locale="es" >
+            <!--                                <p:ajax update="@this" event="blur" listener="#{grwReservaControlador.horaCheckout(habitacion)}"/>
+                                            -->
+                                        </p:calendar>
+                                    </p:column>
+                                    <!--                        <p:column headerText="Adultos" width="70">
+                                                                <p:spinner value="#{habitacion.cantidadAdultos}" min="1" size="3" />
+                                                            </p:column>
+                                                            <p:column headerText="Ninos" width="70">
+                                                                <p:spinner value="#{habitacion.cantidadNinos}" min="0" size="3" />
+                                                            </p:column>-->
+                                    <p:column headerText="Comentario" style="width: 25%">
+                                        <p:inputTextarea cols="30"  value="#{habitacion.observacion}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Gastos Adicionales" style="width: 10%">
+                                        <p:inputNumber size="20" 
+                                                     value="#{habitacion.gastosAdicionales}">
+                                       
+                                        </p:inputNumber> 
+                                    </p:column>  <p:column headerText="Contrato" style="width: 20%" >
+                                        <p:selectOneMenu  style="width: 90%"   value="#{habitacion.tswCronogramaPagoCab}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains">
+                                        <f:selectItem  itemLabel="SELECCIONE UN CONTRATO" itemValue="#{null}" />
+
+                                        <f:selectItems value="#{tswCronogramaPagoControladorV2.listaTodosActual}" var="fila" itemLabel="#{fila.nroContrato}-#{fila.descripcion}" itemValue="#{fila}" />
+
+                                    </p:selectOneMenu> </p:column>
+                                    <p:column headerText="Estado" style="width: 10%">
+
+                                        <p:selectOneMenu  value="#{habitacion.estadoReserva}"  style="width: 90%">
+                                            <f:selectItem  itemValue="P" itemLabel="PENDIENTE" />
+                                            <f:selectItem  itemValue="F" itemLabel="FINALIZADO" />
+                                        </p:selectOneMenu></p:column>
+                                    <f:facet name="header">
+                                        <p:commandButton title="Agregar Evento" 
+                                                         value="Agregar Evento" 
+                                                         icon="pi pi-plus" 
+                                                         update="tblHabitacion"
+                                                         process="tblHabitacion"
+                                                         action="#{grwReservaControlador.agregarHabitacion()}"/>
+
+                                    </f:facet>
+
+                                </p:dataTable>
+                            </h:panelGrid>   
+                        </div>
+                    </div>
+                </div></div>    </p:tab>     
+    </p:tabView>
+    
+      <p:confirmDialog appendTo="@(body)" 
+                         hideEffect="clip" 
+                         message="Esta seguro que desea eliminar la habitación?"
+                         header="Aviso" 
+                         severity="alert" 
+                         widgetVar="avisoEliminarHabitacion">
+            <p:commandButton value="Aceptar" onclick="PF('avisoEliminarHabitacion').hide()" 
+                             update="@widgetVar(tblHabitacion)" title="Eliminar Habitación">
+                <f:setPropertyActionListener target="#{grwReservaControlador.detalleReservaGenericABM.deleteObject}"   
+                                             value="#{grwReservaControlador.detalleReservaGenericABM.objectDelete}"/>
+            </p:commandButton>
+            <p:commandButton 	value="Cancelar" 
+                              onclick="PF('avisoEliminarHabitacion').hide()"  
+                              type="button"
+                              title="Cancelar Accion">
+            </p:commandButton>
+        </p:confirmDialog>
+            </ui:composition>

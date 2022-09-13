@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                          
+        
+    
+                           
+                        <p:column id="colCodGrupo" sortBy="#{fila.bswGruposUsuarios.codGrupo}" filterBy="#{fila.bswGruposUsuarios.codGrupo}">
+                            <f:facet name="header">#{i18n.column_cod_grupo}</f:facet>
+                                <h:outputText id="codGrupo" value="#{fila.bswGruposUsuarios.codGrupo}"/>
+                            </p:column>
+
+                            <p:column id="colModulo" sortBy="#{fila.bswModulos.codModulo}" filterBy="#{fila.bswModulos.codModulo}">
+                                <f:facet name="header">#{i18n.column_modulo}</f:facet>
+                                <h:outputText id="codModulo" value="#{fila.bswModulos.codModulo}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colForma" sortBy="#{fila.bswFormas.nomForma}" filterBy="#{fila.bswFormas.nomForma}">
+                                <f:facet name="header">#{i18n.column_forma}</f:facet>
+                                <h:outputText id="codForma" value="#{fila.bswFormas.nomForma}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column id="colDescripcion" sortBy="#{fila.bswFormas.descripcion}" filterBy="#{fila.bswFormas.descripcion}" >
+                                <f:facet name="header">#{i18n.column_forma}</f:facet>
+                                <h:outputText id="codSucursal" value="#{fila.bswFormas.descripcion}">
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">#{i18n.column_insertar}</f:facet>
+                                <p:selectBooleanCheckbox disabled="true" value="#{(fila.puedeInsertar!=null and fila.puedeInsertar=='S')?'true':'false'}"/>
+
+
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">#{i18n.column_modificar}</f:facet>
+                                <p:selectBooleanCheckbox disabled="true" value="#{(fila.puedeActualizar!=null and fila.puedeActualizar=='S')?'true':'false'}"/>
+
+
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">#{i18n.column_consultar}</f:facet>
+                                <p:selectBooleanCheckbox disabled="true" value="#{(fila.puedeConsultar!=null and fila.puedeConsultar=='S')?'true':'false'}"/>
+
+
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">#{i18n.column_eliminar}</f:facet>
+                                <p:selectBooleanCheckbox disabled="true" value="#{(fila.puedeBorrar!=null and fila.puedeBorrar=='S')?'true':'false'}"/>
+
+
+                            </p:column>
+
+</ui:composition>

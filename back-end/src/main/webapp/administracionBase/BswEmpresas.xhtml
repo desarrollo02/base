@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:tool="http://java.sun.com/jsf/composite/plantillas/toolbars"
+      xmlns:dlg="http://java.sun.com/jsf/composite/plantillas/dialogs">
+
+    <body>
+        <ui:composition template="/recursos/plantillas/formAdministracionBasePlantilla.xhtml">
+            <ui:define name="content">
+                <h:form id="form" style="width: 100%" rendered="#{consultaPermisosControlador.puedeConsultarEmpresaParamBase()}">
+                    <p:growl id="growl" showDetail="false" life="#{loginControlador.tiempoEsperaMensaje}"  />
+                    <h:panelGrid style="width: 100%">
+                        <h:panelGroup>
+                            <h:outputText id="BswModulos" value="EMPRESAS - BSEMPRES" styleClass="tituloTabla" />
+
+                            <tool:abmToolbar controlador="#{bswEmpresasControlador}"
+                                             guardarUpdate=":form, form:grilla"
+                                             cancelarUpdate=":form"/>
+                        </h:panelGroup>
+                        <p:panel rendered="#{!bswEmpresasControlador.esABMPanel}">
+                            <ui:include   src="componentes/list/seccionDataTableEmpresas.xhtml" />
+                        </p:panel>
+                    </h:panelGrid>
+                    <p:panel rendered="#{bswEmpresasControlador.esABMPanel}">
+                        <ui:include   src="componentes/form/seccionAddEmpresa.xhtml" />
+                    </p:panel>
+                    <dlg:dialogCodDescripcion header="Lista de Monedas del Sistema"	
+                                              widgetVar="dialogoMoneda"
+                                              idDataTable="grillaMoneda"
+                                              dataTableList="#{componentesVarios.lazyListMoneda}"
+                                              propertyActionListenerTarget="#{componentesVarios.monedasABM}"
+                                              selecionarUpdate=":form:growl"
+                                              lazy="true"/>
+                    <dlg:dialogCodDescripcion header="Lista de Personas del Sistema"	
+                                              widgetVar="dialogoPersona"
+                                              idDataTable="grillaPersona"
+                                              dataTableList="#{componentesVarios.lazyListDetallePersonas}"
+                                              propertyActionListenerTarget="#{componentesVarios.bswPersonas}"
+                                              selecionarUpdate=":form:growl"
+                                              lazy="true"/>
+                </h:form>
+
+                <dlg:deleteDialogPlantilla widget_var="avisoEliminar"
+                                           action="#{bswEmpresasControlador.eliminarRegistro()}"
+                                           aceptar_update_value=":form:growl"/>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

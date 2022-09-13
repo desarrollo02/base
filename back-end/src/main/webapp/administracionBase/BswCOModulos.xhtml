@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:form="http://java.sun.com/jsf/composite/plantillas/form"
+                xmlns:bread="http://java.sun.com/jsf/composite/plantillas/breadcrumb"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/WEB-INF/template.xhtml">
+
+
+
+    <ui:define name="breadcrumb">
+        <bread:breadcrumb nombreModulo="#{i18n.administracion_base}"/> 
+    </ui:define>
+    <ui:define name="content">
+
+        <form:formPrincipal id="fp"
+                            controlador="#{bswModulosControlador}" 
+                            nombreForma="#{i18n.forma_modulos}"
+                            dataTable="../../../administracionBase/componentes/list/seccionDataTableModulos.xhtml"
+                            abmForm="../../../administracionBase/componentes/form/seccionAddModulos.xhtml"
+                            dlgForm="../../../administracionBase/componentes/dlg/dlgFormModulos.xhtml"/>
+
+
+    </ui:define>
+</ui:composition>
